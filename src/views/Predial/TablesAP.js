@@ -7,9 +7,6 @@ import CheckCircle from "@material-ui/icons/CheckCircle"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Loader from "react-loader-spinner";
-//import Tasks from "components/Tasks/Tasks.js";
-//import CustomTabs from "components/CustomTabs/CustomTabs.js";
-//import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
@@ -24,18 +21,7 @@ import FormRegistro from './FormRegistro';
 
 
 export default class TableRender extends React.Component {
-/*state={
-    tr: false,
-    trE: false,
-    classes: null,
-    iconTo: WN,
-    opSnack: false,
-    colorSnack:'info',
-    bandLoad: true, 
-    topAna: 20,
-    bandPost: false
-}
-//dValue = "\0"*/
+
 dValue = "\0"
 dValInt = 0
 bandUpTramite = true
@@ -45,6 +31,8 @@ constructor(props){
     super(props);
     this.state = {
         tr: false,
+        iconSnack: '',
+        messageSnack: "",
         trE: false,
         trE2: false,
         trA: false,
@@ -108,9 +96,6 @@ checkPorts = async() => {
       op: 0,
       CTA,
     }
-  //console.log(`bodyJSON ${bodyJSON}`)
-  //console.log(bodyJSON)
-  //console.log(this.base64)
   
   const response = await fetch(sendUri, {
       method: "POST",
@@ -146,9 +131,6 @@ setUnPort = async(port) => {
       CTA,
       port
     }
-  //console.log(`bodyJSON ${bodyJSON}`)
-  //console.log(bodyJSON)
-  //console.log(this.base64)
   
   const response = await fetch(sendUri, {
       method: "POST",
@@ -358,19 +340,7 @@ padrones=async(tp)=>{
         
       }
       this.setState({bandPost: false});
-      /*else if (r.error.name === "error01") {
-                 this.removeCookies()
-                 confirmAlert({
-                   title: "¡Error!",
-                   message: "La contraseña es incorrecta.",
-                   buttons: [{
-                     label: "Aceptar",
-                     onClick: () => {
-                       this.props.history.push("/entrar");
-                     }
-                   }]
-                 });
-               }*/
+      
     });
   } catch (e) {
     this.setState({bandPost: false});
@@ -450,20 +420,6 @@ actualizarC=async()=>{
                   this.showNotification("trE")
               }
             }
-            
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         this.showNotification("trE2")
@@ -500,50 +456,35 @@ handleClickDash = event => {
 
 
 showNotification = place => {
-  const {tr,trE,trE2,trA} = this.state
+  const {tr} = this.state
     switch (place) {
       case "tr":
-        if (!tr) {
+        this.setState({colorSnack: 'warning',iconSnack: WN, messageSnack: 'Advertencia, rellenar todos los campos'});
+        break;
+        case "trE":
+        this.setState({colorSnack: 'danger',iconSnack: E, messageSnack: 'Error, el número de cuenta NO éxiste'});
+        break;
+        case "trE2":
+        this.setState({colorSnack: 'danger',iconSnack: E, messageSnack: 'Error en la conexión'});
+        break;
+        case "trA":
+        this.setState({colorSnack: 'success',iconSnack: CheckCircle, messageSnack: 'El Contribuyente se actualizó con éxito'});
+        break;
+      default:
+        break;
+    }
+    if (!tr) {
           this.setState({tr: true})
           setTimeout(() => {
             this.setState({tr: false})
           }, 6000);
         }
-        break;
-        case "trE":
-        if (!trE) {
-          this.setState({trE: true})
-          setTimeout(() => {
-            this.setState({trE: false})
-          }, 6000);
-        }
-        break;
-        case "trE2":
-        if (!trE2) {
-          this.setState({trE2: true})
-          setTimeout(() => {
-            this.setState({trE2: false})
-          }, 6000);
-        }
-        break;
-        case "trA":
-        if (!trA) {
-          this.setState({trA: true})
-          setTimeout(() => {
-            this.setState({trA: false})
-          }, 6000);
-        }
-        break;
-      default:
-        break;
-    }
   };
 
 render() {
   const {
-    tr, trE, trE2, trA,
+    tr, colorSnack, iconSnack, messageSnack,
     classes,
-    classesM,
     disabledReg
   } = this.state;
  
@@ -581,40 +522,14 @@ render() {
         />
         <Snackbar
           place="tr"
-          color="warning"
-          icon={WN}
-          message='Advertencia, rellenar todos los campos'
+          color={colorSnack}
+          icon={iconSnack}
+          message={messageSnack}
           open={tr}
           closeNotification={() => this.setState({tr: false})}
           close
         />
-        <Snackbar
-          place="tr"
-          color="danger"
-          icon={E}
-          message='Error, el número de cuenta NO éxiste'
-          open={trE}
-          closeNotification={() => this.setState({trE: false})}
-          close
-        />
-        <Snackbar
-          place="tr"
-          color="danger"
-          icon={E}
-          message='Error en la conexión'
-          open={trE2}
-          closeNotification={() => this.setState({trE2: false})}
-          close
-        />
-        <Snackbar
-          place="tr"
-          color="success"
-          icon={CheckCircle}
-          message='El Contribuyente se actualizó con éxito'
-          open={trA}
-          closeNotification={() => this.setState({trA: false})}
-          close
-        />
+       
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">

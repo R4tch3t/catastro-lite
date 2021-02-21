@@ -16,14 +16,6 @@
 
 */
 import React from "react";
-//import ReactDOM from "react-dom";
-//import { createBrowserHistory } from "history";
-//import { HashRouter, Route, Switch, Redirect } from "react-router-dom";
-
-// core components
-//import Admin from "layouts/Admin.js";
-//import Usuario from "layouts/Usuario.js";
-//import Inicio from "layouts/Inicio.js";
 import cookie from "react-cookies";
 import decrypt from "views/Dashboard/decrypt"
 import ls from 'local-storage'

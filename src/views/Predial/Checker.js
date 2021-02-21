@@ -1,6 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
-import classnames from "classnames";
 // @material-ui/core components
 import { makeStyles } from "@material-ui/core/styles";
 import Checkbox from "@material-ui/core/Checkbox";
@@ -62,10 +60,4 @@ export default (props)=>{
     </>
   )
   };
-/*
-Checkboxc.propTypes = {
-  tasksIndexes: PropTypes.arrayOf(PropTypes.number),
-  tasks: PropTypes.arrayOf(PropTypes.node),
-  rtlActive: PropTypes.bool,
-  checkedIndexes: PropTypes.array
-};*/
+

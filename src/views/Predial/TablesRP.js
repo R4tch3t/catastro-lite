@@ -1,5 +1,4 @@
 import React from 'react';
-import cookie from "react-cookies";
 // react plugin for creating charts
 import WN from "@material-ui/icons/Warning"
 import E from "@material-ui/icons/Error"
@@ -7,9 +6,6 @@ import CheckCircle from "@material-ui/icons/CheckCircle"
 // core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-//import Tasks from "components/Tasks/Tasks.js";
-//import CustomTabs from "components/CustomTabs/CustomTabs.js";
-//import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
@@ -24,12 +20,6 @@ import FormRegistro from './FormRegistro';
 
 
 export default class TableRender extends React.Component {
-state={
-    tr: false,
-    trE: false,
-    classes: null,
-}
-//dValue = "\0"
 dValue = ""
 dValInt = ''
 bandUpTramite = true
@@ -39,9 +29,9 @@ constructor(props){
     super(props);
     this.state = {
         tr: false,
-        trE: false,
-        trE2: false,
-        trA: false,
+        colorSnack: "",
+        iconSnack: "",
+        messageSnack: "",
         classes: props.classes,
         classesM: props.classesM,
         disabledReg: false
@@ -127,10 +117,6 @@ setUnPort = async(port) => {
       CTA,
       port
     }
-  //console.log(`bodyJSON ${bodyJSON}`)
-  //console.log(bodyJSON)
-  //console.log(this.base64)
-  
   const response = await fetch(sendUri, {
       method: "POST",
       headers: {
@@ -293,19 +279,6 @@ registrarC=async()=>{
               }
             }
             
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         this.showNotification("trE2")
@@ -352,48 +325,35 @@ buscarCTA = (key) => (event) => {
  // }
 }
 showNotification = place => {
-  const {tr,trE,trE2,trA} = this.state
+  const {tr} = this.state
     switch (place) {
       case "tr":
-        if (!tr) {
+        this.setState({colorSnack: 'warning',iconSnack: WN, messageSnack: 'Advertencia, rellenar todos los campos'});
+        break;
+        case "trE":
+        this.setState({colorSnack: 'danger',iconSnack: E, messageSnack: 'Error, el número de cuenta ya éxiste'});
+        break;
+        case "trE2":
+        this.setState({colorSnack: 'danger',iconSnack: E, messageSnack: 'Error en la conexión'});
+        break;
+        case "trA":
+        this.setState({colorSnack: 'success',iconSnack: CheckCircle, messageSnack: 'Contribuyente registrado con éxito'});
+        break;
+      default:
+        break;
+    }
+    if (!tr) {
           this.setState({tr: true})
           setTimeout(() => {
             this.setState({tr: false})
           }, 6000);
         }
-        break;
-        case "trE":
-        if (!trE) {
-          this.setState({trE: true})
-          setTimeout(() => {
-            this.setState({trE: false})
-          }, 6000);
-        }
-        break;
-        case "trE2":
-        if (!trE2) {
-          this.setState({trE2: true})
-          setTimeout(() => {
-            this.setState({trE2: false})
-          }, 6000);
-        }
-        break;
-        case "trA":
-        if (!trA) {
-          this.setState({trA: true})
-          setTimeout(() => {
-            this.setState({trA: false})
-          }, 6000);
-        }
-        break;
-      default:
-        break;
-    }
   };
 
 render() {
   const {
-    tr, trE, trE2, trA,
+    tr,
+    colorSnack,iconSnack,messageSnack,
     classes,
     disabledReg
   } = this.state;
@@ -403,40 +363,14 @@ render() {
       <GridContainer>
         <Snackbar
           place="tr"
-          color="warning"
-          icon={WN}
-          message='Advertencia, rellenar todos los campos'
+          color={colorSnack}
+          icon={iconSnack}
+          message={messageSnack}
           open={tr}
           closeNotification={() => this.setState({tr: false})}
           close
         />
-        <Snackbar
-          place="tr"
-          color="danger"
-          icon={E}
-          message='Error, el número de cuenta ya éxiste'
-          open={trE}
-          closeNotification={() => this.setState({trE: false})}
-          close
-        />
-        <Snackbar
-          place="tr"
-          color="danger"
-          icon={E}
-          message='Error en la conexión'
-          open={trE2}
-          closeNotification={() => this.setState({trE2: false})}
-          close
-        />
-        <Snackbar
-          place="tr"
-          color="success"
-          icon={CheckCircle}
-          message='Contribuyente registrado con éxito'
-          open={trA}
-          closeNotification={() => this.setState({trA: false})}
-          close
-        />
+        
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="primary">

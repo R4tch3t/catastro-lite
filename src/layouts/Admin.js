@@ -17,7 +17,6 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 
 import bgImage from "assets/img/sidebar-5.jpg";
 import logo from "@material-ui/icons/Home";
-//import logo from "assets/img/reactlogo.png";
 
 let ps;
 

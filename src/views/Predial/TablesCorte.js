@@ -1,52 +1,25 @@
 import React from 'react';
-import cookie from "react-cookies";
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
 import Pdf from "./renderPDF";
 import PdfG from "./renderPDFG";
-// @material-ui/core
-//import { makeStyles } from "@material-ui/core/styles";
-//import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
 import LocalAtm from "@material-ui/icons/LocalAtm";
-//import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
-//import LocalOffer from "@material-ui/icons/LocalOffer";
-//import Update from "@material-ui/icons/Update";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import MenuList from "@material-ui/core/MenuList";
-//import Accessibility from "@material-ui/icons/Accessibility";
-//import BugReport from "@material-ui/icons/BugReport";
-//import Code from "@material-ui/icons/Code";
-//import Cloud from "@material-ui/icons/Cloud";
-// core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableCorte.js";
-import classNames from "classnames";
-import Grow from "@material-ui/core/Grow";
-import MenuItem from "@material-ui/core/MenuItem";
-//import Tasks from "components/Tasks/Tasks.js";
-//import CustomTabs from "components/CustomTabs/CustomTabs.js";
-//import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
 import Button from "components/CustomButtons/Button.js";
-import Search from "@material-ui/icons/Search";
-import Poppers from "@material-ui/core/Popper";
 import Calendar from "react-calendar";
 import ip from "variables/ip.js";
-//import { bugs, website, server } from "variables/general.js";
 import {
   corte,
- // corte
 } from "variables/charts.js";
 import encrypt from 'views/Dashboard/encrypt';
 
@@ -64,11 +37,9 @@ state={
     total: 0,
     porcentaje: 0
 }
-//[openDash, setOpenDash] = React.useState(null);
+
 handleCloseDash = () => {
- // setOpenDash(null);
- //const {setOpenDash} = this.state
- this.setState({openDash: null})
+  this.setState({openDash: null})
 };
 constructor(props){
     super(props);
@@ -572,13 +543,6 @@ render() {
               </p>
             </CardHeader>
             <CardBody>
-              {/*<Table
-                tableHeaderColor="warning"
-                tableHead={["ID", "Name", "Salary", "Country"]}
-                tableData={[
-                  r1
-                ]}
-              />*/}
               <div className={classes.searchWrapper}>
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={8}>

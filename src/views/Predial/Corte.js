@@ -1,13 +1,9 @@
 import React from "react";
 import TablesCorte from "./TablesCorte.js";
-import cookie from "react-cookies";
-import CustomInput from "components/CustomInput/CustomInput.js";
 // @material-ui/core
 import { makeStyles } from "@material-ui/core/styles";
-import Search from "@material-ui/icons/Search";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-import Button from "components/CustomButtons/Button.js";
 import decrypt from "views/Dashboard/decrypt.js";
 
 const useStyles = makeStyles(styles);
