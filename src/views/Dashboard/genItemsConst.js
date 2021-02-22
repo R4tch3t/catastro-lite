@@ -1,0 +1,2 @@
+export default (constaHandle) => [{k: "consta0", html: 'NO ADEUDO DEL IMPUESTO PREDIAL', handleClickItem: ()=>()=>{constaHandle('NO ADEUDO DEL IMPUESTO PREDIAL',66)(); return ()=>{}}, i: 66},{k: "consta1", html: 'NO PROPIEDAD', handleClickItem: ()=>()=>{constaHandle('NO PROPIEDAD',112)(); return ()=>{}}, i: 112},
+{k: "consta2", html: 'NO AFECTACIÓN', handleClickItem: ()=>()=>{constaHandle('NO AFECTACIÓN',225)(); return ()=>{}}, i: 225},{k: "consta3", html: 'NO GRAVAMEN', handleClickItem: ()=>()=>{constaHandle('NO GRAVAMEN',218)(); return ()=>{}}, i: 218}];

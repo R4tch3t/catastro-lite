@@ -18,9 +18,6 @@ import styles from "assets/jss/material-dashboard-react/layouts/adminStyle.js";
 import bgImage from "assets/img/sidebar-5.jpg";
 import logo from "@material-ui/icons/Home";
 
-import IconButton from "@material-ui/core/IconButton";
-import Menu from "@material-ui/icons/Menu";
-
 let ps;
 const switchRoutes = (
   <Switch>
@@ -164,4 +161,4 @@ const Inicio=({ ...rest }) => {
     </>
   );
 }
-export { Inicio };
+export default Inicio

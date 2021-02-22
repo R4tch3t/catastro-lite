@@ -3,27 +3,23 @@ import CustomInput from "components/CustomInput/CustomInput.js";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Button from "components/CustomButtons/Button.js";
-import Paper from "@material-ui/core/Paper";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import MenuList from "@material-ui/core/MenuList";
 import Search from "@material-ui/icons/Search";
-import Poppers from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import classNames from "classnames";
-import Grow from "@material-ui/core/Grow";
 import WN from "@material-ui/icons/Warning"
 import Calendar from "react-calendar";
-//import Map from "./Map";
 import Maps from "./Maps2";
 import Checker from "./Checker.js";
 import Impuestos from "./Impuestos"
 import SnackbarContent from 'components/Snackbar/SnackbarContent';
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import genItemsTC from './genItemsTC';
+import genItemsZU from './genItemsZU';
+import genItemsZR from './genItemsZR';
+import {Popper} from "components/Popper";
 export default (props) => {
     const {c} = props
     const {classes, classesM} = c.props
-    const {center, zoom, nombre, horas, minutos, segundos, openDash, openCalendar, CBG, zona, openZona, tc, openTC, 
+    const {horas, minutos, segundos, openDash, openCalendar, CBG, zona, openZona, tc, openTC, 
            CTA, openCTA, ctasIndexes, Y, totalN, disabledReg, currentD} = c.state
     const controls = {
       backgroundColor: "#fff",
@@ -44,7 +40,7 @@ export default (props) => {
     let h = 0
     let m = 0
     let s = 0
-    //const dateSI = new Date()
+    
     const onChangeDI = (date) => {
       let tzoffset = (new Date()).getTimezoneOffset() * 60000;
       date.setHours(h)
@@ -69,13 +65,6 @@ export default (props) => {
       return `${value}`;
     }
     
-    /*const valueLM = (e)=>{
-      if (e.target.value !== undefined) {
-        console.log(`v: ${e.target.value}`)
-        c.setState({horas: e.target.value})
-      }
-    }*/
-    
     return (
       <div id="bodyOrden">
         <div className={classes.searchWrapper}>
@@ -90,8 +79,6 @@ export default (props) => {
                   placeholder: "CTA",
                   type: "text",
                   onKeyUp: c.handleUpper,
-                  //value: idUsuario,
-
                   inputProps: {
                     "aria-label": "Search"
                   }
@@ -109,65 +96,11 @@ export default (props) => {
                 <Search />
               </Button>
 
-              <Poppers
-                open={Boolean(openDash)}
-                anchorEl={openDash}
-                transition
-                disablePortal
-                className={
-                  classNames({ [classesM.popperClose]: !openDash }) +
-                  " " +
-                  classesM.popperNav
-                }
-                style={{ zIndex: 9999 }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="profile-menu-list-grow"
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom"
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={c.handleCloseDash}>
-                        <MenuList role="menu">
-                          <MenuItem
-                            key={"cuenta"}
-                            className={classesM.dropdownItem}
-                            onClick={c.buscarCTA(0)}
-                          >
-                            Por CTA.
-                          </MenuItem>
-                          <MenuItem
-                            key={"nombre"}
-                            className={classesM.dropdownItem}
-                            onClick={c.buscarCTA(1)}
-                          >
-                            Por nombre
-                          </MenuItem>
-                          <MenuItem
-                            key={"folio"}
-                            className={classesM.dropdownItem}
-                            onClick={c.buscarFolio()}
-                          >
-                            Por folio
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Poppers>
+              <Popper handleClickDash={c.handleClickDash} handleClickItem={c.buscarCTA} handleCloseDash={c.handleCloseDash} openDash={openDash} classesM={classesM} 
+              Items={[{k: "CTA", html: "Por CTA."},{k: "nombre", html: "Por nombre."},{k: "folio", handleClickItem: c.buscarFolio, html: "Por folio."}]} />
             </GridItem>
             <GridContainer id='checkerCP' >
-              {/*<Checker
-                checkedIndexes={[0]}
-                tasksIndexes={[0, 1]}
-                strs={["URBANO", "RUSTICO"]}
-                ids={["check", "check"]}
-              />*/}
+              
             </GridContainer>
             
           </GridContainer>
@@ -201,13 +134,7 @@ export default (props) => {
                 inputProps={{
                   type: "text",
                   defaultValue: "\0",
-                  //value: nombre,
-                  //onKeyDown: c.handleNombre,
-                  //onBlur: c.handleNombreUp,
                   onKeyUp: c.handleUpper
-                  
-                  /* onClick: getinfoReg,
-                        onChange: getinfoReg*/
                 }}
               />
             </GridItem>
@@ -226,37 +153,9 @@ export default (props) => {
                   
                 }}
               />
-               <Poppers
-                open={Boolean(openCalendar)}
-                anchorEl={openCalendar}
-                transition
-                disablePortal
-                className={
-                  classNames({ [classesM.popperClose]: !openCalendar }) +
-                  " " +
-                  classesM.popperNav
-                }
-                style={{ zIndex: 9999 }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="profile-menu-list-grow"
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom"
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={c.handleCloseCalendar}>
-                        <MenuList role="menu">
-                          <MenuItem
-                            key={"calendar"}
-                            className={classesM.dropdownItem}
-                            style={{color: 'black'}}
-                            //onClick={c.handleCloseCalendar}
-                          >
-                            <Typography id="discrete-slider" gutterBottom>
+               <Popper handleClickDash={c.handleClickCalendar} handleClickItem={()=>{}} handleCloseDash={c.handleCloseCalendar} openDash={openCalendar} classesM={classesM} 
+              Items={[{k: "calendar", html: <>
+                      <Typography id="discrete-slider" gutterBottom>
                               HORAS
                             </Typography>  
                             <Slider
@@ -297,13 +196,7 @@ export default (props) => {
                               max={59}
                             />
                             <Calendar onChange={onChangeDI} value={currentD} />
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Poppers>
+                    </>}]} />
             </GridItem>
             <GridItem id='checkerN' xs={12} sm={12} md={3}> </GridItem>
             
@@ -478,10 +371,7 @@ export default (props) => {
                   defaultValue: 0,
                   onBlur: e => {
                     c.setZona(document.getElementById("zona").value);
-                  },/*
-                  onMouseUp: e => {
-                    c.setZona(document.getElementById("zona").value);
-                  },*/
+                  },
                   disabled: CBG
                 }}
               />
@@ -521,249 +411,8 @@ export default (props) => {
                 }}
               />
 
-              <Poppers
-                open={Boolean(openTC)}
-                anchorEl={openTC}
-                transition
-                disablePortal
-                className={
-                  classNames({ [classesM.popperClose]: !openTC }) +
-                  " " +
-                  classesM.popperNav
-                }
-                style={{ zIndex: 9999 }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="profile-menu-list-grow"
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom"
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={c.handleCloseTC}>
-                        <MenuList role="menu">
-                          <MenuItem
-                            key={"tc1"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(1)}
-                          >
-                            1: HABITACIONAL, PRECARIA (HAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc2"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: HABITACIONAL, ECONOMICA (HBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc3"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2.5)}
-                          >
-                            2.5: HABITACIONAL, INTERES SOCIAL (HCB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc4"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(3)}
-                          >
-                            3: HABITACIONAL, REGULAR (HDB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc5"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(4)}
-                          >
-                            4: HABITACIONAL, INTERES MEDIO (HEB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc6"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(5)}
-                          >
-                            5: HABITACIONAL, BUENA (HFB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc7"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(6.5)}
-                          >
-                            6.5: HABITACIONAL, MUY BUENA (HGB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc8"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(37.5)}
-                          >
-                            37.5: COMERCIAL, ECONOMICA (CAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc9"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(40)}
-                          >
-                            40: COMERCIAL, REGULAR (CBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc10"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(43.5)}
-                          >
-                            43.5: COMERCIAL, BUENA (CCB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc11"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(44)}
-                          >
-                            44: COMERCIAL, MUY BUENA (CDB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc12"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(51)}
-                          >
-                            51: COMERCIAL, CENTRO COMERCIAL (CEB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc13"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(54.5)}
-                          >
-                            54.5: COMERCIAL, TIENDA DE AUTOSERVICIO (CFB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc14"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(63)}
-                          >
-                            63: COMERCIAL, TIENDA DEPARTAMENTAL (CGB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc15"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(8)}
-                          >
-                            8: INDUSTRIAL, ECONOMICA (IAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc16"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(9.5)}
-                          >
-                            9.5: INDUSTRIAL, LIGERA (IBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc17"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(14)}
-                          >
-                            14: INDUSTRIAL, MEDIANA (ICB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc18"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: EDIFICIOS DE OFICINA, REGULAR (OAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc19"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: EDIFICIOS DE OFICINA, BUENA (OBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc20"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(3)}
-                          >
-                            3: EDIFICIOS DE OFICINA, MUY BUENA (OCB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc21"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(12)}
-                          >
-                            12: INSTALACIONES ESPECIALES, CISTERNAS (EAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc22"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(47)}
-                          >
-                            47: INSTALACIONES ESPECIALES, ELEVADORES (EBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc23"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: O. COMPLEMENTARIAS, ESTACIONAMIENTO DESCUBIERTO
-                            (FAB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc24"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(5)}
-                          >
-                            5: O. COMPLEMENTARIAS, ESTACIONAMIENTO CUBIERTO
-                            (FBB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc25"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(4)}
-                          >
-                            4: O. COMPLEMENTARIAS, ALBERCA (FCB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc26"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(1)}
-                          >
-                            1: O. COMPLEMENTARIAS, CANCHA DE FUTBOL (FDB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc27"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(1)}
-                          >
-                            1: O. COMPLEMENTARIAS, CANCHA DE BASQUETBOL (FEB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc28"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: O. COMPLEMENTARIAS, BARDAS DE TABIQUE (FIB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc29"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: O. COMPLEMENTARIAS, AREAS JARDINADAS (FJB)
-                          </MenuItem>
-                          <MenuItem
-                            key={"tc30"}
-                            className={classesM.dropdownItem}
-                            onClick={c.tcHandle(2)}
-                          >
-                            2: O. COMPLEMENTARIAS, VIALIDADES, ANDADORES Y
-                            BANQUETAS (FLB)
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Poppers>
+             <Popper handleClickItem={()=>{}} handleCloseDash={c.handleCloseTC} openDash={openTC} classesM={classesM} 
+              Items={genItemsTC(c.tcHandle)}  />
             </GridItem>
 
             <GridItem xs={12} sm={12} md={3}>
@@ -782,124 +431,8 @@ export default (props) => {
                 }}
               />
 
-              <Poppers
-                open={Boolean(openZona)}
-                anchorEl={openZona}
-                transition
-                disablePortal
-                className={
-                  classNames({ [classesM.popperClose]: !openZona }) +
-                  " " +
-                  classesM.popperNav
-                }
-                style={{ zIndex: 9999 }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="profile-menu-list-grow"
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom"
-                    }}
-                  >
-                    <Paper>
-                      
-                       {c.state.tipoPredio==="u" && 
-                       <ClickAwayListener onClickAway={c.handleCloseZona}>
-                        <MenuList role="menu">
-                          <MenuItem
-                            key={"zona1-1"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(3)}
-                          >
-                            3 (Zona 1)
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona1-2"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(2.5)}
-                          >
-                            2.5 (Zona 1)
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona2"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(2)}
-                          >
-                            2 (Zona 2)
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona3"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(1.5)}
-                          >
-                            1.5 (Zona 3)
-                          </MenuItem>
-                          
-                        </MenuList>
-                        </ClickAwayListener>
-                      }
-
-                      {c.state.tipoPredio==="r" && 
-                      <ClickAwayListener onClickAway={c.handleCloseZona}>
-                        <MenuList role="menu">
-                          <MenuItem
-                            key={"zona1"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(473.5)}
-                          >
-                            473.5: Terrenos de Riego
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona2"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(438)}
-                          >
-                            438: Terrenos de Humedad
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona3"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(414)}
-                          >
-                            414: Terrenos de Temporal
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona4"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(402.5)}
-                          >
-                            402.5: Terreno de Agostadero Laborable
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona5"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(367)}
-                          >
-                            367: Terreno de Agostadero Cerril
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona6"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(473)}
-                          >
-                            473: Terreno de monte alto susceptibles para explotación forestal
-                          </MenuItem>
-                          <MenuItem
-                            key={"zona7"}
-                            className={classesM.dropdownItem}
-                            onClick={c.zonaHandle(1.5)}
-                          >
-                            1.5 (Zona 3)
-                          </MenuItem>
-                        </MenuList>
-                        </ClickAwayListener>
-                      }
-                    </Paper>
-                  </Grow>
-                )}
-              </Poppers>
+              <Popper handleClickItem={()=>{}} handleCloseDash={c.handleCloseZona} openDash={openZona} classesM={classesM} 
+                Items={c.state.tipoPredio==="u"?genItemsZU(c.zonaHandle):genItemsZR(c.zonaHandle)} /> 
             </GridItem>
           </GridContainer>
           
@@ -934,45 +467,9 @@ export default (props) => {
                   onClick: c.handleClickCTA
                 }}
               />
-              <Poppers
-                open={Boolean(openCTA)}
-                anchorEl={openCTA}
-                transition
-                disablePortal
-                className={
-                  classNames({ [classesM.popperClose]: !openCTA }) +
-                  " " +
-                  classesM.popperNav
-                }
-                style={{ zIndex: 9999 }}
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    id="profile-menu-list-grow"
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom"
-                    }}
-                  >
-                    <Paper>
-                      <ClickAwayListener onClickAway={c.handleCloseCTA}>
-                        <MenuList role="menu">
-                          {ctasIndexes.map(e => (
-                            <MenuItem
-                              key={e.CTA}
-                              className={classesM.dropdownItem}
-                              onClick={c.rebuscarCTA(0, e.CTA)}
-                            >
-                              {e.CTA}
-                            </MenuItem>
-                          ))}
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Poppers>
+              <Popper handleCloseDash={c.handleCloseCTA} openDash={openCTA} classesM={classesM} 
+                Items={ctasIndexes} />
+             
             </GridItem>
             <GridItem xs={12} sm={12} md={3}>
               <CustomInput

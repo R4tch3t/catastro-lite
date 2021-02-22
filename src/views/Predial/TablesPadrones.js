@@ -79,16 +79,11 @@ allPadrones=async(CTAnombre,bandInit)=>{
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
-             //   "Access-Control-Allow-Methods":"POST",
-                //'Access-Control-Allow-Origin': '*',
-                //'Access-Control-Allow-Headers': 'Content-Type, Authorization'
             },
             body: JSON.stringify(bodyJSON)
         });
 
         const responseJson = await response.json().then(r => {
-            //  console.log(`Response1: ${r}`)
-            //this.setState({bandPost: false});
             
             let data = [];
             let i = 0
@@ -98,7 +93,6 @@ allPadrones=async(CTAnombre,bandInit)=>{
             let numero = "";
             let colonia = "";
             if (r.contribuyenteu) {
-             // console.log(r.contribuyenteu)
              r.contribuyenteu.forEach(e => {
                if(r.ubiprediou&&r.ubiprediou[`${e.CTA}`]!==undefined){
                 calle = r.ubiprediou[`${e.CTA}`].calle;

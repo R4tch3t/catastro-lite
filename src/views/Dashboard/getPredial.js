@@ -243,19 +243,6 @@ export default async(idOrden, tp, c, bandUp) => {
                 }
                 
             }
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         console.log(`Error: ${e}`);

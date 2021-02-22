@@ -8,7 +8,6 @@ export default (r,tp,c,byFolio) => {
       idRol
     } = c.props
     let url = idRol === '1' ? `#/admin/padron` : `#/usuario/padron`
-    // const y = new Date().getFullYear()
     let subUrl = `?bandCarta=1&genCTA=${CTA}&nombre=${nombre}&ubi=${ubi}&tp=${tp}`
     subUrl += `&añoI=${añoI}&añoF=${añoF}`
     url += `?v=${encrypt(subUrl)}`;
@@ -22,12 +21,10 @@ export default (r,tp,c,byFolio) => {
       const orden = r.orden
       const {Y} = c.state
       const cPeriodo = contribuyente.periodo
-      //const predial = r.predial
-      
+
         c.setState({
-          // nombre: contribuyente.contribuyente,
           CTA: contribuyente.CTA
-        })
+        });
         if (cPeriodo !== '') {
           document.getElementById('periodo').value = cPeriodo;
         }
@@ -55,8 +52,6 @@ export default (r,tp,c,byFolio) => {
         regB.innerHTML = 'GENERAR ORDEN DE PAGO'
         dateUpL.style.color = 'red'
         dateUpL.value=""
-        //const checkU = document.getElementById('check0');
-
         calle.value = ubicacion.calle;
         lote.value = ubicacion.lote;
         manzana.value = ubicacion.manzana;
@@ -67,12 +62,12 @@ export default (r,tp,c,byFolio) => {
         localidad.value = ubicacion.localidad === '' ? 'CHILAPA DE ÁLVAREZ' : ubicacion.localidad;;
         const ctasIndexes = []
         while (ctasIndexes.length < r.contribuyente.length && ctasIndexes.length < 20) {
-          ctasIndexes.push(r.contribuyente[ctasIndexes.length])
+          //ctasIndexes.push(r.contribuyente[ctasIndexes.length])
+          const e = r.contribuyente[ctasIndexes.length];
+          ctasIndexes.push({k: "rebu"+ctasIndexes.length, html: e.CTA, handleClickItem: ()=>{c.rebuscarCTA(0, e.CTA); return (i)=>{console.log(i)}}, i: ctasIndexes.length})
         }
         c.setState({ctasIndexes: ctasIndexes, tipoPredio: tp})
-        //else{
-        //  this.setState({tipoPredio: tp})
-        //}
+        
         document.getElementById('otroservicio').value=''
         clearCheck(c)
         clearCheckN(c)
@@ -106,12 +101,6 @@ export default (r,tp,c,byFolio) => {
         const bandUp = ((parseInt(Y)) > parseInt(dateUp.getFullYear())&&!byFolio);
         if (bandUp){
           c.idOrden = 0;
-          /*dateUp = new Date();
-          c.setState({currentD: dateUp, 
-                    horas: dateUp.getHours(),
-                    minutos: dateUp.getUTCMinutes(),
-                    segundos: dateUp.getSeconds()
-          });*/
           const añoI = dateUp.getFullYear()
           const añoF = new Date().getFullYear()
           periodo.value = añoF;
@@ -147,21 +136,8 @@ export default (r,tp,c,byFolio) => {
         
         
         c.setState({tc: orden.tc, zona: orden.zona, totalN: orden.total, labelConsta: orden.constancia, labelCerti: orden.certi});
-        // this.setState({totalN: orden.total});
-        //if(checkU.checked){
-        
+       
         bg.value = orden.bg;
-        //if ((parseInt(Y)) <= parseInt(dateUp.getFullYear())){
             getPredial(orden.idOrden,tp,c,bandUp);
-        //}
-        //console.log(predial);
-      //  genImp(predial,this);
-        //if (parseInt(orden.zona) > 0) {
-          // this.setZona(orden.zona); 
-        //}
-        //else{
-          
-        //}
-
   }
 }

@@ -1,8 +1,8 @@
 import React from 'react';
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
-import Pdf from "./renderPDF";
-import PdfG from "./renderPDFG";
+//import Pdf from "./renderPDF";
+//import PdfG from "./renderPDFG";
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
@@ -23,8 +23,8 @@ import {
 } from "variables/charts.js";
 import encrypt from 'views/Dashboard/encrypt';
 
-//let Pdf = <></>
-//let PdfG = <></>
+let Pdf = <></>
+let PdfG = <></>
 
 export default class TablesCorte extends React.Component {
 state={

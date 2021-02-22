@@ -155,4 +155,4 @@ const Usuario=({ ...rest }) => {
     </div>
   );
 }
-export { Usuario };
+export default Usuario 

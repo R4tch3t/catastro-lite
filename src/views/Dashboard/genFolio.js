@@ -56,16 +56,6 @@ const genFolio = async (idFolio, c, t, idOrden, tp, url, arrSub, bandF) => {
                       win.focus();
                   }
               }
-              //if(r.idFolio===idFolio){
-                //let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
-                //url += `?v=${encrypt(subUrl)}`;
-            //    const f = r.idFolio
-            //    const sU = `${subUrl}&folio=${f}`
-                //subUrl += `&folio=${f}`
-          //      window.open(`${url}?v=${encrypt(sU)}`, '_blank');
-                //win.focus();
-              //  console.log(r)
-              //}
             }
             
         });
@@ -74,6 +64,3 @@ const genFolio = async (idFolio, c, t, idOrden, tp, url, arrSub, bandF) => {
     }
 }
 export default genFolio
-/*autoGen = (c, t) => {
-
-}*/

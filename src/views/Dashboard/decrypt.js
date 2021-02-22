@@ -9,6 +9,5 @@ export default (s) => {
         result += charS;
         c++;
     }
-    //console.log(`Dec: ${result}`)
     return result;
 }

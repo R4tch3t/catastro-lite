@@ -1,11 +1,8 @@
 
 import React from 'react';
-import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
+import {GoogleApiWrapper} from 'google-maps-react';
 import MapsFun from './MapsFun'
 import getZone from './getZone'
-import AddLocation from "@material-ui/icons/AddLocation";
-import Place from "@material-ui/icons/Place";
-import GpsFixed from "@material-ui/icons/GpsFixed";
 
 
 export class MapContainer extends React.Component {
@@ -47,18 +44,9 @@ export class MapContainer extends React.Component {
                  this.handleLocationError(true);
              });
          } else {
-             // Browser doesn't support Geolocation
              this.handleLocationError(false);
          }
          
-
-        /*if (navigator.geolocation) {
-           // navigator.geolocation.getCurrentPosition(this.showPosition);
-            
-        } else {
-            //x.innerHTML = "Geolocation is not supported by this browser.";
-            console.log('Geolocation is not supported by this browser.')
-        }*/
     }
 
     handleLocationError=(browserHasGeolocation)=>{
@@ -241,105 +229,23 @@ export class MapContainer extends React.Component {
          });
 
      }
-     /*
-     getInfoMarkerID = (map, place, infowindowContent) => {
-         const {c, google}=this.props
-        // let infowindowContent = document.getElementById('infowindow-content');
-         c.markerInfo.setMap(map)
-         //c.markerInfo.setPosition(e.latLng)
-        // c.markerInfo.setPosition(latLng)
-         let geocoder = new google.maps.Geocoder;
-
-         geocoder.geocode({
-                    'placeId': place.place_id
-                    }, function (results, status) {
-             if (status === google.maps.GeocoderStatus.OK) {
-                 if (results[0]) {
-                     const place = results[0]
-                     console.log(results);
-                     const name = place.address_components
-                     let title = ''
-                     console.log(infowindowContent)
-                     if (name[0]) {
-                         infowindowContent.children['place-name'].textContent = `${name[0].long_name} `;
-                         title = `${name[0].long_name} `
-                     }
-                     if (name[1]) {
-                         infowindowContent.children['place-barr'].textContent = `Barrio de ${name[1].long_name}`;
-                         title += `Barrio de ${name[1].long_name}, `
-                     }
-                     if (name[2]) {
-                         infowindowContent.children['place-city'].textContent = `${name[2].long_name}`;
-                         title += `${name[2].long_name}, `
-                     }
-                     if (name[3]) {
-                         infowindowContent.children['place-country'].textContent = `${name[3].long_name}, `;
-                         title += `${name[3].long_name}, `
-                     }
-                     if (name[4]) {
-                         infowindowContent.children['place-country'].textContent += `${name[4].long_name}, `;
-                         title += `${name[4].long_name}, `
-                     }
-                     if (name[5]) {
-                         infowindowContent.children['place-country'].textContent += `${name[5].long_name}`;
-                         title += `${name[5].long_name}`
-                     }
-                     infowindowContent.style.display = 'inline-block';
-                     //c.markerInfo.setTitle(`${infowindowContent.children['place-name'].textContent}`)
-                     
-                     c.markerInfo.setPosition(results[0].geometry.location)
-                     c.markerInfo.setTitle(`${title}`)
-                     c.infoWindow.open(map, c.markerInfo);
-
-                 } else {
-                     console.log('Resultados no encontrados');
-                 }
-             } else {
-                 console.log('Geocoder fallo: ' + status);
-             }
-         });
-
-     }*/
+     
 
     searchAddr = (map) =>{
-        // this.closeMark()
          const {
              google, c
          } = this.props;
-         //const map = this
-         //console.log(props)
-
-         //if (!google || !map) return;
-         
-
-         //function getInfoMarker(e) {
-             
-         //}
          let infowindowContent = document.getElementById('infowindow-content');
          c.infoWindow.setContent(infowindowContent);
          const autocomplete = new google.maps.places.Autocomplete(document.getElementById('su'));
-         //autocomplete.bindTo('bounds', this);
-         /*google.maps.event.addListener(map, 'bounds_changed', function () {
-             autocomplete.bindTo(map, 'bounds');
-         });*/
-         //google.maps.event.addListener(map,'bounds_changed', function () {
              autocomplete.bindTo('bounds', map);
-        // });
          autocomplete.setFields(['place_id', 'geometry', 'name', 'formatted_address']);
          google.maps.event.addListener(autocomplete, 'place_changed', () => {
              const place = autocomplete.getPlace();
              if (!place.geometry) {
-                 // User entered the name of a Place that was not suggested and
-                 // pressed the Enter key, or the Place Details request failed.
                  console.log("No hay detalles sobre la ubicacion: '" + place.name + "'");
                  return;
              }
-             //console.log(place.geometry.viewport)
-             //console.log(`location: ${place.geometry.location}`)
-             //console.log(`place.geometry.viewportS: ${place.geometry.viewport.getSouthWest()}`)
-             //console.log(`place.geometry.viewportN: ${place.geometry.viewport.getNorthEast()}`)
-             
-             //this.getInfoMarkerID(map, place, infowindowContent)
             this.getInfoMarker(map, place.geometry.location, infowindowContent)
              map.setCenter(place.geometry.location)
              map.setZoom(17)
@@ -453,37 +359,19 @@ export class MapContainer extends React.Component {
         let path = c.polyC.getPath()
         e.target.style.borderColor = "transparent"
         e.target.style.fontWeight = 'normal'
-        /*c.polygonC = new google.maps.Polygon({
-            path: c.polyC.getPath(),
-            strokeColor: 'blue',
-            fillColor: 'blue',
-            editable: true,
-            //draggable: true,
-            geodesic: true
-        });
-        c.polygonT = new google.maps.Polygon({
-            path: c.polyT.getPath(),
-            editable: true,
-            //draggable: true,
-            geodesic: true
-        });*/
         while (0 < path.length) {
-            //path.removeAt(path.length - 1)
             path.pop()
         }
         while(i<c.markersC.length){
-            //path.pop()
             c.markersC[i].setMap(null)
             i++
         }
         i=0
         path = c.polyT.getPath()
         while (0 < path.length) {
-          //  path.removeAt(path.length - 1)
           path.pop()
         }
         while(i<c.markersT.length){
-          //  path.pop()
             c.markersT[i].setMap(null)
             i++
         }

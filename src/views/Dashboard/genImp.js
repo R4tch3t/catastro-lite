@@ -4,22 +4,6 @@ export default (predial,c) => {
    while (checkeds.length < 14) {
      checkeds.push([])
    };
-   /*
-   if(bandUp){
-     const aux = [];
-     predial.forEach(e => {
-       switch(e.idImpuesto){
-         case 1:
-         case 5:
-         case 10:
-         case 11:
-         case 12:
-           aux.push(e)
-           break;
-       }
-     });
-     predial=aux;
-   }*/
    predial.forEach(e => {
      if (e.idImpuesto === 1) {
        checkeds[0].push(0)

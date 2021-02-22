@@ -1,10 +1,5 @@
 import renderCI from "./renderCI";
-function redondeo(n){
-//n = Math.round(n * 100) / 100;
-//n = Math.round(n * 10) / 10;
-n = Math.round(n);
-return n;
-}
+
 export default (id,c) => {
   const task = [0, 1];
   if (id === '0070203'){

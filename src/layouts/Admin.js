@@ -155,4 +155,4 @@ const Admin = ({ ...rest }) => {
     </div>
   );
 }
-export { Admin };
+export default Admin;

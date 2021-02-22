@@ -18,7 +18,6 @@ export default async (CTAnombre, c) => {
             body: JSON.stringify(bodyJSON)
         });
         const responseJson = await response.json().then(r => {
-            //console.log(`Response1: ${r}`)
             if(r.folio){
               const tp = r.folio.tp
               genPredio(r, tp, c, true)
@@ -30,13 +29,9 @@ export default async (CTAnombre, c) => {
                 const dateUp = document.getElementById('dateUp')
                 dateUp.style.color='red'
                 nombre.value = orden.nombre
-                //dateUp.value = orden.dateUp.slice(0, -1)
                 orden.dateUp = new Date(orden.dateUp)
                 dateUp.value = new Date(orden.dateUp - tzoffset).toISOString().slice(0, -1)
-                /*r.predial = [{
-                  idImpuesto: 22,
-                  val: parseInt(total) / 72
-                }]*/
+                
                 if (r.formas){
                   genImp(r.formas, c);
                 }
@@ -45,19 +40,6 @@ export default async (CTAnombre, c) => {
               }
             }
             
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         console.log(`Error: ${e}`);

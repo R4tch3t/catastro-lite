@@ -9,7 +9,6 @@ export default (s) => {
         result += charS;
         c++
     }
-   // console.log(`Enc: ${result}`)
-   
+  
     return result
 }

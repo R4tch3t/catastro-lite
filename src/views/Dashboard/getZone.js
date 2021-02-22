@@ -17,7 +17,6 @@ export default async(street, barr, c) => {
         });
 
         const responseJson = await response.json().then(r => {
-            //console.log(`Response1: ${r}`)
 
             if (r.zona !== undefined) {
                 c.saveZ = 0
@@ -26,20 +25,6 @@ export default async(street, barr, c) => {
                 c.saveZ = 1
                 c.setState({zona: 0})
             }
-
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         console.log(`Error: ${e}`);

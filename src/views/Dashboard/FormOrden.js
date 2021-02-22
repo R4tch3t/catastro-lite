@@ -1,36 +1,22 @@
 import React from 'react';
-// react plugin for creating charts
-// @material-ui/core
-//import { makeStyles } from "@material-ui/core/styles";
-//import Icon from "@material-ui/core/Icon";
-// @material-ui/icons
 import LocalAtm from "@material-ui/icons/LocalAtm";
-//import Warning from "@material-ui/icons/Warning";
 import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
-//import LocalOffer from "@material-ui/icons/LocalOffer";
-//import Update from "@material-ui/icons/Update";
-import Pdf from "./renderPDF.js";
+//import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
-// core components
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Snackbar from 'components/Snackbar/Snackbar';
-//import Tasks from "components/Tasks/Tasks.js";
-//import CustomTabs from "components/CustomTabs/CustomTabs.js";
-//import Danger from "components/Typography/Danger.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CardFooter from "components/Card/CardFooter.js";
 import {isMobile} from "react-device-detect";
-//import { Crypt, RSA } from "hybrid-crypto-js";
 import setZona from "./setZona";
 import setTC from "./setTC";
 import setBg from "./setBg";
 import GridsOrden from "./GridsOrden";
-
 import sumaT from './sumaT.js';
 import changeI from './changeI.js';
 import rezago from './rezago.js';
@@ -42,7 +28,7 @@ import registrarF from './registrarF.js';
 import ByFolio from './ByFolio.js';
 import clearCheckN from './clearCheckN.js';
 
-//let Pdf = <></>;
+let Pdf = <></>;
 
 if (!String.prototype.splice) {
   /**
@@ -63,44 +49,6 @@ if (!String.prototype.splice) {
 }
 
 export default class TableRender extends React.Component {
-state={
-    nombre: '',
-    center: {
-      lat: 17.5949479040048,
-      lng: -99.1806074659651
-    },
-    centerP: {
-      lat: 17.5949479040048,
-      lng: -99.1806074659651
-    },
-    zoom: 50,
-    CTA: '',
-    calle: '',
-    tipoPredio: '',
-    classes: null,
-    openDash: null,
-    openCalendar: null,
-    openZona: null,
-    openTC: null,
-    openCTA: null,
-    labelConsta: '',
-    lastD: null,
-    currentD: null,
-    ctasIndexes: [],
-    Y: 0,
-    horas: 0,
-    minutos: 0,
-    segundos: 0,
-    totalN: 0,
-    CBG: false,
-    zona: 0,
-    tc: 0,
-    readOnly: false,
-    disabledReg: false,
-    labelW: null,
-    tr: false,
-    trA: false
-}
 map = null;
 google = null;
 markersC = [];
@@ -161,37 +109,10 @@ constructor(props){
       disabledReg: false,
       labelW: '',
       tr: false,
-      trA: false
-      /*
-      checkeds: {
-        I0020401: false,
-        I0020402: false,
-        I0020403: false,
-        I0020801: false,
-        I0020802: false,
-        I0020803: false,
-        I0020804: false,
-        I0030101: false,
-        I0070101: false,
-        I0070201: false,
-        I0070202: false,
-        I0070203: false,
-        I0090101: false,
-        I0090106: false,
-        I0090107: false,
-        I0090701: false,
-        I0090702: false,
-        I0090703: false,
-        I0090704: false,
-        I00913: false,
-        I0091301: false,
-        I0010804: false,
-        I0010101: false,
-        I21173001001: false
-
-      }*/
+      colorSnack: 'primary',
+      iconSnack: WN
+      
     };
-//    this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
 
 round = (num, decimales = 2)=>{
@@ -210,7 +131,6 @@ round = (num, decimales = 2)=>{
 
 
 padrones=async(CTAnombre, tp, tipoB, idOrden)=>{
-  //;(await import('./padrones.js')).default(CTAnombre, tp, tipoB, idOrden, this) 
   padrones(CTAnombre, tp, tipoB, idOrden, this)
 }
 
@@ -225,11 +145,9 @@ registrarO=async()=>{
     this.showNotification('tr')
   }else{
     if(CTA!==''){
-      //;(await import('./registrarO.js')).default(CTA,this)
       registrarO(CTA,this)
     }else{
       registrarF(this)
-      //;(await import('./registrarF.js')).default(this)
     }
   }
 }
@@ -275,7 +193,6 @@ handleNombre = e => {
       val = e.target.value.slice(this.selectionStartNombre - this.selectionEndNombre, this.selectionStartNombre);
       val += e.target.value.slice(this.selectionStartNombre + 1);
     }else{
-     // this.selectionStartNombre += 1
       val = e.target.value.slice(0, this.selectionStartNombre);
       val += e.target.value.slice(this.selectionEndNombre);
       this.selectionEndNombre = this.selectionStartNombre
@@ -287,20 +204,10 @@ handleNombre = e => {
 
 handleNombreUp = e => {
   this.setState({nombre: e.target.value}) 
-  /*
-  if (e.which > 47 || e.which === 32) {
-    e.target.setSelectionRange(this.selectionStartNombre+1, this.selectionEndNombre+1);
-  } else if (e.which === 8){
-    e.target.setSelectionRange(this.selectionStartNombre, this.selectionEndNombre);
-  }*/
 }
 
-//upBand = false
 handleKup = event => {
-  //console.log(event.which)
   if (event.which===13){
-  //  this.upBand = true
-    //this.setState({openDash: event.currentTarget});
   }
 }
 
@@ -313,10 +220,8 @@ handleCloseDash = () => {
 changeDash = event => {
   const {openDash} = this.state;
   if (openDash && openDash.contains(event.target) ) {
-    //setOpenDash(null);
     this.setState({openDash: null});
   } else {
-    //setOpenDash(event.currentTarget);
     this.setState({openDash: event.currentTarget});
   }
 }
@@ -334,10 +239,8 @@ handleCloseCalendar = () => {
 changeCalendar = event => {
   const {openCalendar} = this.state;
   if (openCalendar && openCalendar.contains(event.target) ) {
-    //setOpenDash(null);
     this.setState({openCalendar: null});
   } else {
-    //setOpenDash(event.currentTarget);
     this.setState({openCalendar: event.currentTarget});
   }
 }
@@ -428,11 +331,8 @@ handleKeyCTA = event => {
 };
 
 handleUpper = e => {
- // console.log(e.which)
   if(e.which===13){
     let CTAnombre = document.getElementById('CTANM');
-    //let key=0
-   // console.log(CTAnombre.placeholder)
     switch(CTAnombre.placeholder){
       case 'NOMBRE':
         this.buscarCTA(1)();
@@ -469,7 +369,6 @@ buscarFolio = () => async (event) => {
   let CTAnombre = document.getElementById('CTANM');
   CTAnombre.placeholder = 'FOLIO'
   if (CTAnombre !== '') {
-    //;(await import('./ByFolio.js')).default(this)
     ByFolio(CTAnombre.value,this)
   }
 }
@@ -499,24 +398,19 @@ zonaHandle = (n) => (e) => {
 
 setTC = async (n) => {
   this.handleCloseTC()
-  //;(await import("./setTC")).default(n,this)
   setTC(n, this)
 }
 
 setZona = async(n) => {
   this.handleCloseZona()
-  //;(await import("./setZona")).default(n,this)
  setZona(n,this)
 }
 
 setBg = async () => {
   const periodo = document.getElementById('periodo').value;
   rezago(this, periodo);
-  //;(await import('./rezago.js')).default(this, periodo)
   setBg(this);
-  //;(await import("./setBg")).default(this)
   sumaT(this);
-  //;(await import("./sumaT")).default(this)
 }
 
 KUEnter = e => {
@@ -527,13 +421,11 @@ KUEnter = e => {
 
 handleImp = async e => {
   if (e.which === 13) {
-    //;(await import("./sumaT")).default(this)
     sumaT(this);
   }
 }
 
 addImpuesto = async (id) => {
-    //console.log(`id: ${id}`);
     if(id === '0070201'||id === '0070202'){
       const vi = document.getElementById(id);
       const bg = document.getElementById('baseGravable').value;
@@ -554,14 +446,12 @@ addImpuesto = async (id) => {
         }
     } else {
       changeI(id,this)
-     //;(await import("./changeI")).default(this)
     } 
     sumaT(this)
-    //;(await import("./sumaT")).default(this)
+    
 }
 
 sumaT=async()=>{
-  //;(await import("./sumaT")).default(this)
   sumaT(this)
 }
 oldDateUpL=''
@@ -578,35 +468,29 @@ setZero=async(id)=>{
     regB.innerHTML = 'ACTUALIZAR ORDEN DE PAGO';
     this.idOrden = this.oldIdOrden;
     this.setState({currentD: this.oldCurrentD});
-    //this.state.currentD = new Date()
   }
-  //;(await import("./sumaT")).default(this)
   sumaT(this)
 }
 
 showNotification = place => {
-const {tr, trA} = this.state
+const {tr} = this.state
   switch (place) {
       case "tr":
-      if (!tr) {
-        this.setState({tr: true})
-        setTimeout(() => {
-          this.setState({tr: false})
-        }, 6000);
-      }
+        this.setState({colorSnack: 'warning', iconSnack: WN});
       break;
       case "trA":
-      if (!trA) {
-        this.setState({trA: true})
-        setTimeout(() => {
-          this.setState({trA: false})
-        }, 6000);
-      }
+        this.setState({colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
       break;
       
     default:
       break;
   }
+  if (!tr) {
+        this.setState({tr: true})
+        setTimeout(() => {
+          this.setState({tr: false})
+        }, 6000);
+      }
 };
 
 showMap=()=>{
@@ -619,18 +503,11 @@ hideMap = () => {
 }
 
 blurPeriodo=async(e)=>{
-  /*if (e.which!==undefined && e.which!==13){
-    return
-  }*/
   rezago(this,e.target.value)
-  //;(await import('./rezago.js')).default(this,e.target.value)
-  //;(await import("./sumaT")).default(this)
   sumaT(this)
 }
-//asynClear = async () => {}
 componentDidMount(){
   const {bandPdf,bandCTA,genCTA,tp,idOrden} = this.props
-  //const {readOnly} = this.state
   const checks = tp === 'u' || tp === '' ? [0] : [1]
   if (bandPdf !== '1') {
     
@@ -689,26 +566,17 @@ render() {
                  constaL={constaL} certiL={certiL} certiQ={certiQ} /> )
   }else
   if(bandPdf==='0'){
-    const {Y, labelW, tr, trA} = this.state;
+    const {Y, labelW, tr, colorSnack, iconSnack} = this.state;
     const {totalN} = this.state;
     return (
       <CardIcon>
         <Snackbar
           place="tr"
-          color="warning"
-          icon={WN}
+          color={colorSnack}
+          icon={iconSnack}
           message={labelW}
           open={tr}
           closeNotification={() => this.setState({tr: false})}
-          close
-        />
-        <Snackbar
-          place="tr"
-          color="success"
-          icon={CheckCircle}
-          message='Orden registrada con éxito'
-          open={trA}
-          closeNotification={() => this.setState({trA: false})}
           close
         />
         
@@ -722,14 +590,6 @@ render() {
                 </p>
               </CardHeader>
               <CardBody>
-                {/*<Table
-                  tableHeaderColor="warning"
-                  tableHead={["ID", "Name", "Salary", "Country"]}
-                  tableData={[
-                    r1
-                  ]}
-                />*/              
-                }
                   
                   <GridsOrden c={this} />
                 

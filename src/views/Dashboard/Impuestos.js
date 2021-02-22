@@ -12,11 +12,11 @@ import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
 import clearCheck from "./clearCheck";
 import renderCI from "./renderCI";
+import genItemsConst from './genItemsConst';
+import {Popper} from "components/Popper";
+import genItemsCerti from "./genItemsCerti";
 
 export default class Impuestos extends React.Component {
-  /*state={
-    openConsta: null
-  }*/
 constructor(props){
     super(props)
     this.state={
@@ -33,10 +33,8 @@ fa = (id) =>{
 changeConsta = event => {
   const {openConsta} = this.state;
   if (openConsta && openConsta.contains(event.target)) {
-    //setOpenDash(null);
     this.setState({openConsta: null});
   } else {
-    //setOpenDash(event.currentTarget);
     this.setState({openConsta: event.currentTarget});
   }
 }
@@ -52,10 +50,8 @@ handleOpenConsta = event =>{
 changeCerti = event => {
   const {openCerti} = this.state;
   if (openCerti && openCerti.contains(event.target)) {
-    //setOpenDash(null);
     this.setState({openCerti: null});
   } else {
-    //setOpenDash(event.currentTarget);
     this.setState({openCerti: event.currentTarget});
   }
 }
@@ -92,7 +88,6 @@ certiHandle = (l,v,op) => (e) => {
   const I0090701 = document.getElementById('I0090701').checked
   const vi = document.getElementById('0090702')
   c.setState({labelCerti: l})
-  //V0090702.value=v
   let task = [1]
   if (I0090701){
     task = [0,1]
@@ -106,7 +101,6 @@ certiHandle = (l,v,op) => (e) => {
       case 0:
 
         const bg = document.getElementById('baseGravable');
-       // const vi = document.getElementById(id);
     
         if(bg.value<10792){
           vi.value=193
@@ -125,7 +119,6 @@ certiHandle = (l,v,op) => (e) => {
         }        
         break;
       case 1:
-        //vi.value=257.50
         vi.value=198
         break
     }
@@ -510,64 +503,9 @@ render(){
                               
                             }}
                           />
-                          <Poppers
-                            open={Boolean(openConsta)}
-                            anchorEl={openConsta}
-                            transition
-                            disablePortal
-                            className={
-                              classNames({ [classesM.popperClose]: !openConsta }) +
-                              " " +
-                              classesM.popperNav
-                            }
-                            style={{ zIndex: 9999 }}
-                          >
-                            {({ TransitionProps, placement }) => (
-                              <Grow
-                                {...TransitionProps}
-                                id="profile-menu-list-grow"
-                                style={{
-                                  transformOrigin:
-                                    placement === "bottom" ? "center top" : "center bottom"
-                                }}
-                              >
-                                <Paper>
-                                  <ClickAwayListener onClickAway={this.handleCloseConsta}>
-                                    <MenuList role="menu">
-                                      <MenuItem
-                                        key={"consta1"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO ADEUDO DEL IMPUESTO PREDIAL',66)}
-                                      >
-                                        NO ADEUDO DEL IMPUESTO PREDIAL
-                                      </MenuItem>
-                                      <MenuItem
-                                        key={"consta2"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO PROPIEDAD',112)}
-                                      >
-                                        NO PROPIEDAD
-                                      </MenuItem>
-                                      <MenuItem
-                                        key={"consta3"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO AFECTACIÓN',225)}
-                                      >
-                                        NO AFECTACIÓN
-                                      </MenuItem>
-                                      <MenuItem
-                                        key={"consta4"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO GRAVAMEN',218)}
-                                      >
-                                        NO GRAVAMEN
-                                      </MenuItem>
-                                    </MenuList>
-                                  </ClickAwayListener>
-                                </Paper>
-                              </Grow>
-                            )}
-                          </Poppers>
+                          <Popper handleCloseDash={this.handleCloseConsta} openDash={openConsta} classesM={classesM} 
+                            Items={genItemsConst(this.constaHandle)} />
+                          
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3}>
                           <CustomInput
@@ -597,64 +535,9 @@ render(){
                               
                             }}
                           />
-                          <Poppers
-                            open={Boolean(openCerti)}
-                            anchorEl={openCerti}
-                            transition
-                            disablePortal
-                            className={
-                              classNames({ [classesM.popperClose]: !openCerti }) +
-                              " " +
-                              classesM.popperNav
-                            }
-                            style={{ zIndex: 9999 }}
-                          >
-                            {({ TransitionProps, placement }) => (
-                              <Grow
-                                {...TransitionProps}
-                                id="profile-menu-list-grow"
-                                style={{
-                                  transformOrigin:
-                                    placement === "bottom" ? "center top" : "center bottom"
-                                }}
-                              >
-                                <Paper>
-                                  <ClickAwayListener onClickAway={this.handleCloseCerti}>
-                                    <MenuList role="menu">
-                                      <MenuItem
-                                        key={"consta1"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.certiHandle('CATASTRAL',66,0)}
-                                      >
-                                        CATASTRAL
-                                      </MenuItem>
-                                      <MenuItem
-                                        key={"consta2"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.certiHandle('DE PLANOS',112,1)}
-                                      >
-                                        DE PLANOS
-                                      </MenuItem>
-                                      {/*<MenuItem
-                                        key={"consta3"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO AFECTACIÓN',225)}
-                                      >
-                                        NO AFECTACIÓN
-                                      </MenuItem>
-                                      <MenuItem
-                                        key={"consta4"}
-                                        className={classesM.dropdownItem}
-                                        onClick={this.constaHandle('NO GRAVAMEN',218)}
-                                      >
-                                        NO GRAVAMEN
-                                      </MenuItem>*/}
-                                    </MenuList>
-                                  </ClickAwayListener>
-                                </Paper>
-                              </Grow>
-                            )}
-                          </Poppers>
+                          <Popper handleCloseDash={this.handleCloseCerti} openDash={openCerti} classesM={classesM} 
+                            Items={genItemsCerti(this.certiHandle)} />
+                         
                         </GridItem>
                       </GridContainer>
 

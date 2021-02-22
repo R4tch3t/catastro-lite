@@ -1,0 +1,1 @@
+export default (certiHandle) => [{k: "certi0", html: 'CATASTRAL', handleClickItem: ()=>()=>{certiHandle('CATASTRAL',66,0)(); return ()=>{}}, i: 66},{k: "certi1", html: 'DE PLANOS', handleClickItem: ()=>()=>{certiHandle('DE PLANOS',112,1)(); return ()=>{}}, i: 112}];
