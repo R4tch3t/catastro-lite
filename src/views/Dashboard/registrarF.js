@@ -11,16 +11,12 @@ export default async(c) => {
         let V0090701 = document.getElementById('0090701').value
         if(I0010804){
           idImpuestos.push({id: 22, val: V0010804});
-         // V0010804 = V0010804.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-         // V0010804 = `${V0010804}.00`
         }else{
           removI.push({id: 22});
         //  return
         }
         if(I0090701){
           idImpuestos.push({id: 16, val: V0090701});
-          //V0090702 = V0090702.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          //V0090702 = `${V0090702}.00`
         }else{
           removI.push({id: 16});
         //  return
@@ -72,24 +68,8 @@ export default async(c) => {
         const bodyJSON = {
           nombre: nombre.value,
           idOrden: c.idOrden,
-          /*calle: calle,
-          lote: lote,
-          manzana: manzana,
-          numero: numCalle,
-          colonia: colonia,
-          cp: cp,
-          municipio: municipio,
-          localidad: localidad,
-          periodo: periodo,
-          */
           dateUp: d,
           idEmpleado: idEmpleado,
-          /*
-          m1: m1,
-          m2: m2,
-          tc: tc,
-          zona: zona,
-          bg: bg,*/
           total: totalN,
           tp: 'f',
           idImpuestos: idImpuestos,
@@ -113,7 +93,6 @@ export default async(c) => {
                 c.showNotification("trA")
                 const nombre = document.getElementById('nombre').value;
                 const {idRol} = c.props
-                //let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
                 let url = idRol === '1' ? `orden/admin#/admin/orden` : `orden/usuario#/usuario/orden`
                 if(lote.value==='0'){
                   lote.value = ''
@@ -121,9 +100,6 @@ export default async(c) => {
                 if(manzana.value==='0'){
                   manzana.value = ''
                 }
-                /*if(numCalle.value==='0'){
-                  numCalle.value = ''
-                }*/
                 if(cp==='0'){
                   cp = ''
                 }

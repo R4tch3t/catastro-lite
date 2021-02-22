@@ -14,7 +14,6 @@ export default (n,c) => {
   const prol1 = document.getElementById('0070201');
   const prol2 = document.getElementById('0070202');
   const task = [0, 1];
-  //const p1 = m1 * m2;
   const tp = checkU.checked ? 'u' : 'r'
   if(tp==='r'&&n>300){
     m1/=10000
@@ -22,25 +21,17 @@ export default (n,c) => {
   let p1 = m1;
   let p2 = m2;
   let umaZ = 89.63 * zona;
-  //umaZ = redondeo(umaZ);
   let umaC = 89.63 * n; 
-  //umaC = redondeo(umaC);
 
   p1 = p1 * umaZ
-  //p1=redondeo(p1);
   
   p2 = p2 * umaC
-  //p2=redondeo(p2);
   
   bg.value=p1+p2;
   bg.value = redondeo(bg.value)
   let pb = bg.value * 0.004;
-  //subStr = pb.toString().split(".");
-  //pb = parseInt(subStr[0]);
   pb = redondeo(pb);
   let pro1 = pb * 0.15;
-  //subStr = pro1.toString().split(".");
-  //pro1 = parseInt(subStr[0]);
   pro1 = redondeo(pro1);
   const pro2 = pro1;
   const t = pb + pro1 + pro2;
@@ -48,8 +39,6 @@ export default (n,c) => {
   if (checkU.checked){
     const urb = document.getElementById('0020401');
     const rus = document.getElementById('0020403');
-  //  const subIm0 = document.getElementById('subIm0');
-  //  const subIm1 = document.getElementById('subIm1');
     urb.value = pb;
     rus.value = 0
     renderCI('subIm0',task,6,[0],['41121001','41121001'],

@@ -51,24 +51,7 @@ function EnhancedTableHead(props) {
     
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
             <TableRow className={classes.tableHeadRow}>
-              {/*tableHead.map((row, index) => {
-                return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={row.id}
-                    sortDirection={orderBy === row.id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === row.id}
-                      direction={order}
-                      onClick={createSortHandler(row.id)} 
-                      >
-                    {row.label}
-                    </TableSortLabel>
-                  </TableCell>
-                );
-              })*/}
+              
               <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
                     key={tableHead[0].id}
@@ -156,48 +139,7 @@ function EnhancedTableHead(props) {
                     {tableHead[5].label}
                     </TableSortLabel>
               </TableCell>
-             {/* <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    colSpan='2'
-                    align='center'
-              >
-                    {'Propiedad'}
-              </TableCell>
-              
-            </TableRow>
-            <TableRow className={classes.tableHeadRow}>
-              
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[4].id}
-                    sortDirection={orderBy === tableHead[4].id ? order : false}
-                    rowSpan='2'
-                    align='center'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[4].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[4].id)} 
-                      >
-                    {tableHead[4].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[5].id}
-                    sortDirection={orderBy === tableHead[5].id ? order : false}
-                    rowSpan='2'
-                    align = 'center'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[5].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[5].id)} 
-                      >
-                    {tableHead[5].label}
-                    </TableSortLabel>
-              </TableCell>
-              */}
+            
             </TableRow>
           </TableHead>
   );
@@ -357,12 +299,6 @@ export default function CustomTable(props) {
                     </Button>
                   </GridContainer>
                 </TableCell>
-               {/* <TableCell align="center" className={classes.tableCell}>
-                  {row.terreno}
-                </TableCell>
-                <TableCell align="center" className={classes.tableCell}>
-                  {row.construccion}
-                </TableCell>*/}
 
               </TableRow>
             );

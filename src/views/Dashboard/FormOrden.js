@@ -214,7 +214,7 @@ handleKup = event => {
 handleCloseDash = () => {
   this.setState({
     openDash: null
-  })
+  });
 };
 
 changeDash = event => {

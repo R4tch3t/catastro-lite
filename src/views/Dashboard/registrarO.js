@@ -2,19 +2,13 @@ import ip from "variables/ip.js";
 import saveDataL from "./saveDataL";
 import encrypt from "./encrypt";
 import genFolio from "./genFolio";
-const sleep = (milliseconds) => {
-  return new Promise(resolve => setTimeout(resolve, milliseconds))
-}
 let sendUri = ip('3016')+"regO";
 let ports = 3040
 const registrarO = async(CTA,c) => {
    
     try {
-
-        //const sendUri = "http://localhost:3016/";
-        c.setState({disabledReg:true})
+      c.setState({disabledReg:true})
         
-        //const CTA = document.getElementById('CTA').value;
         const calle = document.getElementById('calle').value.toUpperCase();
         let lote = document.getElementById('lote').value.toUpperCase();
         let manzana = document.getElementById('manzana').value.toUpperCase();
@@ -181,8 +175,6 @@ const registrarO = async(CTA,c) => {
         let V0090701 = document.getElementById('0090701').value
         if (I0090701) {
           idImpuestos.push({id: 16, val: V0090701});
-         // V0090701 = V0090701.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          //V0090701 = `${V0090701}.00`
         }else{
           removI.push({id: 16});
         }
@@ -190,8 +182,6 @@ const registrarO = async(CTA,c) => {
         let V0090702 = document.getElementById('0090702').value
         if (I0090702) {
           idImpuestos.push({id: 17, val: V0090702});
-          //V0090702 = V0090702.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          //V0090702 = `${V0090702}.00`
         }else{
           removI.push({id: 17});
         }
@@ -199,10 +189,6 @@ const registrarO = async(CTA,c) => {
         let V0090703 = document.getElementById('0090703').value
         if (I0090703) {
           idImpuestos.push({id: 18, val: V0090703});
-          //servQ = parseInt(V0090703) * 0.15;
-          //servQ = Math.round(servQ);
-          //V0090703 = V0090703.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          //V0090703 = `${V0090703}.00`
         }else{
           removI.push({id: 18});
         }
@@ -212,14 +198,6 @@ const registrarO = async(CTA,c) => {
           idImpuestos.push({id: 19, val: V0090704});
           servQ = parseInt(V0090704)*0.15;
           servQ = Math.round(servQ);
-          //pb = parseInt(V0090704)
-          //pb += parseInt(servQ)*2
-          /*servQ = servQ.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          if (servQ !== '0' && servQ.toString().split('.').length === 1) {
-            servQ = `${servQ}.00`
-          }
-          V0090704 = V0090704.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-          V0090704 = `${V0090704}.00`*/
         }else{
           removI.push({id: 19});
         }
@@ -245,8 +223,6 @@ const registrarO = async(CTA,c) => {
         let V0010804 = document.getElementById('0010804').value
         if(I0010804){
           idImpuestos.push({id: 22, val: V0010804});
-         // V0010804 = V0010804.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-         // V0010804 = `${V0010804}.00`
         }else{
           removI.push({id: 22});
         }
@@ -309,35 +285,9 @@ const registrarO = async(CTA,c) => {
         });
 
         const responseJson = await response.json().then(r => {
-            /*console.log(r)
-            if(r.reload){
-              registrarO(CTA,c)
-            }else*/
             if (r.exito !== undefined) {
               
               if(r.exito===0){
-                //let pubKey = publicKey();
-                
-                
-                
-                // Generate RSA key pair, default key size is 4096 bit
-               /* rsa.generateKeyPair(function(keyPair) {
-                  // Callback function receives new key pair as a first argument
-                  publicKey = keyPair.publicKey;
-                  privateKey = keyPair.privateKey;
-                  console.log(privateKey);
-                  console.log(publicKey);
-                  let encrypted = crypt.encrypt(publicKey, message);
-                  console.log(encrypted);
-                  //let encrypted ='';
-
-                  // Decrypt encryped message with private RSA key
-                  let decrypted = crypt.decrypt(privateKey, encrypted);
-
-                  // Get decrypted message
-                  message = decrypted.message;
-                  console.log(decrypted.message);
-                });*/
                 const bandNew = c.idOrden===0;
                 
                 c.idOrden=r.idOrden
@@ -398,12 +348,6 @@ const registrarO = async(CTA,c) => {
                   win.focus();
                 }else{
                   const arrSub = ['', '', '', '', '', '']
-                  //let subUrl2 = ''
-                  //let subUrl3 = ''
-                  //let subUrl4 = ''
-                  //let subUrl5 = ''
-                  //let subUrl6 = ''
-                  //let urlPb = ''
                   if ((V0020401 > 0 && I0020401) || (V0020402 > 0 && I0020402) || (V0020403 > 0 && I0020403)) {
                       arrSub[0] = `${subUrl}&folio=${folio}&V0020401=${V0020401}&V0020402=${V0020402}&V0020403=${V0020403}`
                       arrSub[0] += `&V0020801=${V0020801}&V0020802=${V0020802}&V0020803=${V0020803}&V0020804=${V0020804}&V0030101=0`
@@ -422,17 +366,6 @@ const registrarO = async(CTA,c) => {
                   }
                   
                   if (I0030101) {
-                    //newF++
-                    //if (urlPb.length > 0) {
-                   //   newF++
-                    //countF++
-                    /*newF = toFolio + countF
-                    //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                   // }
-                    let labelF = newF.toString()
-                    while (labelF.length < 5) {
-                      labelF = `0${labelF}`
-                    }*/
                     pb = V0030101
                     V0030101 = V0030101.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     V0030101 = `${V0030101}.00`
@@ -442,23 +375,11 @@ const registrarO = async(CTA,c) => {
                     arrSub[indexS] += `&V0090106=0&V0090107=0&V0090701=0&V0090702=0&V0090703=0`
                     arrSub[indexS] += `&V0090704=0&V00913=0&V0091301=0&V0010804=0&V0010101=0`
                     arrSub[indexS] += `&V21173001001=0&otroservicio=${''}&servQ=0&total=${pb}`
-                    //window.open(`${url}?v=${encrypt(subUrl2)}`, '_blank');
-                    //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
                     countF++
                     indexS++
                   }
 
                   if (I0090701) {
-                    //if (urlPb.length > 0) {
-                    //  newF++
-                      //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                   // }
-                    //countF++
-                    //newF = toFolio + countF
-                    /*let labelF = newF.toString()
-                    while (labelF.length < 5) {
-                      labelF = `0${labelF}`
-                    }*/
                     
                     pb = parseInt(V0090701)
                     let constaQ = pb * 0.15
@@ -489,17 +410,6 @@ const registrarO = async(CTA,c) => {
                   }
 
                   if (I0090702) {
-                    //newF++
-                    //if (urlPb.length > 0) {
-                      //newF++
-                      //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                    //}
-                    //countF++
-                    /*newF = toFolio + countF
-                    let labelF = newF.toString()
-                    while (labelF.length < 5) {
-                      labelF = `0${labelF}`
-                    }*/
                     
                     pb = parseInt(V0090702)
                     let certiQ = pb * 0.15
@@ -517,29 +427,15 @@ const registrarO = async(CTA,c) => {
                     arrSub[indexS] += `&V0090106=0&V0090107=0&V0090701=0&V0090702=${V0090702}&V0090703=0`
                     arrSub[indexS] += `&V0090704=0&V00913=0&V0091301=0&V0010804=0&V0010101=0&certiL=${labelCerti}`
                     arrSub[indexS] += `&V21173001001=0&otroservicio=${''}&servQ=0&certiQ=${certiQ}&total=${pb}`
-                    //window.open(`${url}?v=${encrypt(subUrl2)}`, '_blank');
-                    //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
                     countF++
                     indexS++
                   }
                   
                   if (I0090703) {
-                    //newF++
-                    //if (urlPb.length > 0) {
-                      //newF++
-                      //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                    //}
-                    //countF++
-                    /*newF = toFolio + countF
-                    let labelF = newF.toString()
-                    while (labelF.length < 5) {
-                      labelF = `0${labelF}`
-                    }*/
                     pb = parseInt(V0090703)
                     let copiQ = pb * 0.15
                     copiQ = Math.round(copiQ)
                     pb += copiQ * 2
-                    //pb = Math.round(pb)
                     copiQ = copiQ.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                     if (copiQ !== '0' && copiQ.toString().split('.').length === 1) {
                       copiQ = `${copiQ}.00`
@@ -552,24 +448,11 @@ const registrarO = async(CTA,c) => {
                     arrSub[indexS] += `&V0090106=0&V0090107=0&V0090701=0&V0090702=0&V0090703=${V0090703}`
                     arrSub[indexS] += `&V0090704=0&V00913=0&V0091301=0&V0010804=0&V0010101=0`
                     arrSub[indexS] += `&V21173001001=0&otroservicio=${''}&servQ=${copiQ}&total=${pb}`
-                   // window.open(`${url}?v=${encrypt(subUrl2)}`, '_blank');
-                    //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
                     countF++
                     indexS++
                   }
 
                   if (I0090704) {
-                    //newF++
-                    //if (urlPb.length > 0) {
-                      //newF++
-                    //countF++
-                    /*newF = toFolio + countF
-                      //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                    //}
-                    let labelF = newF.toString()
-                    while (labelF.length < 5) {
-                      labelF = `0${labelF}`
-                    }*/
                     pb = parseInt(V0090704)
                     pb += servQ * 2
                     pb = Math.round(pb)
@@ -586,26 +469,16 @@ const registrarO = async(CTA,c) => {
                     arrSub[indexS] += `&V0090106=0&V0090107=0&V0090701=0&V0090702=0&V0090703=0`
                     arrSub[indexS] += `&V0090704=${V0090704}&V00913=0&V0091301=0&V0010804=0&V0010101=0`
                     arrSub[indexS] += `&V21173001001=0&otroservicio=${otroservicio}&servQ=${servQ}&total=${pb}`
-                    //genFolio(newF, url, subUrl2, r.idOrden, tipoPredio)
-                    //window.open(`${url}?v=${encrypt(subUrl2)}`, '_blank');
                     countF++
                     indexS++
                   }
                   
-                  //newF = 0
-                  //countF--;
-                  //while (newF < countF) {
                     genFolio(toFolio, 0, countF, r.idOrden, tipoPredio, url, arrSub, toFolio === parseInt(folio))
-                    //newF++
-                    //toFolio++
-                  //}
                   
                 }
                 
                 saveDataL(CTA,c.street,c.barr,c.state.zona,tipoPredio,c)
-               // orden.style.display = 'none'
-               // ReactDOM.render(<Pdf calle='11 Norte' />,document.getElementById("pdfView"))
-              }             
+               }             
             }
             
         });
@@ -617,5 +490,4 @@ const registrarO = async(CTA,c) => {
         registrarO(CTA, c)
     }
 }
-//const reload = async (){}
 export default registrarO

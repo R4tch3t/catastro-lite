@@ -6,7 +6,6 @@ function redondeo(n) {
   return n;
 }
 export default (n,c) => {
-  //console.log(`setZona: ${n} ${c}`)
   const checkU = document.getElementById('check0');
   const bg = document.getElementById('baseGravable');
   let m1 = document.getElementById('m1').value;
@@ -15,7 +14,6 @@ export default (n,c) => {
   const prol1 = document.getElementById('0070201');
   const prol2 = document.getElementById('0070202');
   const task = [0, 1];
-  //const p1 = m1 * m2;
   const tp = checkU.checked ? 'u' : 'r'
   if(tp==='r'&&n>300){
     m1/=10000
@@ -25,13 +23,9 @@ export default (n,c) => {
   let umaZ = 89.63 * n;
   let umaC = 89.63 * tc;
   
- // umaZ = redondeo(umaZ);
   p1 = p1 * umaZ
-  //p1=redondeo(p1);
   
- // umaC = redondeo(umaC);
   p2 = p2 * umaC
-  //p2=redondeo(p2);
   
   bg.value=p1+p2;
   bg.value = redondeo(bg.value);
@@ -48,8 +42,6 @@ export default (n,c) => {
   if (checkU.checked){
     const urb = document.getElementById('0020401');
     const rus = document.getElementById('0020403');
-  //  const subIm0 = document.getElementById('subIm0');
-  //  const subIm1 = document.getElementById('subIm1');
     urb.value = pb;
     rus.value = 0;
     

@@ -1,5 +1,5 @@
 import React from "react";
-/*import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom';
 import {
   PDFViewer,
   Page,
@@ -9,12 +9,12 @@ import {
   StyleSheet,
   View,
   Image
-} from "@react-pdf/renderer";*/
-/*import {
+} from "@react-pdf/renderer";
+import {
   MobileView,
-//  isMobile
+  isMobile
 } from "react-device-detect";
-//import { MobilePDFReader } from "react-read-pdf";*/
+import { MobilePDFReader } from "react-read-pdf";
 import Button from "components/CustomButtons/Button.js";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -29,16 +29,8 @@ import RobB from "../Typography/Roboto-Bold.ttf";
 import RobBI from "../Typography/Roboto-BoldItalic.ttf";
 import spellNumber from "./spellNumber";
 
-  let PDFViewer=0;
-  let Page=0;
-  let Text=0;
-  let Document=0;
-  let Font=0;
-  let StyleSheet=0;
-  let View=0;
-  let Image=0;
-  let ReactDOM = 0
-/*Font.register({
+  
+ Font.register({
   family: 'Roboto',
   fonts: [{
     src: RobI,
@@ -53,7 +45,7 @@ import spellNumber from "./spellNumber";
     fontWeight: 'bold'
   }]
   
-});*/
+});
 
 const meses = ['ENERO', 'FEBRERO', 'MARZO', 'ABRIL', 'MAYO', 'JUNIO', 'JULIO', 'AGOSTO', 'SEPTIEMBRE', 'OCTUBRE', 'NOVIEMBRE', 'DICIEMBRE']
 class App extends React.Component {
@@ -70,39 +62,10 @@ class App extends React.Component {
       loadvars: false
     }
   }
-  PDFViewer = null;
-  Page = null;
-  Text = null;
-  Document = null;
-  Font = null;
-  StyleSheet = null;
-  View = null;
-  Image = null;
+
   onRender = ({ blob }) => {
     this.setState({ url: URL.createObjectURL(blob) });
-    import("react-device-detect")
-      .then(({ isMobile, MobileView }) => {
-        // Use moduleA
         if (isMobile){
-      //let myHeaders = new Headers();
-      //myHeaders.set('Content-Disposition', 'inline');
-      //myHeaders.append('Content-Type', 'application/pdf');
-      //const nDoc = `ORDEN_CTA_`
-      //myHeaders.set('filename', 'ORDEN_CTA_');
-      /*let reader = new FileReader();
-      let out = new Blob([blob], {
-        type: 'application/pdf',
-        
-      });
-      reader.onload = function (e) {
-        //window.location.href = reader.result;
-      }
-      //reader.readAsDataURL(out);
-      var blobURL = URL.createObjectURL(out);
-      window.open(blobURL);
-      const win = window.open(this.state.url, '_self');
-      win.focus();
-      */
       const mobileContainer = document.getElementById('mobileContainer');
       mobileContainer.innerHTML=""
       ReactDOM.render(<MobileView>
@@ -113,50 +76,15 @@ class App extends React.Component {
       const h = window.devicePixelRatio<2?960:360 //window.screen.availHeight;
       mobilePdf.style.height=`${h}px`;
       pdfview.style.display='none';
-      import("react-read-pdf")
-      .then(({ MobilePDFReader }) => {
           ReactDOM.render(<MobilePDFReader url={this.state.url} />, mobilePdf);
-      })
     }
-      })
-      .catch(err => {
-        // Handle failure
-      });
-    
   };
   
 
-  styles=null
-  componentDidMount(){
-    import("@react-pdf/renderer").then(({PDFViewer,Page,Text,Document,Font,StyleSheet,View,Image})=>{
-      const obj = {}
-      obj.PDFViewer=PDFViewer
-      obj.Page=Page
-      obj.Text=Text
-      obj.Document=Document
-      obj.Font=Font
-      obj.StyleSheet=StyleSheet
-      obj.View=View
-      obj.Image=Image
-
-        
-        obj.Font.register({
-  family: 'Roboto',
-  fonts: [{
-    src: RobI,
-    fontStyle: 'italic',
-    fontWeight: 50
-  }, {
-    src: RobB,
-    fontWeight: 'bold'
-  }, {
-    src: RobBI,
-    fontStyle: 'italic',
-    fontWeight: 'bold'
-  }]
-  
-});
-this.styles = StyleSheet.create({
+componentDidMount(){
+   
+}
+  styles = StyleSheet.create({
     logoI: {
       position: "absolute",
       width: 125,
@@ -234,24 +162,7 @@ this.styles = StyleSheet.create({
     }
 
   });
-  import('react-dom').then(({ReactDOM})=>{
-    obj.ReactDOM = ReactDOM 
-    this.setVars(obj)
-    this.setState({loadvars: true})
-  });
-      })
-      
-  }
-  setVars = (obj) => {
-    PDFViewer = obj.PDFViewer;
-    Page = obj.Page;
-    Text = obj.Text;
-    Document = obj.Document;
-    Font = obj.Font;
-    StyleSheet = obj.StyleSheet;
-    View = obj.View;
-    Image = obj.Image;
-  }
+
   render() {
     const {classes} = this.props
     const {dia} = this.state
@@ -283,12 +194,7 @@ this.styles = StyleSheet.create({
            V0090701,V0090702,V0090703,V0090704,V00913,
            V0091301,V0010804,V0010101,V21173001001,
            otroservicio,servQ,constaQ,constaL,certiL,certiQ} = this.props;
-    let {loadvars} = this.state       
-    //const valQ = V0090704 !== '0' ? V0090704*0.15:0
-    if(!loadvars){
-      
-      return (<div></div>)
-    }else{
+    
     return (
       <CardIcon>
         <GridContainer>
@@ -965,7 +871,7 @@ this.styles = StyleSheet.create({
         </GridContainer>
       </CardIcon>
     );
-                      }
+                      
   }
 }
 export default App;

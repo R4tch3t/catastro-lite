@@ -46,24 +46,7 @@ function EnhancedTableHead(props) {
     
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
             <TableRow className={classes.tableHeadRow}>
-              {/*tableHead.map((row, index) => {
-                return (
-                  <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={row.id}
-                    sortDirection={orderBy === row.id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === row.id}
-                      direction={order}
-                      onClick={createSortHandler(row.id)} 
-                      >
-                    {row.label}
-                    </TableSortLabel>
-                  </TableCell>
-                );
-              })*/}
+              
               <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
                     key={tableHead[0].id}
