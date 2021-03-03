@@ -2,8 +2,10 @@
 // @material-ui/icons
 import Dashboard from "@material-ui/icons/Dashboard";
 import Person from "@material-ui/icons/Person";
+import History from "@material-ui/icons/History";
 import Corte from "views/Predial/Corte.js";
 import Padrones from "views/Predial/Padrones.js";
+import Historial from "views/history";
 import Orden from "views/Dashboard/Orden.js";
 import Editar from "views/UserProfile/Editar.js";
 import Registro from "views/UserProfile/Registro.js";
@@ -49,6 +51,14 @@ const dashboardRoutes = [
     rtlName: "قائمة الجدول",
     icon: "content_paste",
     component: ActualizarP,
+    layout: "/admin"
+  },
+  {
+    path: "/historial",
+    name: "Historial de movimientos",
+    rtlName: "لوحة القيادة",
+    icon: History,
+    component: Historial,
     layout: "/admin"
   },
   {

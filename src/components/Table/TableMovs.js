@@ -11,6 +11,7 @@ import TableCell from "@material-ui/core/TableCell";
 import TableSortLabel from '@material-ui/core/TableSortLabel';
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
+import encrypt from "views/Dashboard/encrypt";
 
 const useStyles = makeStyles(styles);
 function desc(a, b, orderBy) {
@@ -92,21 +93,9 @@ function EnhancedTableHead(props) {
               </TableCell>
               <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
-                    colSpan='2'
-                    align='center'
-              >
-                    {'Descuento'}
-              </TableCell>
-              
-            </TableRow>
-            <TableRow className={classes.tableHeadRow}>
-              
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
                     key={tableHead[3].id}
                     sortDirection={orderBy === tableHead[3].id ? order : false}
                     rowSpan='2'
-                    align='center'
                   >
                     <TableSortLabel
                       active={orderBy === tableHead[3].id}
@@ -121,7 +110,6 @@ function EnhancedTableHead(props) {
                     key={tableHead[4].id}
                     sortDirection={orderBy === tableHead[4].id ? order : false}
                     rowSpan='2'
-                    align = 'center'
                   >
                     <TableSortLabel
                       active={orderBy === tableHead[4].id}
@@ -131,12 +119,59 @@ function EnhancedTableHead(props) {
                     {tableHead[4].label}
                     </TableSortLabel>
               </TableCell>
+              <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    colSpan='2'
+                    align='center'
+              >
+                    {'Propiedad'}
+              </TableCell>
+              
+            </TableRow>
+            <TableRow className={classes.tableHeadRow}>
+              
+              <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    key={tableHead[5].id}
+                    sortDirection={orderBy === tableHead[5].id ? order : false}
+                    rowSpan='2'
+                    align='center'
+                  >
+                    <TableSortLabel
+                      active={orderBy === tableHead[5].id}
+                      direction={order}
+                      onClick={createSortHandler(tableHead[5].id)} 
+                      >
+                    {tableHead[5].label}
+                    </TableSortLabel>
+              </TableCell>
+              <TableCell
+                    className={classes.tableCell + " " + classes.tableHeadCell}
+                    key={tableHead[6].id}
+                    sortDirection={orderBy === tableHead[6].id ? order : false}
+                    rowSpan='2'
+                    align = 'center'
+                  >
+                    <TableSortLabel
+                      active={orderBy === tableHead[6].id}
+                      direction={order}
+                      onClick={createSortHandler(tableHead[6].id)} 
+                      >
+                    {tableHead[6].label}
+                    </TableSortLabel>
+              </TableCell>
               
             </TableRow>
           </TableHead>
   );
 }
-
+const genDate = (CTA, tp, idOrden) => {
+  let url = `#/admin/orden`
+  let subUrl = `?bandCTA=1&genCTA=${CTA}&tp=${tp}&idOrden=${idOrden}`
+  url += `?v=${encrypt(subUrl)}`;
+  const win = window.open(url, '_blank');
+  win.focus();
+}
 export default function CustomTable(props) {
   
   const classes = useStyles();
@@ -184,21 +219,41 @@ export default function CustomTable(props) {
             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
               try{
             return (
-              <TableRow key={row.id} className={classes.tableBodyRow}>
-                <TableCell className={classes.tableCell}>
-                  {row.idEmpleado}
+              <TableRow key={row.key} className={classes.tableBodyRow}>
+                <TableCell className={classes.tableCell}
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.cta}
                 </TableCell>
-                <TableCell className={classes.tableCell}>
+                <TableCell className={classes.tableCell} 
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
                   {row.NOMBRE}
                 </TableCell>
-                <TableCell className={classes.tableCell}>
-                  {row.descripcion}
+                <TableCell className={classes.tableCell}
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.tp}
                 </TableCell>
-                <TableCell align="center" className={classes.tableCell}>
-                  {row.desc_credito_fovisste}
+                <TableCell className={classes.tableCell}
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.fecha}
                 </TableCell>
-                <TableCell align="center" className={classes.tableCell}>
-                  {row.desc_seguro_de_daños_fovisste}
+                <TableCell className={classes.tableCell} 
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.total}
+                </TableCell>
+                <TableCell align="center" className={classes.tableCell}
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.terreno}
+                </TableCell>
+                <TableCell align="center" className={classes.tableCell}
+                  onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
+                  onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
+                  {row.construccion}
                 </TableCell>
               </TableRow>
             );

@@ -6,8 +6,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import stylesM from "assets/jss/material-dashboard-react/components/listItemStyle.js";
 import decrypt from "views/Dashboard/decrypt.js";
-//import Pdf from "./renderCarta"
-//import PdfCert from "./renderCerti"
+import Pdf from "./renderCarta"
+import PdfCert from "./renderCerti"
 
 const useStyles = makeStyles(styles);
 const useStylesM = makeStyles(stylesM);
@@ -20,8 +20,8 @@ function getParameterByName(name, url) {
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
-let Pdf = <></>;
-let PdfCert = <></>; 
+//let Pdf = <></>;
+//let PdfCert = <></>; 
 
 export default () => {
   const classes = useStyles();

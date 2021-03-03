@@ -3,12 +3,14 @@ import saveDataL from "./saveDataL";
 import encrypt from "./encrypt";
 import genFolio from "./genFolio";
 let sendUri = ip('3016')+"regO";
-let ports = 3040
+let ports = 3040;
 const registrarO = async(CTA,c) => {
    
     try {
-      c.setState({disabledReg:true})
+      c.setState({disabledReg:true});
         
+        const contribuyente = document.getElementById('nombre').value.toUpperCase();
+        const changeN = c.contribuyente.contribuyente.toUpperCase() !== contribuyente; 
         const calle = document.getElementById('calle').value.toUpperCase();
         let lote = document.getElementById('lote').value.toUpperCase();
         let manzana = document.getElementById('manzana').value.toUpperCase();
@@ -249,6 +251,8 @@ const registrarO = async(CTA,c) => {
         const obs = document.getElementById('observaciones').value.toUpperCase();
         const bodyJSON = {
           CTA,
+          contribuyente,
+          changeN,
           idOrden: c.idOrden,
           calle,
           lote,

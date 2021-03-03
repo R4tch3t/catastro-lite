@@ -1,15 +1,15 @@
 import React from 'react';
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
-import Pdf from "./renderPDF";
-import PdfG from "./renderPDFG";
+//import Pdf from "./renderPDF";
+//import PdfG from "./renderPDFG";
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
 import AccessTime from "@material-ui/icons/AccessTime";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
-import Table from "components/Table/TableCorte.js";
+import Table from "components/Table/TableMovs.js";
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
@@ -23,8 +23,8 @@ import {
 } from "variables/charts.js";
 import encrypt from 'views/Dashboard/encrypt';
 
-//let Pdf = <></>
-//let PdfG = <></>
+let Pdf = <></>
+let PdfG = <></>
 
 export default class TablesCorte extends React.Component {
 state={
@@ -41,6 +41,7 @@ state={
 handleCloseDash = () => {
   this.setState({openDash: null})
 };
+
 constructor(props){
     super(props);
     let tzoffset = (new Date()).getTimezoneOffset() * 60000;
@@ -64,8 +65,7 @@ constructor(props){
       total: 0,
       porcentaje: 0,
       porcentaje2: 0
-    };
-    
+    };    
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
 
@@ -130,9 +130,9 @@ addEx=async()=>{
   });
 }
 
-obtenerOF=async(fi,ff)=>{
+obtenerMF=async(fi,ff)=>{
     try {
-        const sendUri = ip("3014")+"obtenerOF";
+        const sendUri = ip("3014")+"obtenerMF";
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         fi = (new Date(fi - tzoffset))//.toISOString()//.slice(0, -1);
        // tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
@@ -450,14 +450,14 @@ onChangeDI = date => {
   const {dateSF} = this.state
   let dateNSF = new Date(dateSF)
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerOF(date, dateNSF)
+  this.obtenerMF(date, dateNSF)
   this.setState({ dateSI: date })
 }
 onChangeDF = date => {
   const {dateSI} = this.state
   let dateNSF = new Date(date);
   dateNSF.setDate(date.getDate() + 1);
-  this.obtenerOF(dateSI, dateNSF);
+  this.obtenerMF(dateSI, dateNSF);
   this.setState({ dateSF: date })
 }
 
@@ -466,7 +466,7 @@ recorte = () => {
   const {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerOF(dateSI, dateNSF);
+  this.obtenerMF(dateSI, dateNSF);
 }
 
 informeG = () => {
@@ -537,9 +537,9 @@ render() {
         <GridItem xs={12} sm={12} md={12}>
           <Card>
             <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>PREDIAL</h4>
+              <h4 className={classes.cardTitleWhite}>HISTORIAL</h4>
               <p className={classes.cardCategoryWhite}>
-                Corte de caja por fechas
+                Historial de movimientos por fechas
               </p>
             </CardHeader>
             <CardBody>
@@ -618,6 +618,11 @@ render() {
                 
               </div>
 
+              <Table
+                tableHeaderColor="info"
+                tableHead={headCells}
+                tableData={dataTable}
+              />
               <Table
                 tableHeaderColor="info"
                 tableHead={headCells}

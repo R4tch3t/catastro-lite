@@ -2,7 +2,7 @@ import React from 'react';
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
-//import Pdf from "./renderPDF.js";
+import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -28,7 +28,7 @@ import registrarF from './registrarF.js';
 import ByFolio from './ByFolio.js';
 import clearCheckN from './clearCheckN.js';
 
-let Pdf = <></>;
+//let Pdf = <></>;
 
 if (!String.prototype.splice) {
   /**
@@ -507,13 +507,13 @@ blurPeriodo=async(e)=>{
   sumaT(this)
 }
 componentDidMount(){
-  const {bandPdf,bandCTA,genCTA,tp,idOrden} = this.props
-  const checks = tp === 'u' || tp === '' ? [0] : [1]
+  const {bandPdf,bandCTA,genCTA,tp,idOrden} = this.props;
+  const checks = tp === 'u' || tp === '' ? [0] : [1];
   if (bandPdf !== '1') {
     
-    clearCheckCP(checks)
-    clearCheckM(this)
-    clearCheckN(this)
+    clearCheckCP(checks);
+    clearCheckM(this);
+    clearCheckN(this);
 
   }
   if (bandCTA==='1'){

@@ -93,7 +93,8 @@ export default async(c) => {
                 c.showNotification("trA")
                 const nombre = document.getElementById('nombre').value;
                 const {idRol} = c.props
-                let url = idRol === '1' ? `orden/admin#/admin/orden` : `orden/usuario#/usuario/orden`
+                //let url = idRol === '1' ? `orden/admin#/admin/orden` : `orden/usuario#/usuario/orden`
+                let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
                 if(lote.value==='0'){
                   lote.value = ''
                 }
