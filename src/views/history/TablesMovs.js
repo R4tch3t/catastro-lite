@@ -150,7 +150,7 @@ getMov=async(fi,ff)=>{
               this.count = r.count;
              // console.log(r.history);
               r.history.forEach(e => { 
-                //e.dateIn = new Date(e.dateIn)
+                e.dateIn = new Date(e.dateIn)
                 //e.dateIn = new Date(e.dateIn-tzoffset)
                 data.push({
                   key: `${e.CTA}${i}u`,
@@ -160,7 +160,7 @@ getMov=async(fi,ff)=>{
                   CTA: e.CTA,
                   idOrden: e.idOrden,
                   folio: e.folio,
-                  dateIn: e.dateIn
+                  dateIn: e.dateIn.toLocaleString()
                   //dateIn: new Date(e.dateIn - tzoffset).toISOString().slice(0, -1),
                 })
                 i++
