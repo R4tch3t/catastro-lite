@@ -47,9 +47,7 @@ constructor(props){
     const date = new Date()
     let dateSI = new Date(Date.now() - tzoffset)
     let dateSF = new Date(Date.now() - tzoffset)
-    console.log(date.getHours())
-    //date.setHours(date.getHours()-6)
-    console.log(date.getHours())
+    
     const lastD = date.getMonth()
     dateSI.setHours(0,0,0,0)
     dateSF.setHours(0,0,0,0)
@@ -228,7 +226,7 @@ addEx=async()=>{
   });
 }
 
-obtenerOF=async(fi,ff)=>{
+obtenerOF=async(fi,ff, op, CTA)=>{
     try {
         this.setState({bandLoad: false})
         const sendUri = ip("3014")+"obtenerOF";
@@ -237,8 +235,10 @@ obtenerOF=async(fi,ff)=>{
        // tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         ff = (new Date(ff - tzoffset))//.toISOString().slice(0, -1);
         const bodyJSON = {
-            fi: fi,
-            ff: ff
+            fi,
+            ff,
+            op,
+            CTA
         };
         const response = await fetch(sendUri, {
             method: "POST",
@@ -581,7 +581,7 @@ recorte = () => {
   const {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerOF(dateSI, dateNSF);
+  this.obtenerOF(dateSI, dateNSF, 0);
     if(!this.state.bandPost){
                
             }else{
@@ -593,12 +593,13 @@ recorte = () => {
   
 }
 
-waitPost = async(dateSI, dateNSF) => {
+waitPost = async(key) => {
   //const CTAnombre = document.getElementById('CTANM');
+  const {dateSI, dateSF} = this.state
   while(this.state.bandPost){
       await this.sleep(300);    
   }
-  this.obtenerOF(dateSI, dateNSF);
+  this.obtenerOF(dateSI, dateSF,0);
   this.bandLoading=false;
 
 }
@@ -638,13 +639,47 @@ informe = () => {
   const win = window.open(url, '_blank');
   win.focus();
 }
+buscarCTA = (key) => (event) => {
+  let CTAnombre = document.getElementById('CTANM');
+ // const checkU = document.getElementById('check0');
+  switch(key){
+    case 0:
+      CTAnombre.placeholder = 'CTA'
+      break;
+    case 1:
+      CTAnombre.placeholder = 'NOMBRE'
+      break;
+    case 2:
+      CTAnombre.placeholder = 'FOLIO'
+      break;    
+  }
+ // const tp = checkU.checked?'u':'r'
+  const {dateSI, dateSF} = this.state
+  const dateNSF = new Date(dateSF);
+  dateNSF.setDate(dateNSF.getDate()+1)
+  if (CTAnombre.value) {
 
+    this.obtenerOF(dateSI, dateNSF, key+1, CTAnombre.value);
+    if(!this.state.bandPost){
+               
+            }else{
+                if(!this.bandLoading){
+                    this.bandLoading=true;
+                    this.waitPost(key);
+                }
+            }
+  
+  }
+}
+buscarFolio = (key) => (event) =>{
+  
+}
 componentDidMount(){
   this.recorte();
 }
 
 render() {
-  const {bandInfoG,bandInfo,classesM} = this.props;
+  const {bandInfoG,bandInfo,classesM,classesC} = this.props;
   const {classes,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
@@ -713,7 +748,7 @@ render() {
               </Button>
 
               <Popper handleClickDash={this.handleClickDash} handleClickItem={this.buscarCTA} handleCloseDash={this.handleCloseDash} openDash={openDash} classesM={classesM} 
-              Items={[{k: "CTA", html: "Por CTA."},{k: "nombre", html: "Por nombre."},{k: "folio", handleClickItem: this.buscarFolio, html: "Por folio."}]} />
+              Items={[{k: "CTA", html: "Por CTA."},{k: "nombre", html: "Por nombre."},{k: "folio", html: "Por folio."}]} />
             </GridItem>
             
           </GridContainer>
@@ -737,7 +772,7 @@ render() {
                   
                 }}
               />
-               <Popper handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesM} 
+               <Popper handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesC} 
               Items={[{k: "calendar", html: <>
                       <Typography id="discrete-slider" gutterBottom>
                               HORAS
@@ -803,7 +838,7 @@ render() {
                   
                 }}
               />
-               <Popper handleClickDash={this.handleClickCalendarF} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarF} openDash={openCalendarF} classesM={classesM} 
+               <Popper handleClickDash={this.handleClickCalendarF} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarF} openDash={openCalendarF} classesM={classesC} 
               Items={[{k: "calendar2", html: <>
                       <Typography id="discrete-slider" gutterBottom>
                               HORAS
