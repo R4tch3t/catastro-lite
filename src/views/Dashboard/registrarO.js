@@ -4,11 +4,24 @@ import encrypt from "./encrypt";
 import genFolio from "./genFolio";
 let sendUri = ip('3016')+"regO";
 let ports = 3040;
+const responseMov = async (sendUri, bodyJSON)=>{
+  const r = await fetch(sendUri, {
+                  method: "POST",
+                  headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(bodyJSON)
+                });
+                r.json().then(r => {
+                  console.log(r);
+                });
+              }
 const registrarO = async(CTA,c) => {
    
     try {
       c.setState({disabledReg:true});
-        console.log(c.contribuyente)
+        
         //return false;
         const contribuyente = document.getElementById('nombre').value.toUpperCase();
         const changeN = c.contribuyente.contribuyente.toUpperCase() !== contribuyente; 
@@ -289,26 +302,16 @@ const registrarO = async(CTA,c) => {
             body: JSON.stringify(bodyJSON)
         });
         
-        const responseJson = await response.json().then(async (r) => {
+        const responseJson = await response.json().then( (r) => {
             if (r.exito !== undefined) {
               
               if(r.exito===0){
-                sendUri = ip('3016')+"setMov";
+                const sendUri = ip('3016')+"setMov";
                 bodyJSON.contribuyente=c.contribuyente
                 bodyJSON.idMov=r.idMov;
                 bodyJSON.idOrden=r.idOrden;
                 bodyJSON.folio=r.folio;
-                const response = await fetch(sendUri, {
-                  method: "POST",
-                  headers: {
-                      Accept: "application/json",
-                      "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify(bodyJSON)
-                });
-                response.json().then(r => {
-                  console.log(r);
-                });
+                responseMov(sendUri,bodyJSON);
 
                 const bandNew = c.idOrden===0;      
                 c.idOrden=r.idOrden
@@ -316,8 +319,8 @@ const registrarO = async(CTA,c) => {
                 const nombre = document.getElementById('nombre').value;
                 const tipoP = tipoPredio === 'u' ? 'URBANO' : tipoPredio === 'r' ? 'RÚSTICO' : ''
                 const {idRol} = c.props
-                //let url = idRol === '1' ? `orden/admin#/admin/orden` : `orden/usuario#/usuario/orden`
-                let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
+                let url = idRol === '1' ? `orden/admin#/admin/orden` : `orden/usuario#/usuario/orden`
+                //let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
                 const regB = document.getElementById('regB')
                 regB.innerHTML = 'ACTUALIZAR ORDEN DE PAGO'
                 if(lote==='0'){

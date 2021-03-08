@@ -7,10 +7,10 @@ export default async (CTAnombre, tp, tipoB, idOrden, c) => {
         c.setState({bandLoad: false})
         const sendUri = ip('3015')+"padrones";
         const bodyJSON = {
-          CTAnombre: CTAnombre,
-          tp: tp,
-          tipoB: tipoB,
-          idOrden: idOrden
+          CTAnombre,
+          tp,
+          tipoB,
+          idOrden
         }
         const response = await fetch(sendUri, {
             method: "POST",

@@ -2,7 +2,7 @@ import React from 'react';
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
-import Pdf from "./renderPDF.js";
+//import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -29,7 +29,7 @@ import ByFolio from './ByFolio.js';
 import clearCheckN from './clearCheckN.js';
 
 
-//let Pdf = <></>;
+let Pdf = <></>;
 
 if (!String.prototype.splice) {
   /**
@@ -138,7 +138,8 @@ padrones=async(CTAnombre, tp, tipoB, idOrden)=>{
 }
 
 registrarO=async()=>{
-  const CTA = document.getElementById('CTA').value;
+ // const CTA = document.getElementById('CTA').value;
+  const {CTA} = this.state;
   const nombre = document.getElementById('nombre');
 
   if (nombre.value === '' || nombre.value === '\0') {
