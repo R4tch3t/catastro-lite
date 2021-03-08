@@ -1,8 +1,10 @@
 import React from 'react';
 // react plugin for creating charts
 import ChartistGraph from "react-chartist";
-import Pdf from "./renderPDF";
-import PdfG from "./renderPDFG";
+//import Pdf from "./renderPDF";
+//import PdfG from "./renderPDFG";
+//import Skeleton from 'react-loading-skeleton';
+import SkTables from './skTables'
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
@@ -18,26 +20,19 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import Calendar from "react-calendar";
 import ip from "variables/ip.js";
+import CustomInput from "components/CustomInput/CustomInput.js";
 import {
   corte,
 } from "variables/charts.js";
 import encrypt from 'views/Dashboard/encrypt';
+import {Popper} from "components/Popper";
+import Slider from '@material-ui/core/Slider';
+import Typography from '@material-ui/core/Typography';
 
-//let Pdf = <></>
-//let PdfG = <></>
+let Pdf = <></>
+let PdfG = <></>
 
 export default class TablesCorte extends React.Component {
-state={
-    dataTable: [],
-    classes: null,
-    openDash: null,
-    setOpenDash: null,
-    dateSI: null,
-    dateSF: null,
-    total: 0,
-    porcentaje: 0
-}
-
 handleCloseDash = () => {
   this.setState({openDash: null})
 };
@@ -56,6 +51,7 @@ constructor(props){
     this.state = {
       dataTable: [],
       classes: props.classes,
+      classesM: props.classesM,
       openDash: null,
       setOpenDash: null,
       lastD: lastD,
@@ -63,11 +59,85 @@ constructor(props){
       dateSF: dateSF,
       total: 0,
       porcentaje: 0,
-      porcentaje2: 0
+      porcentaje2: 0,
+      bandLoad: false,
+      bandPost: true,
+      openCalendarI: false,
+      openCalendarF: false,
+      horas: 0,
+      minutos: 0,
+      segundos: 0,
+      currentD: new Date()
     };
     
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
+
+  h = 0
+  m = 0
+  s = 0
+    
+    /*onChangeDI = (date) => {
+      let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+      date.setHours(this.h)
+      date.setMinutes(this.m)
+      date.setSeconds(this.s)
+      let newDate = new Date(date-tzoffset)
+      this.setState({currentD: date, horas: this.h, minutos: this.m, segundos: this.s})
+      const dateUpV = document.getElementById('dateUp')
+      dateUpV.value = newDate.toISOString().slice(0, -1)
+      this.handleCloseCalendarI()
+    }*/
+    valueH=(value)=>{
+      this.h = value
+      return `${value}`;
+    }
+    valueM = (value) => {
+      this.m = value
+      return `${value}`;
+    }
+    valueS = (value) => {
+      this.s = value
+      return `${value}`;
+    }
+
+    handleCloseCalendarI = () => {
+  this.setState({
+    openCalendarI: null
+  })
+};
+
+changeCalendarI = event => {
+  const {openCalendarI} = this.state;
+  if (openCalendarI && openCalendarI.contains(event.target) ) {
+    this.setState({openCalendarI: null});
+  } else {
+    this.setState({openCalendarI: event.currentTarget});
+  }
+}
+
+handleClickCalendarI = event => {
+  this.changeCalendarI(event);
+};
+
+handleCloseCalendarF = () => {
+  this.setState({
+    openCalendarF: null
+  })
+};
+
+changeCalendarF = event => {
+  const {openCalendarF} = this.state;
+  if (openCalendarF && openCalendarF.contains(event.target) ) {
+    this.setState({openCalendarF: null});
+  } else {
+    this.setState({openCalendarF: event.currentTarget});
+  }
+}
+
+handleClickCalendarF = event => {
+  this.changeCalendarF(event);
+};
 
 round = (num, decimales = 2)=>{
   var signo = (num >= 0 ? 1 : -1);
@@ -81,6 +151,7 @@ round = (num, decimales = 2)=>{
   num = num.toString().split('e');
   return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
 }
+
 mes = (i) => {
   switch(i){
     case 0:
@@ -132,6 +203,7 @@ addEx=async()=>{
 
 obtenerOF=async(fi,ff)=>{
     try {
+        this.setState({bandLoad: false})
         const sendUri = ip("3014")+"obtenerOF";
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         fi = (new Date(fi - tzoffset))//.toISOString()//.slice(0, -1);
@@ -152,7 +224,6 @@ obtenerOF=async(fi,ff)=>{
 
         const responseJson = await response.json().then(r => {
             //  console.log(`Response1: ${r}`)
-
             if (r.ordenesu || r.ordenesr) {
               let data = [];
               let total = 0;
@@ -388,7 +459,7 @@ obtenerOF=async(fi,ff)=>{
               corte.data.series = [data.totales]
               
               //porcentaje = isNaN(porcentaje) ? 0:this.round(porcentaje)
-              this.setState({dataTable: data, total: total, porcentaje, porcentaje2});
+              this.setState({dataTable: data, total: total, porcentaje, porcentaje2, bandLoad: true, bandPost: false});
               
               
             }
@@ -444,7 +515,7 @@ changeDash = event => {
 handleClickDash = event => {
   this.changeDash(event);
 };
-
+bandLoading=true
 
 onChangeDI = date => {
   const {dateSF} = this.state
@@ -453,6 +524,7 @@ onChangeDI = date => {
   this.obtenerOF(date, dateNSF)
   this.setState({ dateSI: date })
 }
+
 onChangeDF = date => {
   const {dateSI} = this.state
   let dateNSF = new Date(date);
@@ -467,6 +539,28 @@ recorte = () => {
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
   this.obtenerOF(dateSI, dateNSF);
+    if(!this.state.bandPost){
+               
+            }else{
+                if(!this.bandLoading){
+                    this.bandLoading=true;
+                    this.waitPost(dateSI, dateNSF);
+                }
+            }
+  
+}
+
+waitPost = async(dateSI, dateNSF) => {
+  //const CTAnombre = document.getElementById('CTANM');
+  while(this.state.bandPost){
+      await this.sleep(300);    
+  }
+  this.obtenerOF(dateSI, dateNSF);
+  this.bandLoading=false;
+
+}
+sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
 
 informeG = () => {
@@ -478,8 +572,8 @@ informeG = () => {
   dateSI = new Date(dateSI - tzoffset).toISOString().slice(0, -1)
   dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
   let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}`
-  let url = `#/admin/corte`
-  //let url = `orden/admin#/admin/corte`
+  //let url = `#/admin/corte`
+  let url = `orden/admin#/admin/corte`
   //let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
@@ -495,17 +589,20 @@ informe = () => {
   dateSI = new Date(dateSI - tzoffset).toISOString().slice(0, -1)
   dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
   let subUrl = `?bandInfo=1&dateSI=${dateSI}&dateSF=${dateNSF}`
-  //let url = `orden/admin#/admin/corte`
-  let url = `#/admin/corte`
+  let url = `orden/admin#/admin/corte`
+  //let url = `#/admin/corte`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
   win.focus();
 }
 
+componentDidMount(){
+  this.recorte();
+}
 
 render() {
-  const {bandInfoG,bandInfo} = this.props;
-  const {classes} = this.state;
+  const {bandInfoG,bandInfo,classesM} = this.props;
+  const {classes,openCalendarI,openCalendarF,horas,minutos,segundos} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
     return(<PdfG classes={classes}
@@ -545,6 +642,129 @@ render() {
             <CardBody>
               <div className={classes.searchWrapper}>
                 <GridContainer>
+                   <GridItem xs={12} sm={12} md={3}>
+              <CustomInput
+                labelText="FECHA DE CORTE INICIAL:"
+                id="dateUp"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  type: "text",
+                  defaultValue: "\0",
+                  onClick: this.handleClickCalendarI,
+                  readOnly: true,
+                  
+                }}
+              />
+               <Popper handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesM} 
+              Items={[{k: "calendar", html: <>
+                      <Typography id="discrete-slider" gutterBottom>
+                              HORAS
+                            </Typography>  
+                            <Slider
+                              defaultValue={horas}
+                              getAriaValueText={this.valueH}
+                              //onMouseLeave={valueLM}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={23}
+                            />
+                            <Typography id="discrete-slider" gutterBottom>
+                              MINUTOS
+                            </Typography>  
+                            <Slider
+                              defaultValue={minutos}
+                              getAriaValueText={this.valueM}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={59}
+                            />
+                            <Typography id="discrete-slider" gutterBottom>
+                              SEGUNDOS
+                            </Typography>  
+                            <Slider
+                              defaultValue={segundos}
+                              getAriaValueText={this.valueS}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={59}
+                            />
+                            <Calendar onChange={this.onChangeDI} value={dateSI} />
+                    </>}]} />
+            </GridItem>
+            <GridItem xs={12} sm={12} md={6} />
+            <GridItem xs={12} sm={12} md={3}>
+              <CustomInput
+                labelText="FECHA DE CORTE FINAL:"
+                id="dateUp"
+                formControlProps={{
+                  fullWidth: true
+                }}
+                inputProps={{
+                  type: "text",
+                  defaultValue: "\0",
+                  onClick: this.handleClickCalendarF,
+                  readOnly: true,
+                  
+                }}
+              />
+               <Popper handleClickDash={this.handleClickCalendarF} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarF} openDash={openCalendarF} classesM={classesM} 
+              Items={[{k: "calendar2", html: <>
+                      <Typography id="discrete-slider" gutterBottom>
+                              HORAS
+                            </Typography>  
+                            <Slider
+                              defaultValue={horas}
+                              getAriaValueText={this.valueH}
+                              //onMouseLeave={valueLM}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={23}
+                            />
+                            <Typography id="discrete-slider" gutterBottom>
+                              MINUTOS
+                            </Typography>  
+                            <Slider
+                              defaultValue={minutos}
+                              getAriaValueText={this.valueM}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={59}
+                            />
+                            <Typography id="discrete-slider" gutterBottom>
+                              SEGUNDOS
+                            </Typography>  
+                            <Slider
+                              defaultValue={segundos}
+                              getAriaValueText={this.valueS}
+                              aria-labelledby="discrete-slider"
+                              valueLabelDisplay="auto"
+                              step={1}
+                              marks
+                              min={0}
+                              max={59}
+                            />
+                            <Calendar onChange={this.onChangeDF} value={dateSF} />
+                    </>}]} />
+            </GridItem>
+                </GridContainer>
+                {/*<GridContainer>
                   <GridItem xs={12} sm={12} md={8}>
                     <h4 className={classes.cardTitleBlack}>
                       Fecha de corte inicial:
@@ -557,7 +777,7 @@ render() {
                     </h4>
                     <Calendar onChange={this.onChangeDF} value={dateSF} />
                   </GridItem>
-                </GridContainer>
+                </GridContainer>*/}
                 <div style={{height: 30}} />
                 {/*<GridContainer>
                   <Button
@@ -617,12 +837,14 @@ render() {
                   </GridContainer>
                 
               </div>
-
-              <Table
-                tableHeaderColor="info"
-                tableHead={headCells}
-                tableData={dataTable}
-              />
+              <SkTables bandLoad={this.state.bandLoad} />
+              { this.state.bandLoad &&
+                <Table
+                  tableHeaderColor="info"
+                  tableHead={headCells}
+                  tableData={dataTable}
+                />
+              }
             </CardBody>
           </Card>
         </GridItem>

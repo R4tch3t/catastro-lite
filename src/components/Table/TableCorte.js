@@ -23,6 +23,7 @@ function desc(a, b, orderBy) {
   }
   return 0;
 }
+
 function stableSort(array, cmp) {
   const stabilizedThis = array.map((el, index) => [el, index]);
   stabilizedThis.sort((a, b) => {
@@ -166,6 +167,7 @@ function EnhancedTableHead(props) {
   );
 }
 const genDate = (CTA, tp, idOrden) => {
+  //No GEN PDF only data set
   let url = `#/admin/orden`
   let subUrl = `?bandCTA=1&genCTA=${CTA}&tp=${tp}&idOrden=${idOrden}`
   url += `?v=${encrypt(subUrl)}`;

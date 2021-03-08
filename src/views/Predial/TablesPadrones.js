@@ -1,6 +1,7 @@
 import React from 'react';
 import {isMobile} from "react-device-detect";
-import Loader from "react-loader-spinner";
+//import Skeleton from 'react-loading-skeleton';
+import SkTables from './skTables'
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import TablePadrones from "components/Table/TablePadrones.js";
@@ -19,14 +20,7 @@ import ls from 'local-storage'
 import cookie from "react-cookies";
 
 export default class TableRender extends React.Component {
-state={
-    dataTable: [],
-    classes: null,
-    openDash: null,
-    setOpenDash: null,
-    labelB: null,
-    bandLoad: false
-}
+
 tipoB = 1
 handleCloseDash = () => {
  // setOpenDash(null);
@@ -294,7 +288,8 @@ render() {
             <CardBody>
               
               <div className={classes.searchWrapper}>
-                
+                {
+                /*
                 <Loader
                   type="BallTriangle"
                   color="#00BFFF"
@@ -303,7 +298,8 @@ render() {
                   visible={!this.state.bandLoad}
                   style={{position:'absolute', top: "50%", left: '42%'}}
                   //timeout={3000} //3 secs
-                />
+                />*/
+                }
 
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
@@ -342,12 +338,19 @@ render() {
                   
                 </GridContainer>
               </div>
-              
-              <TablePadrones
-                tableHeaderColor="warning"
-                tableHead={headCells}
-                tableData={dataTable}
-              />
+              {/*<div style={{ fontSize: 20, lineHeight: 2 }}>
+                  <h1>{this.state.bandLoad || <Skeleton />}</h1>
+                  {this.state.bandLoad || <Skeleton count={10} />}
+                    </div>*/}
+              <SkTables bandLoad={this.state.bandLoad} />
+              { this.state.bandLoad &&
+                <TablePadrones
+                  tableHeaderColor="warning"
+                  tableHead={headCells}
+                  tableData={dataTable}
+                />
+              }
+
             </CardBody>
           </Card>
         </GridItem>

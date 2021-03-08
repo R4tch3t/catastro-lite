@@ -20,6 +20,7 @@ import cookie from "react-cookies";
 import decrypt from "views/Dashboard/decrypt"
 import ls from 'local-storage'
 import "assets/css/material-dashboard-react.css?v=1.8.0";
+import 'react-calendar/dist/Calendar.css';
 import ReactDOM from "react-dom"
 import {createBrowserHistory} from "history"
 import { HashRouter, Route, Switch } from "react-router-dom"

@@ -389,6 +389,7 @@ export class MapContainer extends React.Component {
     }
 
     setMap = (position)=>{
+    try{
         const {google, c} = this.props
         c.google=google
         const a = this
@@ -701,6 +702,9 @@ export class MapContainer extends React.Component {
         /*this.setState({
             map
         })*/
+    }catch(e){
+        console.log(e);
+    }
     }
     componentDidMount(){
         this.getLocation()

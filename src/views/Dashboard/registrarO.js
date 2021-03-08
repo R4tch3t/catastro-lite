@@ -8,7 +8,8 @@ const registrarO = async(CTA,c) => {
    
     try {
       c.setState({disabledReg:true});
-        
+        console.log(c.contribuyente)
+        //return false;
         const contribuyente = document.getElementById('nombre').value.toUpperCase();
         const changeN = c.contribuyente.contribuyente.toUpperCase() !== contribuyente; 
         const calle = document.getElementById('calle').value.toUpperCase();
@@ -287,13 +288,29 @@ const registrarO = async(CTA,c) => {
             },
             body: JSON.stringify(bodyJSON)
         });
-
-        const responseJson = await response.json().then(r => {
+        
+        const responseJson = await response.json().then(async (r) => {
             if (r.exito !== undefined) {
               
               if(r.exito===0){
-                const bandNew = c.idOrden===0;
-                
+                sendUri = ip('3016')+"setMov";
+                bodyJSON.contribuyente=c.contribuyente
+                bodyJSON.idMov=r.idMov;
+                bodyJSON.idOrden=r.idOrden;
+                bodyJSON.folio=r.folio;
+                const response = await fetch(sendUri, {
+                  method: "POST",
+                  headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(bodyJSON)
+                });
+                response.json().then(r => {
+                  console.log(r);
+                });
+
+                const bandNew = c.idOrden===0;      
                 c.idOrden=r.idOrden
                 c.showNotification("trA")
                 const nombre = document.getElementById('nombre').value;

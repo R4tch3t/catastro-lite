@@ -28,6 +28,7 @@ import registrarF from './registrarF.js';
 import ByFolio from './ByFolio.js';
 import clearCheckN from './clearCheckN.js';
 
+
 //let Pdf = <></>;
 
 if (!String.prototype.splice) {
@@ -110,7 +111,9 @@ constructor(props){
       labelW: '',
       tr: false,
       colorSnack: 'primary',
-      iconSnack: WN
+      iconSnack: WN,
+      bandLoad: true,
+      bandPost: true,
       
     };
 }
@@ -354,17 +357,41 @@ handleUpper = e => {
   }
 }
 
-
+bandLoading=true
 buscarCTA = (key) => (event) => {
   let CTAnombre = document.getElementById('CTANM');
   const checkU = document.getElementById('check0');
   CTAnombre.placeholder = key===0?'CTA':'NOMBRE'
   const tp = checkU.checked?'u':'r'
   if (CTAnombre !== '') {
+
     this.padrones(CTAnombre.value, tp, key, '')
+    if(!this.state.bandPost){
+               
+            }else{
+                if(!this.bandLoading){
+                    this.bandLoading=true;
+                    this.waitPost(key);
+                }
+            }
+  
   }
 }
+waitPost = async(key) => {
+  let CTAnombre = document.getElementById('CTANM');
+  const checkU = document.getElementById('check0');
+  CTAnombre.placeholder = key===0?'CTA':'NOMBRE'
+  const tp = checkU.checked?'u':'r'
+  while(this.state.bandPost){
+      await this.sleep(300);    
+  }
+  this.padrones(CTAnombre.value, tp, key, '')
+  this.bandLoading=false;
 
+}
+sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+}
 buscarFolio = () => async (event) => {
   let CTAnombre = document.getElementById('CTANM');
   CTAnombre.placeholder = 'FOLIO'

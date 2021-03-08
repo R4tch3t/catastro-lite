@@ -47,119 +47,24 @@ function EnhancedTableHead(props) {
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
             <TableRow className={classes.tableHeadRow}>
               
-              <TableCell
+              {tableHead.map((row, index) => {
+                return (
+                  <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[0].id}
-                    sortDirection={orderBy === tableHead[0].id ? order : false}
-                    rowSpan='2'
-                    valign='baseline'
+                    key={row.id}
+                    sortDirection={orderBy === row.id ? order : false}
+                    rowSpan='1'
                   >
                     <TableSortLabel
-                      active={orderBy === tableHead[0].id}
+                      active={orderBy === row.id}
                       direction={order}
-                      valign = 'bottom'
-                      onClick={createSortHandler(tableHead[0].id)} 
-                    >
-                    {tableHead[0].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[1].id}
-                    sortDirection={orderBy === tableHead[1].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[1].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[1].id)} 
+                      onClick={createSortHandler(row.id)} 
                       >
-                    {tableHead[1].label}
+                    {row.label}
                     </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[2].id}
-                    sortDirection={orderBy === tableHead[2].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[2].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[2].id)} 
-                      >
-                    {tableHead[2].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[3].id}
-                    sortDirection={orderBy === tableHead[3].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[3].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[3].id)} 
-                      >
-                    {tableHead[3].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[4].id}
-                    sortDirection={orderBy === tableHead[4].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[4].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[4].id)} 
-                      >
-                    {tableHead[4].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    colSpan='2'
-                    align='center'
-              >
-                    {'Propiedad'}
-              </TableCell>
-              
-            </TableRow>
-            <TableRow className={classes.tableHeadRow}>
-              
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[5].id}
-                    sortDirection={orderBy === tableHead[5].id ? order : false}
-                    rowSpan='2'
-                    align='center'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[5].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[5].id)} 
-                      >
-                    {tableHead[5].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[6].id}
-                    sortDirection={orderBy === tableHead[6].id ? order : false}
-                    rowSpan='2'
-                    align = 'center'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[6].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[6].id)} 
-                      >
-                    {tableHead[6].label}
-                    </TableSortLabel>
-              </TableCell>
+                  </TableCell>
+                );
+              })}
               
             </TableRow>
           </TableHead>
@@ -223,37 +128,37 @@ export default function CustomTable(props) {
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.cta}
+                  {row.idHistory}
                 </TableCell>
                 <TableCell className={classes.tableCell} 
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.NOMBRE}
+                  {row.mov}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.tp}
+                  {row.idUsuario}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.fecha}
+                  {row.CTA}
                 </TableCell>
                 <TableCell className={classes.tableCell} 
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.total}
+                  {row.idOrden}
                 </TableCell>
-                <TableCell align="center" className={classes.tableCell}
+                <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.terreno}
+                  {row.folio}
                 </TableCell>
-                <TableCell align="center" className={classes.tableCell}
+                <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
                   onMouseUp={(e)=>{genDate(row.cta,row.key[row.key.length-1],row.idOrden)}}>
-                  {row.construccion}
+                  {row.dateIn}
                 </TableCell>
               </TableRow>
             );

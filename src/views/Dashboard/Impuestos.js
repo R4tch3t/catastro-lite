@@ -1,12 +1,5 @@
 import React from "react";
 import GridItem from "components/Grid/GridItem.js";
-import Poppers from "@material-ui/core/Popper";
-import Paper from "@material-ui/core/Paper";
-import classNames from "classnames";
-import Grow from "@material-ui/core/Grow";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import MenuList from "@material-ui/core/MenuList";
-import MenuItem from "@material-ui/core/MenuItem";
 import GridContainer from "components/Grid/GridContainer.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
@@ -15,6 +8,13 @@ import renderCI from "./renderCI";
 import genItemsConst from './genItemsConst';
 import {Popper} from "components/Popper";
 import genItemsCerti from "./genItemsCerti";
+import SkImpuesto from "./skImpuesto"
+import SkAccesorios from "./skAccesorios"
+import SkDerechos from "./skDerechos";
+import SkCopias from "./skCopias";
+import SkProductos from "./skProductos";
+import SkAprove from "./skAprove";
+import SkEstatal from "./skEstatal";
 
 export default class Impuestos extends React.Component {
 constructor(props){
@@ -149,7 +149,8 @@ render(){
                         </CardHeader>
                     </GridItem>
                   </GridContainer> 
-                           
+                      <SkImpuesto bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>
                       <GridContainer id='subIm0' >
                         
                       </GridContainer>
@@ -298,6 +299,7 @@ render(){
                           />
                         </GridItem>
                       </GridContainer>
+                      </>}
                 </div>
 
                 <div style={{height: 40}} />
@@ -312,7 +314,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer>
+                  <SkAccesorios bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>    
                       <GridContainer id='subAcc0' >
                                                
                       </GridContainer>
@@ -406,7 +410,7 @@ render(){
                           />
                         </GridItem>
                       </GridContainer>
-                    
+                    </>}
                 </div>
                 <div style={{height: 40}} />
 
@@ -420,7 +424,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer>
+                  <SkDerechos bandLoad={c.state.bandLoad} />  
+                    {c.state.bandLoad && <>    
                       <GridContainer id='subDer0' >                       
                         
                       </GridContainer>
@@ -461,6 +467,7 @@ render(){
                         </GridItem>
                         
                       </GridContainer>
+                      </>}
                 </div>
                 <div style={{height: 40}} />
                 
@@ -474,7 +481,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer>
+                  <SkCopias bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>        
                       <GridContainer id='subCop0' >                       
                         
                       </GridContainer>
@@ -645,6 +654,7 @@ render(){
                           />
                         </GridItem>
                       </GridContainer>
+                      </>}
                 </div>
                 <div style={{height: 40}} />
 
@@ -658,7 +668,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer> 
+                  <SkProductos bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>       
                   <GridContainer id='subPro0' >                       
                     
                   </GridContainer>
@@ -682,6 +694,7 @@ render(){
                       />
                     </GridItem>                      
                   </GridContainer>
+                  </>}
                 </div>
                 <div style={{height: 40}} />
 
@@ -695,7 +708,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer> 
+                  <SkAprove bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>   
                   <GridContainer id='subApr0' >                       
                     
                   </GridContainer>
@@ -720,6 +735,7 @@ render(){
                       />
                     </GridItem>                      
                   </GridContainer>
+                  </>}
                 </div>
                 <div style={{height: 40}} />
 
@@ -733,7 +749,9 @@ render(){
                           </p>
                         </CardHeader>
                     </GridItem>
-                  </GridContainer>    
+                  </GridContainer>
+                  <SkEstatal bandLoad={c.state.bandLoad} />
+                      {c.state.bandLoad && <>    
                   <GridContainer id='subDee0' >                       
                     
                   </GridContainer>
@@ -758,6 +776,7 @@ render(){
                       />
                     </GridItem>                      
                   </GridContainer>
+                  </>}
                   
                 </div>
         </>

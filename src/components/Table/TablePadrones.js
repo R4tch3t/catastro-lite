@@ -52,93 +52,24 @@ function EnhancedTableHead(props) {
           <TableHead className={classes[tableHeaderColor + "TableHeader"]}>
             <TableRow className={classes.tableHeadRow}>
               
-              <TableCell
+              {tableHead.map((row, index) => {
+                return (
+                  <TableCell
                     className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[0].id}
-                    sortDirection={orderBy === tableHead[0].id ? order : false}
-                    rowSpan='2'
-                    valign='baseline'
+                    key={row.id}
+                    sortDirection={orderBy === row.id ? order : false}
+                    rowSpan='1'
                   >
                     <TableSortLabel
-                      active={orderBy === tableHead[0].id}
+                      active={orderBy === row.id}
                       direction={order}
-                      valign = 'bottom'
-                      onClick={createSortHandler(tableHead[0].id)} 
-                    >
-                    {tableHead[0].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[1].id}
-                    sortDirection={orderBy === tableHead[1].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[1].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[1].id)} 
+                      onClick={createSortHandler(row.id)} 
                       >
-                    {tableHead[1].label}
+                    {row.label}
                     </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[2].id}
-                    sortDirection={orderBy === tableHead[2].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[2].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[2].id)} 
-                      >
-                    {tableHead[2].label}
-                    </TableSortLabel>
-              </TableCell>
-              
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[3].id}
-                    sortDirection={orderBy === tableHead[3].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[3].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[3].id)} 
-                      >
-                    {tableHead[3].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[4].id}
-                    sortDirection={orderBy === tableHead[4].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[4].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[4].id)} 
-                      >
-                    {tableHead[4].label}
-                    </TableSortLabel>
-              </TableCell>
-              <TableCell
-                    className={classes.tableCell + " " + classes.tableHeadCell}
-                    key={tableHead[5].id}
-                    sortDirection={orderBy === tableHead[5].id ? order : false}
-                    rowSpan='2'
-                  >
-                    <TableSortLabel
-                      active={orderBy === tableHead[5].id}
-                      direction={order}
-                      onClick={createSortHandler(tableHead[5].id)} 
-                      >
-                    {tableHead[5].label}
-                    </TableSortLabel>
-              </TableCell>
+                  </TableCell>
+                );
+              })}
             
             </TableRow>
           </TableHead>
@@ -152,10 +83,11 @@ const genCTA = (CTA, tp) => {
   const win = window.open(url, '_blank');
   win.focus();
 }
+
 const genCarta = (CTA, nombre, ubi, tp) => {
   const idRol = decrypt(ls.get('idRol'));
-  let url = idRol === '1' ? `#/admin/padron` : `#/usuario/padron`
-  //let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
+  //let url = idRol === '1' ? `#/admin/padron` : `#/usuario/padron`
+  let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
   const y = new Date().getFullYear()
   let subUrl = `?bandCarta=1&genCTA=${CTA}&nombre=${nombre}&ubi=${ubi}&tp=${tp}`
   subUrl+=`&añoI=${y}&añoF=${y}`
@@ -163,10 +95,11 @@ const genCarta = (CTA, nombre, ubi, tp) => {
   const win = window.open(url, '_blank');
   win.focus();
 }
+
 const genCerti = (CTA, nombre, ubi, tp, localidad, bg) => {
   const idRol = decrypt(ls.get('idRol'));
-  let url = idRol === '1' ? `#/admin/padron` : `#/usuario/padron`
-  //let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
+  //let url = idRol === '1' ? `#/admin/padron` : `#/usuario/padron`
+  let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
   const y = new Date().getFullYear()
   let subUrl = `?bandCerti=1&genCTA=${CTA}&nombre=${nombre}&ubi=${ubi}&tp=${tp}&localidad=${localidad}&bg=${bg}`
   subUrl+=`&añoI=${y}&añoF=${y}`

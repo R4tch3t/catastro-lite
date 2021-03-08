@@ -1,5 +1,6 @@
 import renderCI from "./renderCI";
 export default (fa) => {
+  try{
     const task = [0,1]
      renderCI('subIm0', task, 6, [], ['41121001', '41121001'],
        ['URBANOS EDIFICADOS DESTINADOS A CASA HABITACIÓN',
@@ -92,4 +93,7 @@ export default (fa) => {
        ['15% DE CONTRIBUCIÓN ESTATAL (APLICADO POR AUTORIZACIÓN DE FUSIÓN Y SUBDIVISIÓN DE PREDIOS)'],
        ['21173001001'], fa);
        document.getElementById('21173001001').value = 0
+      }catch(e){
+        
+      }
 }

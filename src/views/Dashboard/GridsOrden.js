@@ -16,6 +16,8 @@ import genItemsTC from './genItemsTC';
 import genItemsZU from './genItemsZU';
 import genItemsZR from './genItemsZR';
 import {Popper} from "components/Popper";
+//import Skeleton from 'react-loading-skeleton';
+import SkPredial from "./skPredial"
 export default (props) => {
     const {c} = props
     const {classes, classesM} = c.props
@@ -104,8 +106,12 @@ export default (props) => {
             </GridContainer>
             
           </GridContainer>
+
         </div>
         <div>
+          
+          
+          
           <GridContainer >
               <GridItem id='sCarta' onMouseEnter={e=>{e.target.style.cursor='pointer'}} 
               xs={12} sm={12} md={12} style={{display: 'none'}} >
@@ -123,6 +129,8 @@ export default (props) => {
           <GridContainer id='checkerM' >
 
           </GridContainer>
+          <SkPredial bandLoad={c.state.bandLoad} />
+          {c.state.bandLoad && <>
           <GridContainer>
             <GridItem xs={12} sm={12} md={5}>
               <CustomInput
@@ -501,6 +509,8 @@ export default (props) => {
               />
             </GridItem>
           </GridContainer>
+          </>
+          }
         </div>
         <div style={{ height: 40 }} />
 

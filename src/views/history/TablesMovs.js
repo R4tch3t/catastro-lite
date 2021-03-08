@@ -27,17 +27,6 @@ let Pdf = <></>
 let PdfG = <></>
 
 export default class TablesCorte extends React.Component {
-state={
-    dataTable: [],
-    classes: null,
-    openDash: null,
-    setOpenDash: null,
-    dateSI: null,
-    dateSF: null,
-    total: 0,
-    porcentaje: 0
-}
-
 handleCloseDash = () => {
   this.setState({openDash: null})
 };
@@ -68,7 +57,7 @@ constructor(props){
     };    
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
-
+count = 0
 round = (num, decimales = 2)=>{
   var signo = (num >= 0 ? 1 : -1);
   num = num * signo;
@@ -130,16 +119,18 @@ addEx=async()=>{
   });
 }
 
-obtenerMF=async(fi,ff)=>{
+getMov=async(fi,ff)=>{
     try {
-        const sendUri = ip("3014")+"obtenerMF";
+        const sendUri = ip("3014")+"getMov";
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         fi = (new Date(fi - tzoffset))//.toISOString()//.slice(0, -1);
        // tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
         ff = (new Date(ff - tzoffset))//.toISOString().slice(0, -1);
         const bodyJSON = {
             fi: fi,
-            ff: ff
+            ff: ff,
+            count: this.count,
+            op: 1
         };
         const response = await fetch(sendUri, {
             method: "POST",
@@ -151,117 +142,32 @@ obtenerMF=async(fi,ff)=>{
         });
 
         const responseJson = await response.json().then(r => {
-            //  console.log(`Response1: ${r}`)
+            // console.log(`Response1: ${r}`)
 
-            if (r.ordenesu || r.ordenesr) {
+            if (r.history) {
               let data = [];
-              let total = 0;
-              let totalD = 0;
               let i = 0;
-              let high = 0;
-              let porcentaje=0;
-              let porcentaje2 = 0;
-              data.objects = {}
-              data.labels = []
-              data.totales = []
-              //dateSI.toLocaleDateString()
-              const {dateSI} = this.state
-              let dateLabel = dateSI
-              let dateLast = ''
-              
-              r.ordenesu.forEach(e => { 
-                e.dateUp = new Date(e.dateUp)
-                //e.dateUp = new Date(e.dateUp-tzoffset)
+              this.count = r.count;
+             // console.log(r.history);
+              r.history.forEach(e => { 
+                //e.dateIn = new Date(e.dateIn)
+                //e.dateIn = new Date(e.dateIn-tzoffset)
                 data.push({
                   key: `${e.CTA}${i}u`,
-                  cta: e.CTA,
+                  idHistory: e.idHistory,
+                  mov: e.mov,
+                  idUsuario: e.idUsuario,
+                  CTA: e.CTA,
                   idOrden: e.idOrden,
-                  NOMBRE: e.contribuyente,
-                  tp: 'URBANO',
-                  fecha: new Date(e.dateUp - tzoffset).toISOString().slice(0, -1),
-                  total: e.total,
-                  terreno: e.m1,
-                  construccion: e.m2
+                  folio: e.folio,
+                  dateIn: e.dateIn
+                  //dateIn: new Date(e.dateIn - tzoffset).toISOString().slice(0, -1),
                 })
                 i++
-               // console.log(`e.date: ${e.dateUp.toLocaleDateString()}`)
-               // console.log(`dateLast: ${dateLast}`)
-                if (e.dateUp.getDate() < 10) {
-                  e.dateUp = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  e.dateUp = e.dateUp.toLocaleDateString()
-                }
-
-                if ((dateLast!==''&&e.dateUp !== dateLast) || i === r.ordenesu.length) {
-                  if (i === r.ordenesu.length) {
-                    totalD += parseInt(e.total);
-                  }
-                  //console.log(`totalD: ${totalD}`)
-                  data.objects[`${dateLast}`] = totalD
-                  totalD=0
-                }
-                dateLast = e.dateUp
-                /*if (e.dateUp.getDate() < 10) {
-                  dateLast = `0${e.dateUp.toLocaleDateString()}`
-                }else{
-                  dateLast = e.dateUp.toLocaleDateString()
-                }*/
-
-                total += parseInt(e.total); 
-                totalD += parseInt(e.total);
               });
               //console.log(data)
               //console.log(total)
-              i=0
-              dateLabel = dateSI
-              totalD=0
-              dateLast = ''
-              r.ordenesr.forEach(e => {
-                e.dateUp = new Date(e.dateUp)
-                //e.dateUp = new Date(e.dateUp - tzoffset)
-                data.push({
-                  key: `${e.CTA}${i}r`,
-                  cta: e.CTA,
-                  idOrden: e.idOrden,
-                  NOMBRE: e.contribuyente,
-                  tp: 'RUSTICO',
-                  fecha: new Date(e.dateUp - tzoffset).toISOString().slice(0, -1),
-                  total: e.total,
-                  terreno: e.m1,
-                  construccion: e.m2
-                })
-                //data.labels.push(`D${data.labels.length+1}`)
-                //data.labels.push(`${dateLabel.toLocaleDateString()}`)
-                //dateLabel.setDate(dateLabel.getDate() + 1);
-                if (e.dateUp.getDate() < 10) {
-                  e.dateUp = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  e.dateUp = e.dateUp.toLocaleDateString()
-                }
-                i++
-                if ((dateLast !== '' && e.dateUp !== dateLast) || i === r.ordenesr.length) {
-                  if (i === r.ordenesr.length){
-                    totalD += parseInt(e.total);
-                  }
-                  
-                  if (data.objects[`${dateLast}`]) {
-                    data.objects[`${dateLast}`] += totalD
-                  }else{
-                    data.objects[`${dateLast}`] = totalD
-                  }
-                  totalD = 0
-                }
-                
-                /*if (e.dateUp.getDate() < 10) {
-                  dateLast = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  dateLast = e.dateUp.toLocaleDateString()
-                }*/
-               // data.totales.push(e.total)
-                dateLast = e.dateUp
-                total += parseInt(e.total); 
-                totalD += parseInt(e.total);
-              });
+              /*
               const objects = Object.entries(data.objects)//.sort();
               //console.log(objects)
               if (objects.length<16){
@@ -372,23 +278,13 @@ obtenerMF=async(fi,ff)=>{
               }else{
                 const arrPor = porcentaje.toString().split(".")
                 porcentaje = this.round(porcentaje, 4)
-                /*if (arrPor.length>1){
-                  if(parseInt(arrPor[1][2])>4){
-                    porcentaje = this.round(porcentaje, 3)
-                  }else{
-                    porcentaje = this.round(porcentaje)
-                  }
-                }else{
-                  porcentaje = this.round(porcentaje)
-                }*/
-
               }
               corte.options.high = high
               corte.data.labels = data.labels
-              corte.data.series = [data.totales]
+              corte.data.series = [data.totales]*/
               
               //porcentaje = isNaN(porcentaje) ? 0:this.round(porcentaje)
-              this.setState({dataTable: data, total: total, porcentaje, porcentaje2});
+              this.setState({dataTable: data});
               
               
             }
@@ -445,19 +341,19 @@ handleClickDash = event => {
   this.changeDash(event);
 };
 
-
 onChangeDI = date => {
   const {dateSF} = this.state
   let dateNSF = new Date(dateSF)
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerMF(date, dateNSF)
+  this.getMov(date, dateNSF)
   this.setState({ dateSI: date })
 }
+
 onChangeDF = date => {
   const {dateSI} = this.state
   let dateNSF = new Date(date);
   dateNSF.setDate(date.getDate() + 1);
-  this.obtenerMF(dateSI, dateNSF);
+  this.getMov(dateSI, dateNSF);
   this.setState({ dateSF: date })
 }
 
@@ -466,7 +362,11 @@ recorte = () => {
   const {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerMF(dateSI, dateNSF);
+  this.getMov(dateSI, dateNSF);
+}
+
+componentDidMount = () => {
+  this.recorte();
 }
 
 informeG = () => {
@@ -522,13 +422,13 @@ render() {
   const {porcentaje} = this.state;
   const {porcentaje2} = this.state;
   const headCells = [
-    { id: 'cta', numeric: true, disablePadding: true, label: 'CTA' },
-    { id: 'NOMBRE', numeric: false, disablePadding: false, label: 'Nombre' },
-    { id: 'tp', numeric: false, disablePadding: false, label: 'Tipo' },
-    { id: 'fecha', numeric: false, disablePadding: false, label: 'Fecha y hora' },
-    { id: 'total', numeric: false, disablePadding: false, label: 'Total' },
-    { id: 'terreno', numeric: true, disablePadding: false, label: 'Terreno' },
-    { id: 'construccion', numeric: true, disablePadding: false, label: 'Construcción' },
+    { id: 'idHistory', numeric: true, disablePadding: true, label: '#' },
+    { id: 'mov', numeric: false, disablePadding: false, label: 'Movimiento' },
+    { id: 'idUsuario', numeric: false, disablePadding: false, label: 'Empleado' },
+    { id: 'cta', numeric: false, disablePadding: false, label: 'CTA' },
+    { id: 'idOrden', numeric: false, disablePadding: false, label: 'N° de orden' },
+    { id: 'folio', numeric: false, disablePadding: false, label: 'Folio' },
+    { id: 'fecha', numeric: true, disablePadding: false, label: 'Fecha del movimiento' },
   ]
 
   return (

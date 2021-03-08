@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import CheckI from "./CheckI";
 export default (subS, task, md, checkeds, strsa, strsb, ids, c) => {
-
+try{
     const sub = document.getElementById(subS);
     ReactDOM.unmountComponentAtNode(sub);
     
@@ -18,5 +18,8 @@ export default (subS, task, md, checkeds, strsa, strsb, ids, c) => {
         />,
         sub
     )
+    }catch(e){
+
+    }
 
 }

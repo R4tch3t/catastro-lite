@@ -21,7 +21,8 @@ export default (r,tp,c,byFolio) => {
       const orden = r.orden
       const {Y} = c.state
       const cPeriodo = contribuyente.periodo
-
+      contribuyente.ubi=ubicacion;
+      contribuyente.orden=orden;
         c.setState({
           CTA: contribuyente.CTA
         });
@@ -76,7 +77,7 @@ export default (r,tp,c,byFolio) => {
           if (calle.value===''){
             calle.value = contribuyente.ubicacion
           }
-
+          
           m1.value = contribuyente.m1;
           m2.value = contribuyente.m2;
           bg.value = contribuyente.bg;
@@ -91,7 +92,9 @@ export default (r,tp,c,byFolio) => {
           }
           return false;
         }
-        
+        if(orden.nombre){
+          nombre.value = orden.nombre
+        }
         m1.value = orden.m1
         m2.value = orden.m2
         obs.value = orden.obs
