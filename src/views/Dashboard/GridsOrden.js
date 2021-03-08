@@ -20,7 +20,7 @@ import {Popper} from "components/Popper";
 import SkPredial from "./skPredial"
 export default (props) => {
     const {c} = props
-    const {classes, classesM} = c.props
+    const {classes, classesM, classesC} = c.props
     const {horas, minutos, segundos, openDash, openCalendar, CBG, zona, openZona, tc, openTC, 
            CTA, openCTA, ctasIndexes, Y, totalN, disabledReg, currentD} = c.state
     const controls = {
@@ -161,7 +161,7 @@ export default (props) => {
                   
                 }}
               />
-               <Popper handleClickDash={c.handleClickCalendar} handleClickItem={()=>{}} handleCloseDash={c.handleCloseCalendar} openDash={openCalendar} classesM={classesM} 
+               <Popper handleClickDash={c.handleClickCalendar} handleClickItem={()=>{}} handleCloseDash={c.handleCloseCalendar} openDash={openCalendar} classesM={classesC} 
               Items={[{k: "calendar", html: <>
                       <Typography id="discrete-slider" gutterBottom>
                               HORAS

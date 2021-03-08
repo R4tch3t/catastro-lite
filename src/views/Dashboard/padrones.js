@@ -26,7 +26,7 @@ export default async (CTAnombre, tp, tipoB, idOrden, c) => {
             
         });
     } catch (e) {
-        c.setState({bandLoad: true, bandPost: false})
+      //  c.setState({bandLoad: true, bandPost: false})
         console.log(`Error: ${e}`);
     }
    

@@ -4,7 +4,8 @@ import TablesCorte from "./TablesCorte.js";
 import { makeStyles } from "@material-ui/core/styles";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
-import stylesM from "assets/jss/material-dashboard-react/components/listItemStyle.js";
+//import stylesM from "assets/jss/material-dashboard-react/components/listItemStyle.js";calendarItemStyle
+import stylesM from "assets/jss/material-dashboard-react/components/calendarItemStyle.js";
 import decrypt from "views/Dashboard/decrypt.js";
 
 const useStyles = makeStyles(styles);

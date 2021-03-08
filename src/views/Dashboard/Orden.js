@@ -6,11 +6,13 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import styles from "assets/jss/material-dashboard-react/views/dashboardStyle.js";
 import stylesM from "assets/jss/material-dashboard-react/components/listItemStyle.js";
+import stylesC from "assets/jss/material-dashboard-react/components/calendarItemStyle.js";
 import decrypt from "./decrypt";
 import ls from 'local-storage'
 
 const useStyles = makeStyles(styles);
 const useStylesM = makeStyles(stylesM);
+const useStylesC = makeStyles(stylesC);
 
 function getParameterByName(name, url) {
   if (!url) url = window.location.href;
@@ -27,6 +29,7 @@ function getParameterByName(name, url) {
 export default () => {
   const classes = useStyles();
   const classesM = useStylesM();
+  const classesC = useStylesC();
   let urlDec = getParameterByName('v');
   urlDec = decrypt(urlDec);
   let bandPdf = getParameterByName('bandPdf', urlDec);
@@ -86,7 +89,7 @@ export default () => {
   const idUsuario = decrypt(cookie.load('idUsuario'));
 
   return (
-   <FormOrden classes={classes} classesM={classesM} 
+   <FormOrden classes={classes} classesM={classesM} classesC={classesC} 
           idRol={idRol}
           idUsuario={idUsuario}
           bandPdf={bandPdf} 

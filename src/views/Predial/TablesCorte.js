@@ -20,6 +20,7 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import Calendar from "react-calendar";
 import ip from "variables/ip.js";
+import Skeleton from '@material-ui/lab/Skeleton';
 import CustomInput from "components/CustomInput/CustomInput.js";
 import {
   corte,
@@ -28,6 +29,10 @@ import encrypt from 'views/Dashboard/encrypt';
 import {Popper} from "components/Popper";
 import Slider from '@material-ui/core/Slider';
 import Typography from '@material-ui/core/Typography';
+import IGI from "@material-ui/icons/AssignmentRounded"
+import IMI from "@material-ui/icons/AssignmentLateOutlined"
+import GRI from "@material-ui/icons/AssignmentTurnedIn"
+import Search from "@material-ui/icons/Search";
 
 let Pdf = <></>
 let PdfG = <></>
@@ -39,9 +44,12 @@ handleCloseDash = () => {
 constructor(props){
     super(props);
     let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    const date = new Date(Date.now() - tzoffset)
+    const date = new Date()
     let dateSI = new Date(Date.now() - tzoffset)
     let dateSF = new Date(Date.now() - tzoffset)
+    console.log(date.getHours())
+    //date.setHours(date.getHours()-6)
+    console.log(date.getHours())
     const lastD = date.getMonth()
     dateSI.setHours(0,0,0,0)
     dateSF.setHours(0,0,0,0)
@@ -64,10 +72,12 @@ constructor(props){
       bandPost: true,
       openCalendarI: false,
       openCalendarF: false,
-      horas: 0,
-      minutos: 0,
-      segundos: 0,
-      currentD: new Date()
+      horasI: date.getHours(),
+      minutosI: date.getMinutes(),
+      segundosI: date.getSeconds(),
+      horasF: 0,
+      minutosF: 0,
+      segundosF: 0
     };
     
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
@@ -76,6 +86,10 @@ constructor(props){
   h = 0
   m = 0
   s = 0
+  
+  hF = 0
+  mF = 0
+  sF = 0
     
     /*onChangeDI = (date) => {
       let tzoffset = (new Date()).getTimezoneOffset() * 60000;
@@ -98,6 +112,19 @@ constructor(props){
     }
     valueS = (value) => {
       this.s = value
+      return `${value}`;
+    }
+
+    valueHF=(value)=>{
+      this.hF = value
+      return `${value}`;
+    }
+    valueMF = (value) => {
+      this.mF = value
+      return `${value}`;
+    }
+    valueSF = (value) => {
+      this.sF = value
       return `${value}`;
     }
 
@@ -518,11 +545,20 @@ handleClickDash = event => {
 bandLoading=true
 
 onChangeDI = date => {
-  const {dateSF} = this.state
+
+  const {dateSF,horasI,minutosI,segundosI} = this.state
   let dateNSF = new Date(dateSF)
   dateNSF.setDate(dateSF.getDate() + 1);
   this.obtenerOF(date, dateNSF)
-  this.setState({ dateSI: date })
+  
+  this.setState({ dateSI: date , horasI: this.h,minutosI: this.m, segundosI: this.s})
+  //new Date()
+  date.setHours(this.h)
+  date.setMinutes(this.m)
+  date.setSeconds(this.s)
+  const newDate = new Date(date);
+  newDate.setHours(date.getHours()-6);
+  document.getElementById("dateUpI").value=newDate.toISOString();
 }
 
 onChangeDF = date => {
@@ -530,7 +566,14 @@ onChangeDF = date => {
   let dateNSF = new Date(date);
   dateNSF.setDate(date.getDate() + 1);
   this.obtenerOF(dateSI, dateNSF);
-  this.setState({ dateSF: date })
+  this.setState({ dateSF: date , horasF: this.hF, minutosF: this.mF, segundosF: this.sF})
+  //new Date()
+  date.setHours(this.hF)
+  date.setMinutes(this.mF)
+  date.setSeconds(this.sF)
+  const newDate = new Date(date);
+  newDate.setHours(date.getHours()-6);
+  document.getElementById("dateUpF").value=newDate.toISOString();
 }
 
 recorte = () => {
@@ -602,7 +645,7 @@ componentDidMount(){
 
 render() {
   const {bandInfoG,bandInfo,classesM} = this.props;
-  const {classes,openCalendarI,openCalendarF,horas,minutos,segundos} = this.state;
+  const {classes,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
     return(<PdfG classes={classes}
@@ -613,7 +656,7 @@ render() {
             dateSI={dateSI} dateSF={dateSF} /> )
   }else{
   const {dataTable} = this.state
-  const {dateSI, dateSF} = this.state;
+  const {dateSI, dateSF,openDash} = this.state;
   //const {setOpenDash} = this.state;
   const {total} = this.state;
   const {porcentaje} = this.state;
@@ -642,16 +685,53 @@ render() {
             <CardBody>
               <div className={classes.searchWrapper}>
                 <GridContainer>
+            <GridItem xs={12} sm={12} md={4}>
+              <CustomInput
+                formControlProps={{
+                  className: classes.margin + " " + classes.search
+                }}
+                id="CTANM"
+                inputProps={{
+                  placeholder: "CTA",
+                  type: "text",
+                  onKeyUp: this.handleUpper,
+                  inputProps: {
+                    "aria-label": "Search"
+                  }
+                }}
+              />
+              <Button
+                color="white"
+                onClick={this.handleClickDash}
+                aria-label="edit"
+                aria-owns={openDash ? "profile-menu-list-grow" : null}
+                aria-haspopup="true"
+                justIcon
+                round
+              >
+                <Search />
+              </Button>
+
+              <Popper handleClickDash={this.handleClickDash} handleClickItem={this.buscarCTA} handleCloseDash={this.handleCloseDash} openDash={openDash} classesM={classesM} 
+              Items={[{k: "CTA", html: "Por CTA."},{k: "nombre", html: "Por nombre."},{k: "folio", handleClickItem: this.buscarFolio, html: "Por folio."}]} />
+            </GridItem>
+            
+          </GridContainer>
+                <GridContainer>
                    <GridItem xs={12} sm={12} md={3}>
               <CustomInput
                 labelText="FECHA DE CORTE INICIAL:"
-                id="dateUp"
+                id="dateUpI"
+                
                 formControlProps={{
                   fullWidth: true
                 }}
                 inputProps={{
                   type: "text",
-                  defaultValue: "\0",
+                  style: {color: 'red'},
+                  defaultValue: (()=>{const d = new Date(); 
+                    d.setHours(d.getHours()-6); 
+                    return d.toISOString()})(),
                   onClick: this.handleClickCalendarI,
                   readOnly: true,
                   
@@ -663,7 +743,7 @@ render() {
                               HORAS
                             </Typography>  
                             <Slider
-                              defaultValue={horas}
+                              defaultValue={horasI}
                               getAriaValueText={this.valueH}
                               //onMouseLeave={valueLM}
                               aria-labelledby="discrete-slider"
@@ -677,7 +757,7 @@ render() {
                               MINUTOS
                             </Typography>  
                             <Slider
-                              defaultValue={minutos}
+                              defaultValue={minutosI}
                               getAriaValueText={this.valueM}
                               aria-labelledby="discrete-slider"
                               valueLabelDisplay="auto"
@@ -690,7 +770,7 @@ render() {
                               SEGUNDOS
                             </Typography>  
                             <Slider
-                              defaultValue={segundos}
+                              defaultValue={segundosI}
                               getAriaValueText={this.valueS}
                               aria-labelledby="discrete-slider"
                               valueLabelDisplay="auto"
@@ -706,13 +786,18 @@ render() {
             <GridItem xs={12} sm={12} md={3}>
               <CustomInput
                 labelText="FECHA DE CORTE FINAL:"
-                id="dateUp"
+                id="dateUpF"
                 formControlProps={{
                   fullWidth: true
                 }}
                 inputProps={{
                   type: "text",
-                  defaultValue: "\0",
+                  style: {color: 'red'},
+                  defaultValue: (()=>{const d = new Date(); d.setHours(0); 
+                    d.setHours(d.getHours()-6); d.setMinutes(0); 
+                    d.setSeconds(0); d.setMilliseconds(0); d.setDate(d.getDate()+1); 
+                    return d.toISOString()
+                  })(),
                   onClick: this.handleClickCalendarF,
                   readOnly: true,
                   
@@ -724,8 +809,8 @@ render() {
                               HORAS
                             </Typography>  
                             <Slider
-                              defaultValue={horas}
-                              getAriaValueText={this.valueH}
+                              defaultValue={horasF}
+                              getAriaValueText={this.valueHF}
                               //onMouseLeave={valueLM}
                               aria-labelledby="discrete-slider"
                               valueLabelDisplay="auto"
@@ -738,8 +823,8 @@ render() {
                               MINUTOS
                             </Typography>  
                             <Slider
-                              defaultValue={minutos}
-                              getAriaValueText={this.valueM}
+                              defaultValue={minutosF}
+                              getAriaValueText={this.valueMF}
                               aria-labelledby="discrete-slider"
                               valueLabelDisplay="auto"
                               step={1}
@@ -751,8 +836,8 @@ render() {
                               SEGUNDOS
                             </Typography>  
                             <Slider
-                              defaultValue={segundos}
-                              getAriaValueText={this.valueS}
+                              defaultValue={segundosF}
+                              getAriaValueText={this.valueSF}
                               aria-labelledby="discrete-slider"
                               valueLabelDisplay="auto"
                               step={1}
@@ -794,46 +879,52 @@ render() {
                   </Button>
                 </GridContainer>*/}
                 <GridContainer>
-                  <Button
-                    id="infoA"
-                    color="info"
-                    style={{
-                      display: "flex",
-                      flex: 1,
-                      alignItems: "center"
-                    }}
-                    onClick={this.informeG}
-                  >
-                    INFORME GENERAL
-                  </Button>
-                </GridContainer>
-                <GridContainer>
-                  <Button
-                    id="infoB"
-                    color="primary"
-                    style={{
-                      display: "flex",
-                      flex: 1,
-                      alignItems: "center"
-                    }}
-                    onClick={this.informe}
-                  >
-                    INFORME MENSUAL
-                  </Button>
-                </GridContainer>
-                <GridContainer>
-                  <Button
-                    id="regB"
-                    color="success"
-                    style={{
-                      display: "flex",
-                      flex: 1,
-                      alignItems: "center"
-                    }}
-                    onClick={this.recorte}
-                  >
-                    GENERAR RECORTE
-                  </Button>
+                  <GridItem xs={12} sm={12} md={3}/>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <Button
+                      id="infoA"
+                      color="info"
+                      style={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center"
+                      }}
+                      onClick={this.informeG}
+                    >
+                    <IGI /> INFORME GENERAL
+                    </Button>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={4}>
+                    <Button
+                      id="infoB"
+                      color="primary"
+                      style={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center"
+                      }}
+                      onClick={this.informe}
+                    >
+                    <IMI />  INFORME MENSUAL
+                    </Button>
+                  </GridItem>
+                  </GridContainer>
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={5}/>
+                  <GridItem xs={12} sm={12} md={3}>
+                    <Button
+                      id="regB"
+                      color="success"
+                      style={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center"
+                      }}
+                      onClick={this.recorte}
+                    >
+                    <GRI />  GENERAR RECORTE
+                    </Button>
+                  </GridItem>
                   </GridContainer>
                 
               </div>
@@ -858,7 +949,8 @@ render() {
                 <LocalAtm />
               </CardIcon>
               <p className={classes.cardCategory}>SUMA TOTAL DEL CORTE: </p>
-              <h3 className={classes.cardTitle}>{`$`}{total}</h3>
+              {this.state.bandLoad || <Skeleton height={50} animation="wave" />}
+              {this.state.bandLoad && <h3 className={classes.cardTitle}>{`$`}{total}</h3> }
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>

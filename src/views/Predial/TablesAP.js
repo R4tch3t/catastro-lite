@@ -7,6 +7,7 @@ import CheckCircle from "@material-ui/icons/CheckCircle"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Loader from "react-loader-spinner";
+import SkActalizar from "./skActualizar"
 import Card from "components/Card/Card.js";
 import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
@@ -44,7 +45,8 @@ constructor(props){
         colorSnack:'info',
         bandLoad: true,
         topAna: 20,
-        bandPost: false
+        bandPost: false,
+        bandError: false
     };
     
 }
@@ -250,25 +252,9 @@ updateNB = () => {
 
 padrones=async(tp)=>{
   try {
-    this.setState({bandPost: true})
+    
     let CTAnombre = document.getElementById('CTA');
-    const nombre = document.getElementById('nombre')
-    const calle = document.getElementById('calle')
-    let lote = document.getElementById('lote')
-    let manzana = document.getElementById('manzana')
-    let numCalle = document.getElementById('numCalle')
-    const colonia = document.getElementById('colonia')
-    let cp = document.getElementById('cp')
-    const municipio = document.getElementById('municipio')
-    const localidad = document.getElementById('localidad')
-    const m1 = document.getElementById('m1')
-    const m2 = document.getElementById('m2')
-    const tc = document.getElementById('tc')
-    const zona = document.getElementById('zona')
-    const bg = document.getElementById('baseGravable');
-    const obs = document.getElementById('obs');
-    const pdfToUp = document.getElementById('pdfToUp');
-    const regP = document.getElementById('regP');
+    this.setState({bandPost: true})
     const sendUri = ip('3015')+"padrones";
     const bodyJSON = {
       CTAnombre: CTAnombre.value,
@@ -285,6 +271,28 @@ padrones=async(tp)=>{
       body: JSON.stringify(bodyJSON)
     });
 
+    
+    
+    const responseJson = await response.json().then(r => {
+      //console.log(`Response1: ${r}`)
+      this.setState({bandPost: false});
+      const nombre = document.getElementById('nombre')
+    const calle = document.getElementById('calle')
+    let lote = document.getElementById('lote')
+    let manzana = document.getElementById('manzana')
+    let numCalle = document.getElementById('numCalle')
+    const colonia = document.getElementById('colonia')
+    let cp = document.getElementById('cp')
+    const municipio = document.getElementById('municipio')
+    const localidad = document.getElementById('localidad')
+    const m1 = document.getElementById('m1')
+    const m2 = document.getElementById('m2')
+    const tc = document.getElementById('tc')
+    const zona = document.getElementById('zona')
+    const bg = document.getElementById('baseGravable');
+    const obs = document.getElementById('obs');
+    const pdfToUp = document.getElementById('pdfToUp');
+    const regP = document.getElementById('regP');
     regP.innerHTML="Actualizar Contribuyente"
     nombre.value='';
     calle.value = '';
@@ -301,11 +309,7 @@ padrones=async(tp)=>{
     tc.value = 0
     zona.value = 0
     bg.value = 0
-    
-    const responseJson = await response.json().then(r => {
-      //console.log(`Response1: ${r}`)
-
-      if (r.contribuyente) {
+    if (r.contribuyente) {
         const contribuyente = r.contribuyente[0]
         const ubicacion = r.ubicacion[0]
         const nameFile = contribuyente.escriturasPath
@@ -339,11 +343,11 @@ padrones=async(tp)=>{
         lote.value = lote.value === '' ? 0 : lote.value
         
       }
-      this.setState({bandPost: false});
+      
       
     });
   } catch (e) {
-    this.setState({bandPost: false});
+    this.setState({bandError: true});
     console.log(`Error: ${e}`);
   }
 }
@@ -480,7 +484,9 @@ showNotification = place => {
           }, 6000);
         }
   };
-
+componentDidMount(){
+ // this.padrones('u');
+}
 render() {
   const {
     tr, colorSnack, iconSnack, messageSnack,
@@ -539,7 +545,7 @@ render() {
               </p>
             </CardHeader>
             <CardBody>
-              <Loader
+              {/*<Loader
                   type="BallTriangle"
                   color="#00BFFF"
                   height={20}
@@ -547,8 +553,10 @@ render() {
                   visible={this.state.bandPost}
                   style={{position:'absolute', top: "10px", left: '10px'}}
                   //timeout={3000} //3 secs
-                />
+              />*/}
+
               <FormRegistro c={this} a={true} fa={this.padrones} />
+              <SkActalizar bandLoad={!this.state.bandPost} />
               <CardFooter>
               <Button id = 'regP'
                 color="success"  

@@ -11,6 +11,7 @@ import {Popper} from "components/Popper";
 import genItemsTC from "views/Dashboard/genItemsTC"
 import genItemsZU from "views/Dashboard/genItemsZU"
 import genItemsZR from "views/Dashboard/genItemsZR"
+import Skeleton from '@material-ui/lab/Skeleton';
 const useStylesM = makeStyles(stylesM);
 export default (props) => {
     const {c} = props;
@@ -35,9 +36,15 @@ export default (props) => {
         }
     }
     const padrones=()=>{
-        const checkU = document.getElementById('check0');
-        const tp = checkU.checked ? 'u' : 'r'
+        let tp = 'u';
+        try{
+            const checkU = document.getElementById('check0');
+            tp = checkU.checked ? 'u' : 'r'
+        }catch(e){
+            
+        }
         c.padrones(tp)
+        
     }
 
     const noDisabled=e=>{
@@ -50,7 +57,8 @@ export default (props) => {
         c.updateNB();
         noDisabled(e);
         if(props.a){
-            if(!c.state.bandPost){
+            if(!c.state.bandPost||c.state.bandError){
+                c.setState({bandError: false});
                 padrones()
             }else{
                 if(!bandLoading){
@@ -77,7 +85,8 @@ export default (props) => {
         c.updateNB();
         noDisabled(e)
         if(props.a){
-            if(!c.state.bandPost){
+            if(!c.state.bandPost||c.state.bandError){
+                c.setState({bandError: false});
                 padrones()
             }else{
                 if(!bandLoading){
@@ -215,6 +224,19 @@ return(
             />
             
         </GridItem>
+        {c.state.bandPost &&
+        <>
+        <GridItem xs={12} sm={12} md={6}>
+            {!c.state.bandPost || <Skeleton height={50} animation="wave" />}
+        </GridItem>
+        <GridItem xs={12} sm={12} md={1}>
+            {!c.state.bandPost || <Skeleton height={75} width={75} animation="wave" />}
+        </GridItem>
+        <GridItem xs={12} sm={12} md={1}>
+            {!c.state.bandPost || <Skeleton height={75} width={75} animation="wave" />}
+        </GridItem>
+        </>}
+        {!c.state.bandPost && <>
         <GridItem xs={12} sm={12} md={6}>
             <CustomInput
             labelText="NOMBRE"
@@ -238,7 +260,9 @@ return(
             fa={props.fa}
         />
         </GridContainer>
+        </>}
     </GridContainer>
+    {!c.state.bandPost && <>
     <GridContainer>
         <GridItem xs={12} sm={12} md={3}>
             <CustomInput
@@ -526,7 +550,8 @@ return(
              <div style={{height: 28}} ></div>
                     
         </GridItem>
-    </GridContainer>        
+    </GridContainer>  
+    </>}      
     </>
 )
 }
