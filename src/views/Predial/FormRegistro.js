@@ -253,7 +253,7 @@ return(
         </GridItem>
         <GridContainer>
         <Checker
-            checkedIndexes={[0]}
+            checkedIndexes={props.c.state.tp==="u"?[0]:[1]}
             tasksIndexes={[0, 1]}
             strs={["URBANO", "RUSTICO"]}
             ids={["check", "check"]}

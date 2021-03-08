@@ -3,7 +3,7 @@ import Skeleton from '@material-ui/lab/Skeleton';
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 export default (props) => {
-    const {bandLoad} = props
+    const {bandLoad, height} = props
 
     if(bandLoad){
       return <> </>
@@ -16,11 +16,11 @@ export default (props) => {
             </GridItem>
           </GridContainer>
  
-          {bandLoad || <Skeleton height={50} animation="wave" />}
-          {bandLoad || <Skeleton height={50} animation="wave" />}
-          {bandLoad || <Skeleton height={50} animation="wave" />}
-          {bandLoad || <Skeleton height={50} animation="wave" />}
-          {bandLoad || <Skeleton height={50} animation="wave" />}
+          {bandLoad || <Skeleton height={height?height:50} animation="wave" />}
+          {bandLoad || <Skeleton height={height?height:50} animation="wave" />}
+          {bandLoad || <Skeleton height={height?height:50} animation="wave" />}
+          {bandLoad || <Skeleton height={height?height:50} animation="wave" />}
+          {bandLoad || <Skeleton height={height?height:50} animation="wave" />}
           
 
     </>

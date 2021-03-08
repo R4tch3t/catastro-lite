@@ -46,7 +46,8 @@ constructor(props){
         bandLoad: true,
         topAna: 20,
         bandPost: false,
-        bandError: false
+        bandError: false,
+        tp: 'u'
     };
     
 }
@@ -254,7 +255,7 @@ padrones=async(tp)=>{
   try {
     
     let CTAnombre = document.getElementById('CTA');
-    this.setState({bandPost: true})
+    this.setState({bandPost: true,tp})
     const sendUri = ip('3015')+"padrones";
     const bodyJSON = {
       CTAnombre: CTAnombre.value,

@@ -342,7 +342,7 @@ render() {
                   <h1>{this.state.bandLoad || <Skeleton />}</h1>
                   {this.state.bandLoad || <Skeleton count={10} />}
                     </div>*/}
-              <SkTables bandLoad={this.state.bandLoad} />
+              <SkTables height={75} bandLoad={this.state.bandLoad} />
               { this.state.bandLoad &&
                 <TablePadrones
                   tableHeaderColor="warning"
