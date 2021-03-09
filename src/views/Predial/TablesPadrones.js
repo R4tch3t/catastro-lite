@@ -18,6 +18,10 @@ import comprobarU from 'views/UserProfile/comprobarU';
 import decrypt from "views/Dashboard/decrypt.js";
 import ls from 'local-storage'
 import cookie from "react-cookies";
+import LocalAtm from "@material-ui/icons/AssignmentInd";
+import Skeleton from '@material-ui/lab/Skeleton';
+import CardFooter from "components/Card/CardFooter.js";
+import DateRange from "@material-ui/icons/DateRange";
 
 export default class TableRender extends React.Component {
 
@@ -37,7 +41,9 @@ constructor(props){
         setOpenDash: null,
         labelB: 'NOMBRE',
         bandLoad: false,
-        bandPost: true
+        bandLoad2: false,
+        bandPost: true,
+        lengthUR: 0
     };
     
 }
@@ -54,8 +60,39 @@ round = (num, decimales = 2)=>{
   num = num.toString().split('e');
   return signo * (num[0] + 'e' + (num[1] ? (+num[1] - decimales) : -decimales));
 }
+
 countP = 0
-allPadrones=async(CTAnombre,bandInit)=>{
+nextP = 50
+pI = 0;
+rpI = 5;
+getLength = async() => {
+  try {
+    this.setState({bandLoad2: false})
+    const sendUri = ip("3023")+"allPadrones";
+    const bodyJSON = {
+         op: 1
+    }
+    const response = await fetch(sendUri, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyJSON)
+    });
+
+    const responseJson = await response.json().then(r => {
+      this.setState({bandLoad2: true});
+        if(r&&r.lengthUR){
+          this.setState({lengthUR: r.lengthUR});
+        }
+    });
+  }catch(e){
+
+  }
+}
+
+allPadrones=async(CTAnombre,bandInit,bandR)=>{
     try {
       this.setState({bandLoad: false})
        //const sendUri = "http://34.66.54.10:3015/";
@@ -65,9 +102,12 @@ allPadrones=async(CTAnombre,bandInit)=>{
        const bodyJSON = {
          CTAnombre: CTAnombre,
          tipoB: this.tipoB,
-         countP: this.countP
+         countP: this.countP,
+         nextP: this.nextP
        }
        
+       //bodyJSON.nextP=this.countP
+       console.log(bodyJSON)
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {
@@ -78,8 +118,11 @@ allPadrones=async(CTAnombre,bandInit)=>{
         });
 
         const responseJson = await response.json().then(r => {
-            
-            let data = [];
+          /*if(bandInit){
+            this.getLength();
+          }*/
+            //let data = [];
+            const {dataTable} = this.state
             let i = 0
             let calle = "";
             let lote = "";
@@ -103,7 +146,7 @@ allPadrones=async(CTAnombre,bandInit)=>{
                 colonia = "";
                }
                
-                data.push({
+                dataTable.push({
                   key: `${e.CTA}u`,
                   cta: e.CTA,
                   NOMBRE: e.contribuyente,
@@ -134,7 +177,7 @@ allPadrones=async(CTAnombre,bandInit)=>{
                 numero = "";
                 colonia = "";
                }
-                data.push({
+                dataTable.push({
                   key: `${e.CTA}r`,
                   cta: e.CTA,
                   NOMBRE: e.contribuyente,
@@ -147,7 +190,7 @@ allPadrones=async(CTAnombre,bandInit)=>{
               })
 
             }
-            this.setState({dataTable: data, bandLoad: true, bandPost: false});
+            this.setState({/*dataTable: data,*/ bandLoad: true, bandPost: false});
             
             /*else if (r.error.name === "error01") {
                        this.removeCookies()
@@ -207,8 +250,13 @@ handleUpper = e => {
   }
   //if (e.target.value === '') {
     //this.allPadrones(e.target.value)
-    
-     this.allPadrones(e.target.value)
+  //}
+  this.runSearch(e.target.value)
+}
+runSearch=(CTAnombre)=>{
+  
+    this.setState({dataTable: []});
+     this.allPadrones(CTAnombre)
     if(!this.state.bandPost){
                
             }else{
@@ -217,15 +265,13 @@ handleUpper = e => {
                     this.waitPost();
                 }
             }
-  //}
 }
-
 waitPost = async() => {
   const CTAnombre = document.getElementById('CTANM');
   while(this.state.bandPost){
       await this.sleep(300);    
   }
-  this.allPadrones(CTAnombre.value)
+  this.allPadrones(CTAnombre.value);
   this.bandLoading=false;
 
 }
@@ -240,13 +286,14 @@ buscarCTA = (key) => (event) => {
   const labelB = key===0?'CTA':'NOMBRE'
   this.setState({labelB})
   //if (CTAnombre !== '') {
-  this.allPadrones(CTAnombre)    
+    this.runSearch(CTAnombre)  
  // }
 }
 
 
 componentDidMount(){
-  this.allPadrones('');
+  this.getLength();
+  this.allPadrones('',true);
   const idUsuario = decrypt(cookie.load("idUsuario"));
   const pass = decrypt(ls.get("pass"));
   const nombre = decrypt(cookie.load("nombre"));
@@ -262,7 +309,8 @@ render() {
     classes,
     classesM,
     openDash,
-    labelB
+    labelB,
+    lengthUR
   } = this.state;
   const headCells = [
     { id: 'cta', numeric: true, disablePadding: true, label: 'CTA' },
@@ -288,18 +336,7 @@ render() {
             <CardBody>
               
               <div className={classes.searchWrapper}>
-                {
-                /*
-                <Loader
-                  type="BallTriangle"
-                  color="#00BFFF"
-                  height={100}
-                  width={100}
-                  visible={!this.state.bandLoad}
-                  style={{position:'absolute', top: "50%", left: '42%'}}
-                  //timeout={3000} //3 secs
-                />*/
-                }
+                
 
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
@@ -338,14 +375,11 @@ render() {
                   
                 </GridContainer>
               </div>
-              {/*<div style={{ fontSize: 20, lineHeight: 2 }}>
-                  <h1>{this.state.bandLoad || <Skeleton />}</h1>
-                  {this.state.bandLoad || <Skeleton count={10} />}
-                    </div>*/}
-              <SkTables height={75} bandLoad={this.state.bandLoad} />
+              <SkTables height={75} bandLoad={this.state.bandLoad} c={this.rpI} />
               { this.state.bandLoad &&
                 <TablePadrones
                   tableHeaderColor="warning"
+                  c={this}
                   tableHead={headCells}
                   tableData={dataTable}
                 />
@@ -354,6 +388,28 @@ render() {
             </CardBody>
           </Card>
         </GridItem>
+      </GridContainer>
+      <GridContainer>
+
+        <GridItem xs={12} sm={6} md={12}>
+          <Card>
+            <CardHeader color="success" stats icon>
+              <CardIcon color="success">
+                <LocalAtm />
+              </CardIcon>
+              <p className={classes.cardCategory}>SUMA TOTAL DE CONTRIBUYENTES: </p>
+              {this.state.bandLoad2 || <Skeleton height={50} animation="wave" />}
+              {this.state.bandLoad2 && <h3 className={classes.cardTitle}>{`N° `}{lengthUR}</h3> }
+            </CardHeader>
+            <CardFooter stats>
+              <div className={classes.stats}>
+                <DateRange />
+                {`FECHA: ${new Date().toLocaleDateString()} `}
+              </div>
+            </CardFooter>
+          </Card>
+        </GridItem>
+        
       </GridContainer>
       <GridContainer>
         

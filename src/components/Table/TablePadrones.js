@@ -118,20 +118,38 @@ const getE = (tp, CTA, escriturasPath) => {
 export default function CustomTable(props) {
   
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const { tableHead, tableData, tableHeaderColor, c, } = props;
   const [dense, setDense] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = React.useState(c.pI);
+  const [rowsPerPage, setRowsPerPage] = React.useState(c.rpI);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('ID');
   const rows = tableData
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    console.log(newPage)
+    console.log((newPage+1)*rowsPerPage)
+    console.log(rows.length)
+    c.nextP+=50;
+    c.countP+=50;
+    c.pI=newPage;
+    c.rpI=rowsPerPage;
+    
+    if(((newPage+1)*rowsPerPage)>=rows.length){
+      c.allPadrones('',false,true);
+    }else{
+      setPage(newPage);
+    }
   };
 
   const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+    const cL = page*rowsPerPage
+    const newRowsPerPage = parseInt(event.target.value, 10)
+    setRowsPerPage(newRowsPerPage);
+    //if((page*newRowsPerPage)>rows.length){
+      setPage(parseInt(cL/newRowsPerPage));
+    //}
+    c.pI=page;
+    c.rpI=newRowsPerPage;
   };
 
   const handleRequestSort = (event, property) => {
@@ -252,6 +270,8 @@ export default function CustomTable(props) {
           count={rows.length}
           rowsPerPage={rowsPerPage}
           page={page}
+          
+          onEnded={()=>{console.log('ended')}}
           labelRowsPerPage = {`Filas por página:`}
           labelDisplayedRows={(_ref)=>{
             var from = _ref.from,
