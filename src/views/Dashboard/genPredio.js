@@ -129,7 +129,8 @@ export default (r,tp,c,byFolio) => {
                     minutos: dateUp.getUTCMinutes(),
                     segundos: dateUp.getSeconds()
           })
-          dateUpL.value = new Date(dateUp - tzoffset).toISOString().slice(0, -1)
+          dateUpL.value = new Date(dateUp).toISOString()///.slice(0, -1)
+          //dateUpL.value = orden.dateUpL
           regB.innerHTML = 'ACTUALIZAR ORDEN DE PAGO'
           c.idOrden = orden.idOrden
           document.getElementById('otroservicio').value=orden.otroservicio

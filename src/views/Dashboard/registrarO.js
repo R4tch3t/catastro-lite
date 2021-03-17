@@ -359,7 +359,7 @@ const registrarO = async(CTA,c) => {
 
                 let subUrl = `?bandPdf=1&CTA=${CTA}&nombre=${nombre}&calle=${calle}&lote=${lote}&manzana=${manzana}&numero=${numCalle}`
                 subUrl += `&colonia=${colonia}&cp=${cp}&municipio=${municipio}&localidad=${localidad}&tipoP=${tipoP}`
-                subUrl += `&bg=${bg}&periodo=${periodo}&dateUp=${dateUp.value}`
+                subUrl += `&bg=${bg}&periodo=${periodo}&dateUp=${new Date(dateUp.value).toLocaleString()}`
                 if (!I0030101 && !I0090701 && !I0090702 && !I0090703 && !I0090704) {
                   subUrl += `&folio=${folio}&V0020401=${V0020401}&V0020402=${V0020402}&V0020403=${V0020403}`
                   subUrl += `&V0020801=${V0020801}&V0020802=${V0020802}&V0020803=${V0020803}&V0020804=${V0020804}&V0030101=${V0030101}`
