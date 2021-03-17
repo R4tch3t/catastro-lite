@@ -1,15 +1,11 @@
 import React from 'react';
 // react plugin for creating charts
-import ChartistGraph from "react-chartist";
 //import Pdf from "./renderPDF";
 //import PdfG from "./renderPDFG";
 //import Skeleton from 'react-loading-skeleton';
 import SkTables from 'views/Predial/skTables'
 import SkSingle from 'views/Predial/skSingle'
-import LocalAtm from "@material-ui/icons/LocalAtm";
-import DateRange from "@material-ui/icons/DateRange";
-import ArrowUpward from "@material-ui/icons/ArrowUpward";
-import AccessTime from "@material-ui/icons/AccessTime";
+import ArrowRight from "@material-ui/icons/ArrowRight";
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Table from "components/Table/TableMovs.js";
@@ -21,16 +17,13 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import Calendar from "react-calendar";
 import ip from "variables/ip.js";
-import CustomInput from "components/CustomInput/CustomInput.js";
+import GRI from "@material-ui/icons/History";
+import DateRange from "@material-ui/icons/DateRange";
 import {
   corte,
 } from "variables/charts.js";
 import encrypt from 'views/Dashboard/encrypt';
-import {Popper} from "components/Popper";
-import Slider from '@material-ui/core/Slider';
-import Typography from '@material-ui/core/Typography';
-import GRI from "@material-ui/icons/History";
-import Search from "@material-ui/icons/Search";
+import SnackbarContent from "components/Snackbar/SnackbarContent.js";
 
 let Pdf = <></>
 let PdfG = <></>
@@ -568,11 +561,12 @@ buscarFolio = (key) => (event) =>{
   
 }
 componentDidMount(){
-  this.recorte();
 }
 
 render() {
-  const {bandInfoG,bandInfo,classesM,classesC} = this.props;
+  const {bandInfoG,bandInfo,classesM,classesC,CTA,idHistory,nombre,tp,
+                  calle,numero,lote,manzana,col,cp,municipio,
+                  localidad,obs,m1,m2,tc,zona,bg,mov,dateIn} = this.props;
   const {classes,lengthH,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
@@ -602,243 +596,6 @@ render() {
   return (
     <CardIcon>
       <GridContainer>
-        <GridItem xs={12} sm={12} md={12}>
-          <Card>
-            <CardHeader color="info">
-              <h4 className={classes.cardTitleWhite}>HISTORIAL</h4>
-              <p className={classes.cardCategoryWhite}>
-                Historial de movimientos por fechas
-              </p>
-            </CardHeader>
-            <CardBody>
-              <div className={classes.searchWrapper}>
-                <GridContainer>
-            <GridItem xs={12} sm={12} md={4}>
-              <CustomInput
-                formControlProps={{
-                  className: classes.margin + " " + classes.search
-                }}
-                id="CTANM"
-                inputProps={{
-                  placeholder: "CTA",
-                  type: "text",
-                  onKeyUp: this.handleUpper,
-                  inputProps: {
-                    "aria-label": "Search"
-                  }
-                }}
-              />
-              <Button
-                color="white"
-                onClick={this.handleClickDash}
-                aria-label="edit"
-                aria-owns={openDash ? "profile-menu-list-grow" : null}
-                aria-haspopup="true"
-                justIcon
-                round
-              >
-                <Search />
-              </Button>
-
-              <Popper handleClickDash={this.handleClickDash} handleClickItem={this.buscarCTA} handleCloseDash={this.handleCloseDash} openDash={openDash} classesM={classesM} 
-              Items={[{k: "CTA", html: "Por CTA."},{k: "nombre", html: "Por nombre."},{k: "folio", html: "Por folio."}]} />
-            </GridItem>
-            
-          </GridContainer>
-                <GridContainer>
-                   <GridItem xs={12} sm={12} md={3}>
-              <CustomInput
-                labelText="FECHA DE MOVIMIENTOS INICIAL:"
-                id="dateUpI"
-                
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  type: "text",
-                  style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); 
-                    d.setHours(0,0,0,0,0); d.setHours(d.getHours()-6); 
-                    return d.toISOString()})(),
-                  onClick: this.handleClickCalendarI,
-                  readOnly: true,
-                  
-                }}
-              />
-               <Popper handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesC} 
-              Items={[{k: "calendar", html: <>
-                      <Typography id="discrete-slider" gutterBottom>
-                              HORAS
-                            </Typography>  
-                            <Slider
-                              defaultValue={horasI}
-                              getAriaValueText={this.valueH}
-                              //onMouseLeave={valueLM}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={23}
-                            />
-                            <Typography id="discrete-slider" gutterBottom>
-                              MINUTOS
-                            </Typography>  
-                            <Slider
-                              defaultValue={minutosI}
-                              getAriaValueText={this.valueM}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={59}
-                            />
-                            <Typography id="discrete-slider" gutterBottom>
-                              SEGUNDOS
-                            </Typography>  
-                            <Slider
-                              defaultValue={segundosI}
-                              getAriaValueText={this.valueS}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={59}
-                            />
-                            <Calendar onChange={this.onChangeDI} value={dateSI} />
-                    </>}]} />
-            </GridItem>
-            <GridItem xs={12} sm={12} md={6} />
-            <GridItem xs={12} sm={12} md={3}>
-              <CustomInput
-                labelText="FECHA DE MOVIMIENTOS FINAL:"
-                id="dateUpF"
-                formControlProps={{
-                  fullWidth: true
-                }}
-                inputProps={{
-                  type: "text",
-                  style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); d.setHours(0); 
-                    d.setHours(d.getHours()-6); d.setMinutes(0); 
-                    d.setSeconds(0); d.setMilliseconds(0); d.setDate(d.getDate()+1); 
-                    return d.toISOString()
-                  })(),
-                  onClick: this.handleClickCalendarF,
-                  readOnly: true,
-                  
-                }}
-              />
-               <Popper handleClickDash={this.handleClickCalendarF} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarF} openDash={openCalendarF} classesM={classesC} 
-              Items={[{k: "calendar2", html: <>
-                      <Typography id="discrete-slider" gutterBottom>
-                              HORAS
-                            </Typography>  
-                            <Slider
-                              defaultValue={horasF}
-                              getAriaValueText={this.valueHF}
-                              //onMouseLeave={valueLM}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={23}
-                            />
-                            <Typography id="discrete-slider" gutterBottom>
-                              MINUTOS
-                            </Typography>  
-                            <Slider
-                              defaultValue={minutosF}
-                              getAriaValueText={this.valueMF}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={59}
-                            />
-                            <Typography id="discrete-slider" gutterBottom>
-                              SEGUNDOS
-                            </Typography>  
-                            <Slider
-                              defaultValue={segundosF}
-                              getAriaValueText={this.valueSF}
-                              aria-labelledby="discrete-slider"
-                              valueLabelDisplay="auto"
-                              step={1}
-                              marks
-                              min={0}
-                              max={59}
-                            />
-                            <Calendar onChange={this.onChangeDF} value={dateSF} />
-                    </>}]} />
-            </GridItem>
-                </GridContainer>
-                {/*<GridContainer>
-                  <GridItem xs={12} sm={12} md={8}>
-                    <h4 className={classes.cardTitleBlack}>
-                      Fecha de corte inicial:
-                    </h4>
-                    <Calendar onChange={this.onChangeDI} value={dateSI} />
-                  </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
-                    <h4 className={classes.cardTitleBlack}>
-                      Fecha de corte final:
-                    </h4>
-                    <Calendar onChange={this.onChangeDF} value={dateSF} />
-                  </GridItem>
-                </GridContainer>*/}
-                <div style={{height: 30}} />
-                {/*<GridContainer>
-                  <Button
-                    id="add Excel"
-                    color="warning"
-                    style={{
-                      //display: "none",
-                      flex: 1,
-                      alignItems: "center"
-                    }}
-                    onClick={this.addEx}
-                  >
-                    AGREGAR EXCEL
-                  </Button>
-                </GridContainer>*/}
-                  <GridContainer>
-                    <GridItem xs={12} sm={12} md={5}/>
-                  <GridItem xs={12} sm={12} md={3}>
-                    <Button
-                      id="regB"
-                      color="success"
-                      style={{
-                        display: "flex",
-                        flex: 1,
-                        alignItems: "center"
-                      }}
-                      onClick={this.recorte}
-                    >
-                    <GRI />  GENERAR HISTORIAL
-                    </Button>
-                  </GridItem>
-                  </GridContainer>
-                
-              </div>
-              <SkTables height={50} c={this.rpI} bandLoad={this.state.bandLoad} />
-              { this.state.bandLoad &&
-                <Table
-                  tableHeaderColor="info"
-                  c={this}
-                  tableHead={headCells}
-                  tableData={dataTable}
-                />
-              }
-            </CardBody>
-          </Card>
-        </GridItem>
-      </GridContainer>
-      <GridContainer>
 
         <GridItem xs={12} sm={6} md={12}>
           <Card>
@@ -846,21 +603,272 @@ render() {
               <CardIcon color="success">
                 <GRI />
               </CardIcon>
-              <p className={classes.cardCategory}>NUMERO TOTAL DE MOVIMIENTOS: </p>
-              <SkSingle height={50} bandLoad={this.state.bandLoad2} c={1} />
-              {this.state.bandLoad2 && <h3 className={classes.cardTitle}>{`N° `}{lengthH}</h3> }
+              <p className={classes.cardCategory}>DESCRIPCIÓN DEL MOVIMIENTO: </p>
+              <h3 className={classes.cardTitle}>{mov}</h3> 
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
                 <DateRange />
-                {`Periodo del ${dateSI.toLocaleDateString()} al ${dateSF.toLocaleDateString()}`}
+                {`Fecha del movimiento: ${dateIn}`}
               </div>
             </CardFooter>
           </Card>
         </GridItem>
         
       </GridContainer>
+      <GridContainer>
+        <GridItem xs={12} sm={12} md={12}>
+          <Card>
+            <CardHeader color="info">
+              <h4 className={classes.cardTitleWhite}>HISTORIAL</h4>
+              <p className={classes.cardCategoryWhite}>
+                Movimiento número {idHistory}
+              </p>
+            </CardHeader>
+            <CardBody>
+              <div>
+                 
+                  <GridContainer>
+                    <GridItem xs={12} sm={12} md={3} />
+                  <GridItem xs={12} sm={12} md={3}>
+                    <SnackbarContent message={<>
+                     NÚMERO DE CUENTA: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={3}  >
+                    <SnackbarContent message={<div><div style={{position:'absolute', left: '47%', textAlign: 'center'}} >
+                      {CTA} 
+                    </div>
+                    {'\0'}
+                    </div>} />
+                    
+                  </GridItem>
 
+                  {/*<ArrowRight style={{position: 'relative', marginTop: 20}} />
+                  <GridItem xs={12} sm={12} md={5}>
+                    <SnackbarContent message={"This 2 is a plain notification"} />
+                    </GridItem>*/}
+                  
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      NOMBRE: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {nombre?nombre:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      TIPO DE PREDIO: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {tp==='u'?'URBANO':'RUSTICO'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      CALLE: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {calle?calle:'\0'}
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      NUMERO: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {numero?numero:'\0'}
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      LOTE: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {lote?lote:'\0'}
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      MANZANA: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {manzana?manzana:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      COLONIA: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {col?col:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      CÓDIGO POSTAL: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {cp?cp:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      MUNICIPIO: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {municipio?municipio:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      LOCALIDAD: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {localidad?localidad:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      OBSERVACIONES: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {obs?obs:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      TERRENO (M²): 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {m1?m1:'\0'}  
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      CONSTRUCCIÓN (M²): 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {m2?m2:'\0'}  
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      TIPO DE CONSTRUCCIÓN: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {tc?tc:'\0'}  
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      ZONA: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {zona?zona:'\0'}  
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+
+                  <GridContainer>
+                  <GridItem xs={12} sm={12} md={2}>
+                    <SnackbarContent message={<>
+                      BASE GRAVABLE: 
+                    </>} />
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={10}  >
+                    <SnackbarContent message={<div  >
+                      {bg?bg:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  </GridContainer>
+                
+              </div>
+              {/*<SkTables height={50} c={this.rpI} bandLoad={this.state.bandLoad} />
+               this.state.bandLoad &&
+                <></>
+                    */}
+            </CardBody>
+          </Card>
+        </GridItem>
+      </GridContainer>
+      
     </CardIcon>
   );
   }

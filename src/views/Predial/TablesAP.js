@@ -18,7 +18,8 @@ import ip from 'variables/ip';
 
 import Snackbar from 'components/Snackbar/Snackbar';
 import FormRegistro from './FormRegistro';
-
+import decrypt from "views/Dashboard/decrypt";
+import cookie from "react-cookies";
 
 
 export default class TableRender extends React.Component {
@@ -251,6 +252,20 @@ updateNB = () => {
   regP.innerHTML="Actualizar Contribuyente"
 }
 
+responseMov = async (sendUri, bodyJSON)=>{
+  const r = await fetch(sendUri, {
+                  method: "POST",
+                  headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(bodyJSON)
+                });
+                r.json().then(r => {
+                  console.log(r);
+                });
+              }
+
 padrones=async(tp)=>{
   try {
     
@@ -382,13 +397,16 @@ actualizarC=async()=>{
        const obs = document.getElementById('obs').value
        // const sendUri = "http://localhost:3015/";
         //const sendUri = "http://192.168.1.74:3015/";
+        const idEmpleado = decrypt(cookie.load('idUsuario'));
        const bodyJSON = {
+         idEmpleado,
          CTA,
          nombre,
          calle,
          lote,
          manzana,
          numCalle,
+         numero: numCalle,
          colonia,
          cp,
          municipio,
@@ -415,6 +433,15 @@ actualizarC=async()=>{
         const responseJson = await response.json().then(r => {
             //  console.log(`Response1: ${r}`)
             if (r.contribuyente) {
+              const sendUri = ip('3016')+"setMov";
+              const contribuyente={
+                contribuyente: nombre
+              }
+                bodyJSON.contribuyente=contribuyente
+                bodyJSON.idMov=4;
+                bodyJSON.idOrden=0;
+                bodyJSON.folio=0;
+                this.responseMov(sendUri,bodyJSON);
               //if(CAT===r.contribuyente[0].CTA)
               if(this.bandUpTramite){
                 this.showNotification("trA")

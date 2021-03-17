@@ -177,20 +177,61 @@ const genDate = (CTA, tp, idOrden) => {
 export default function CustomTable(props) {
   
   const classes = useStyles();
-  const { tableHead, tableData, tableHeaderColor } = props;
+  const { tableHead, tableData, tableHeaderColor, c } = props;
   const [dense, setDense] = React.useState(false);
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [page, setPage] = React.useState(c.pI);
+  const [rowsPerPage, setRowsPerPage] = React.useState(c.rpI);
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('ID');
   const rows = tableData
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    if(((newPage+1)*rowsPerPage)>=rows.length&&c.state.lengthUR>rows.length){
+      
+      c.countPU=new Date(c.countPU);
+      c.countPU.setDate(c.countPU.getDate()+7);
+      c.nextPU = new Date(c.countPU);
+      c.nextPU.setDate(c.nextPU.getDate()+7);
+      if(c.nextPU>c.state.dateSF){
+       // c.countPU=new Date(c.state.dateSF);
+        c.nextPU=new Date(c.state.dateSF);
+      }
+
+      if(c.countPU>c.state.dateSF){
+        c.countPU=new Date(c.state.dateSF);
+        c.nextPU=new Date(c.state.dateSF);
+      }
+
+      c.countPR=new Date(c.countPR);
+      c.countPR.setDate(c.countPR.getDate()+7);
+      c.nextPR = new Date(c.countPR);
+      c.nextPR.setDate(c.nextPR.getDate()+7);
+      if(c.nextPR>c.state.dateSF){
+        //c.countPR=new Date(c.state.dateSF);
+        c.nextPR=new Date(c.state.dateSF);
+      }
+
+      if(c.countPR>c.state.dateSF){
+        c.countPR=new Date(c.state.dateSF);
+        c.nextPR=new Date(c.state.dateSF);
+      }
+
+      c.pI=newPage;
+      c.rpI=rowsPerPage;
+      c.obtenerOF(c.state.dateSI, c.state.dateSF);
+    }else{
+      setPage(newPage);
+    }
   };
 
   const handleChangeRowsPerPage = event => {
-    setRowsPerPage(parseInt(event.target.value, 10));
-    setPage(0);
+     const cL = page*rowsPerPage
+    const newRowsPerPage = parseInt(event.target.value, 10)
+    setRowsPerPage(newRowsPerPage);
+    //if((page*newRowsPerPage)>rows.length){
+      setPage(parseInt(cL/newRowsPerPage));
+    //}
+    c.pI=page;
+    c.rpI=newRowsPerPage;
   };
 
   const handleRequestSort = (event, property) => {
@@ -281,7 +322,7 @@ export default function CustomTable(props) {
             var from = _ref.from,
               to = _ref.to,
               count = _ref.count;
-            return "".concat(from, "-").concat(to, " de ").concat(count);
+            return "".concat(from, "-").concat(to, " de ").concat(c.state.lengthUR);
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}

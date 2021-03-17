@@ -1,10 +1,14 @@
 import ip from "variables/ip.js";
 import saveCookies from "./SaveCookies.js";
 import removeCookies from "./RemoveCoockies.js";
-export default async (idUsuario, pass, nombre, correo, edad, idRol,showNotification) => {
+
+export default async (idUsuario, pass, nombre, correo, edad, idRol,showNotification,setBandLoad) => {
    try {
      
     //const sendUri = "http://localhost:3012/";
+    if(setBandLoad){
+      setBandLoad(false)
+     } 
      const sendUri = `${ip('3012')}predial/login`;
      const bodyJSON = {
        idUsuario,
@@ -23,16 +27,18 @@ export default async (idUsuario, pass, nombre, correo, edad, idRol,showNotificat
        body: JSON.stringify(bodyJSON)
      });
      const responseJson = await response.json().then(r => {
-       if (
+       
+      if (
          r[0] !== undefined &&
          (`${r[0].idUsuario}` === `${idUsuario}`) && !nombre
        ) {
+         
          saveCookies(idUsuario, r[0].nombre, r[0].correo, r[0].edad, r[0].idRol, pass)
          if (r[0].idRol === 0) {
-           window.history.pushState(null, 'Usuario', '#/usuario/creditos')
+           window.history.pushState(null, 'Usuario', '#/inicio/acceso')
            window.history.go()
          } else if (r[0].idRol === 1) {
-           window.history.pushState(null,'Administrador','#/admin/creditos')
+           window.history.pushState(null,'Administrador','#/inicio/acceso')
            window.history.go() 
          }
        } else if (r.error.name === "errorH") {
@@ -45,8 +51,17 @@ export default async (idUsuario, pass, nombre, correo, edad, idRol,showNotificat
        } else if (r.error.name === "error02") {
          showNotification("trE2")
        }
+     /*if(setBandLoad){
+      setBandLoad(true)
+     } */
      });
    } catch (e) {
+     if(setBandLoad){
+      setBandLoad(true)
+     } 
+      //while(this.state.bandPost){
+       // await sleep(6000);    
+      //}
        if(showNotification){
             showNotification("trE3")
        }

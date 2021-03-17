@@ -2,6 +2,7 @@ import React from 'react';
 import {isMobile} from "react-device-detect";
 //import Skeleton from 'react-loading-skeleton';
 import SkTables from './skTables'
+import SkSingle from './skSingle'
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import TablePadrones from "components/Table/TablePadrones.js";
@@ -19,7 +20,6 @@ import decrypt from "views/Dashboard/decrypt.js";
 import ls from 'local-storage'
 import cookie from "react-cookies";
 import LocalAtm from "@material-ui/icons/AssignmentInd";
-import Skeleton from '@material-ui/lab/Skeleton';
 import CardFooter from "components/Card/CardFooter.js";
 import DateRange from "@material-ui/icons/DateRange";
 
@@ -106,8 +106,6 @@ allPadrones=async(CTAnombre,bandInit,bandR)=>{
          nextP: this.nextP
        }
        
-       //bodyJSON.nextP=this.countP
-       console.log(bodyJSON)
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {
@@ -397,8 +395,9 @@ render() {
               <CardIcon color="success">
                 <LocalAtm />
               </CardIcon>
-              <p className={classes.cardCategory}>SUMA TOTAL DE CONTRIBUYENTES: </p>
-              {this.state.bandLoad2 || <Skeleton height={50} animation="wave" />}
+              <p className={classes.cardCategory}>NÚMERO TOTAL DE CUENTAS REGISTRADAS: </p>
+              {/*this.state.bandLoad2 || <Skeleton height={50} animation="wave" />*/}
+              <SkSingle height={50} bandLoad={this.state.bandLoad2} c={1} />
               {this.state.bandLoad2 && <h3 className={classes.cardTitle}>{`N° `}{lengthUR}</h3> }
             </CardHeader>
             <CardFooter stats>

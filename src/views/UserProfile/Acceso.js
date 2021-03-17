@@ -39,14 +39,16 @@ const styles = {
 
 const useStyles = makeStyles(styles);
 
-export default function Acceso() {
-  
+export default function Acceso(props) {
+  const {setBandLoad,showNotification} = props;
   const [tr, setTR] = React.useState(false);
+//  const [bandLoad, setBandLoad] = React.useState(false);
   const [iconSnack, setIconSnack] = React.useState();
   const [colorSnack, setColorSnack] = React.useState("");
   const [L, setL] = React.useState("")
   const classes = useStyles();
-  const showNotification = place => {
+  /*const showNotification = place => {
+    
     switch (place) {
       case "trC":
       case "tr":
@@ -95,7 +97,7 @@ export default function Acceso() {
           setTR(false);
         }, 6000);
     }
-  };
+  };*/
   
   
 
@@ -113,7 +115,7 @@ export default function Acceso() {
       pass.focus()
       return false
     }
-    comprobarU(CVE_ID.value, pass.value, null,null,null,null,showNotification);
+    comprobarU(CVE_ID.value, pass.value, null,null,null,null,showNotification,setBandLoad);
   }
 
 const accesoKey = (e) =>{
@@ -122,7 +124,8 @@ const accesoKey = (e) =>{
   }
 }
 
-  return (
+  return (<>
+    
     <div>
       <GridContainer>
         <Snackbar
@@ -195,5 +198,6 @@ const accesoKey = (e) =>{
         </GridItem>
       </GridContainer>
     </div>
+    </>
   );
 }

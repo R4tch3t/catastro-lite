@@ -16,12 +16,12 @@ export default (props) => {
 
           <GridContainer>
             <GridItem xs={12} sm={12} md={12}>
-              <h1>{bandLoad || <Skeleton height={100} animation="wave" />}</h1>
+              {bandLoad || <Skeleton variant="rect" width={210} height={118} />}
             </GridItem>
           </GridContainer>
-          { keys.map((row, index) => {
+          { /*keys.map((row, index) => {
             return <div key={index} ><SK /></div>
-          })}
+          })*/}
           
 
     </>

@@ -4,6 +4,7 @@ import genPredio from "./genPredio";
 
 export default async (CTAnombre, c) => {
     try {
+      c.setState({bandLoad: false})
         const sendUri = ip('3028')+"byFolio";
         c.idOrden = 0
         const bodyJSON = {
@@ -19,6 +20,7 @@ export default async (CTAnombre, c) => {
         });
         const responseJson = await response.json().then(r => {
             if(r.folio){
+              c.setState({bandLoad: true})
               const tp = r.folio.tp
               genPredio(r, tp, c, true)
               if(!r.contribuyente&&r.orden){

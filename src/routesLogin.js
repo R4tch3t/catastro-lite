@@ -15,18 +15,25 @@
 * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
 
 */
+import React from "react";
 // @material-ui/icons
 import Person from "@material-ui/icons/Person";
 // core components/views for Admin layout
 import Acceso from "views/UserProfile/Acceso.js";
 
-const dashboardRoutes = [
+
+const dashboardRoutes = (props) => { 
+const accBy=() => {
+  //Acceso.setBandLoad = props.setBandLoad
+  return <Acceso setBandLoad={props.setBandLoad} showNotification={props.showNotification} />
+}  
+  return [
   {
     path: "/acceso",
     name: "Iniciar sesión",
     rtlName: "لوحة القيادة",
     icon: Person,
-    component: Acceso,
+    component: accBy,
     layout: "/inicio"
   }/*,
   {
@@ -38,5 +45,6 @@ const dashboardRoutes = [
     layout: "/inicio"
   }*/
 ];
+}
 
 export default dashboardRoutes;

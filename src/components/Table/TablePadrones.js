@@ -126,15 +126,12 @@ export default function CustomTable(props) {
   const [orderBy, setOrderBy] = React.useState('ID');
   const rows = tableData
   const handleChangePage = (event, newPage) => {
-    console.log(newPage)
-    console.log((newPage+1)*rowsPerPage)
-    console.log(rows.length)
-    c.nextP+=50;
-    c.countP+=50;
-    c.pI=newPage;
-    c.rpI=rowsPerPage;
     
-    if(((newPage+1)*rowsPerPage)>=rows.length){
+    if(((newPage+1)*rowsPerPage)>=rows.length&&c.state.lengthUR>rows.length){
+      c.nextP+=50;
+      c.countP+=50;
+      c.pI=newPage;
+      c.rpI=rowsPerPage;
       c.allPadrones('',false,true);
     }else{
       setPage(newPage);
@@ -277,7 +274,7 @@ export default function CustomTable(props) {
             var from = _ref.from,
               to = _ref.to,
               count = _ref.count;
-            return "".concat(from, "-").concat(to, " de ").concat(count);
+            return "".concat(from, "-").concat(to, " de ").concat(c.state.lengthUR);
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}

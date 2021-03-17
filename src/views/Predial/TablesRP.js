@@ -16,7 +16,8 @@ import ip from 'variables/ip';
 
 import Snackbar from 'components/Snackbar/Snackbar';
 import FormRegistro from './FormRegistro';
-
+import decrypt from "views/Dashboard/decrypt";
+import cookie from "react-cookies";
 
 
 export default class TableRender extends React.Component {
@@ -200,7 +201,19 @@ regE = async(port=3031)=>{
     this.regE(port);
   }
 }
-
+responseMov = async (sendUri, bodyJSON)=>{
+  const r = await fetch(sendUri, {
+                  method: "POST",
+                  headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(bodyJSON)
+                });
+                r.json().then(r => {
+                  console.log(r);
+                });
+              }
 registrarC=async()=>{
     try {
 
@@ -233,12 +246,15 @@ registrarC=async()=>{
        const obs = document.getElementById('obs').value
        // const sendUri = "http://localhost:3015/";
         //const sendUri = "http://192.168.1.74:3015/";
-       const bodyJSON = {
+       const idEmpleado = decrypt(cookie.load('idUsuario'));
+        const bodyJSON = {
+         idEmpleado,
          CTA,
          nombre,
          calle,
          lote,
          manzana,
+         numero: numCalle,
          numCalle,
          colonia,
          cp,
@@ -266,6 +282,15 @@ registrarC=async()=>{
         const responseJson = await response.json().then(r => {
             //  console.log(`Response1: ${r}`)
             if (r.contribuyente) {
+              const sendUri = ip('3016')+"setMov";
+              const contribuyente={
+                contribuyente: nombre
+              }
+                bodyJSON.contribuyente=contribuyente
+                bodyJSON.idMov=3;
+                bodyJSON.idOrden=0;
+                bodyJSON.folio=0;
+                this.responseMov(sendUri,bodyJSON);
               //if(CAT===r.contribuyente[0].CTA)
               if(this.bandUpTramite===false||pdfToUp.value===""){
                 this.checkPorts()

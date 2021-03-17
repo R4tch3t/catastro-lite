@@ -5,6 +5,7 @@ import ChartistGraph from "react-chartist";
 //import PdfG from "./renderPDFG";
 //import Skeleton from 'react-loading-skeleton';
 import SkTables from './skTables'
+import SkSingle from './skSingle'
 import LocalAtm from "@material-ui/icons/LocalAtm";
 import DateRange from "@material-ui/icons/DateRange";
 import ArrowUpward from "@material-ui/icons/ArrowUpward";
@@ -20,7 +21,6 @@ import CardFooter from "components/Card/CardFooter.js";
 import Button from "components/CustomButtons/Button.js";
 import Calendar from "react-calendar";
 import ip from "variables/ip.js";
-import Skeleton from '@material-ui/lab/Skeleton';
 import CustomInput from "components/CustomInput/CustomInput.js";
 import {
   corte,
@@ -70,14 +70,26 @@ constructor(props){
       bandPost: true,
       openCalendarI: false,
       openCalendarF: false,
-      horasI: date.getHours(),
-      minutosI: date.getMinutes(),
-      segundosI: date.getSeconds(),
+      horasI: 0,
+      minutosI: 0,
+      segundosI: 0,
       horasF: 0,
       minutosF: 0,
-      segundosF: 0
+      segundosF: 0,
+      lengthUR: 0,
+      bandLoad2: false
     };
-    
+    this.countPU = new Date(dateSI);
+    this.nextPU = new Date(dateSF);
+    this.nextPU.setDate(this.nextPU.getDate()+1);
+    this.countPR = new Date(dateSI);
+    this.nextPR = new Date(dateSF);
+    this.countPR.setHours(0,0,0,0)
+    this.nextPR.setHours(0,0,0,0)
+    this.countPU.setHours(0,0,0,0)
+    this.nextPU.setHours(0,0,0,0)
+    this.nextPR.setDate(this.nextPR.getDate()+1);
+    //this.countPR = new Date();
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
 
@@ -88,7 +100,8 @@ constructor(props){
   hF = 0
   mF = 0
   sF = 0
-    
+  pI = 0
+  rpI = 5
     /*onChangeDI = (date) => {
       let tzoffset = (new Date()).getTimezoneOffset() * 60000;
       date.setHours(this.h)
@@ -226,20 +239,121 @@ addEx=async()=>{
   });
 }
 
+getLength = async(dateSI, dateNSF, op, CTA) => {
+  try {
+    this.setState({bandLoad2: false});
+ //   this.getCharts(dateSI, dateNSF);
+    const sendUri = ip("3023")+"obtenerOF";
+    
+    const bodyJSON = {
+         s: 1,
+         op,
+         CTA,
+         fi: dateSI,
+         ff: dateNSF,
+    }
+    const response = await fetch(sendUri, {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyJSON)
+    });
+
+    const responseJson = await response.json().then(r => {
+      console.log(r);
+      //this.setState({bandLoad2: true});
+
+      if(r){
+        const {total,porcentaje,porcentaje2,high} = r
+              corte.options.high = high
+              corte.data.labels = r.labels
+              corte.data.series = [r.totales]
+              //this.setState({});  
+        //this.countPU=r.countPU?r.countPU:0;
+        //this.nextPU=r.nextPU?r.nextPU:0;
+        //this.countPR=r.countPR?r.countPR:0;
+        //this.nextPR=r.nextPR?r.nextPR:0;
+        
+        this.setState({lengthUR: r.lengthUR?r.lengthUR:0,total, porcentaje, porcentaje2, dataTable:[], bandLoad2: true});
+        this.obtenerOF(dateSI, dateNSF, op, CTA);
+        if(this.state.bandPost){
+            if(!this.bandLoading){
+                this.bandLoading=true;
+                this.waitPost();
+            }
+        }
+      }
+
+    });
+  }catch(e){
+
+  }
+}
+
+getCharts = async(dateSI, dateNSF) => {
+  try {
+    this.setState({bandLoad2: false})
+    const sendUri = ip("3023")+"obtenerOF";
+    const bodyJSON = {
+         op: 2,
+         fi: dateSI,
+         ff: dateNSF,
+    }
+    const response = await fetch(sendUri, {
+        method: "POST",
+        headers: { 
+            Accept: "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bodyJSON)
+    });
+
+    const responseJson = await response.json().then(r => {
+
+      if(r){
+        const {total,porcentaje,porcentaje2,high} = r
+              corte.options.high = high
+              corte.data.labels = r.labels
+              corte.data.series = [r.totales]
+              this.setState({total, porcentaje, porcentaje2, bandLoad2: true});  
+      }
+
+    });
+  }catch(e){
+
+  }
+}
+
 obtenerOF=async(fi,ff, op, CTA)=>{
     try {
-        this.setState({bandLoad: false})
+        this.setState({bandLoad: false});
         const sendUri = ip("3014")+"obtenerOF";
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-        fi = (new Date(fi - tzoffset))//.toISOString()//.slice(0, -1);
+        fi = (new Date(fi - tzoffset));//.toISOString()//.slice(0, -1);
        // tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-        ff = (new Date(ff - tzoffset))//.toISOString().slice(0, -1);
+        ff = (new Date(ff - tzoffset));//.toISOString().slice(0, -1);
+        this.countPR=new Date(this.countPR)
+        this.nextPR=new Date(this.nextPR)
+        this.countPU=new Date(this.countPU)
+        this.nextPU=new Date(this.nextPU)
+        this.countPR.setHours(0,0,0,0)
+        this.nextPR.setHours(0,0,0,0)
+        this.countPU.setHours(0,0,0,0)
+        this.nextPU.setHours(0,0,0,0)
         const bodyJSON = {
             fi,
             ff,
             op,
-            CTA
+            s: -1,
+            CTA,
+            countPU: this.countPU,
+            nextPU: this.nextPU,
+            countPR: this.countPR,
+            nextPR: this.nextPR,
         };
+
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {
@@ -250,260 +364,25 @@ obtenerOF=async(fi,ff, op, CTA)=>{
         });
 
         const responseJson = await response.json().then(r => {
-            //  console.log(`Response1: ${r}`)
-            if (r.ordenesu || r.ordenesr) {
-              let data = [];
-              let total = 0;
-              let totalD = 0;
-              let i = 0;
-              let high = 0;
-              let porcentaje=0;
-              let porcentaje2 = 0;
-              data.objects = {}
-              data.labels = []
-              data.totales = []
-              //dateSI.toLocaleDateString()
-              const {dateSI} = this.state
-              let dateLabel = dateSI
-              let dateLast = ''
+            if (r.dataTable) {
+             
+              const {dataTable} = r
+              /*corte.options.high = high
+              corte.data.labels = r.labels
+              corte.data.series = [r.totales]*/
               
-              r.ordenesu.forEach(e => { 
-                e.dateUp = new Date(e.dateUp)
-                //e.dateUp = new Date(e.dateUp-tzoffset)
-                data.push({
-                  key: `${e.CTA}${i}u`,
-                  cta: e.CTA,
-                  idOrden: e.idOrden,
-                  NOMBRE: e.contribuyente,
-                  tp: 'URBANO',
-                  fecha: new Date(e.dateUp - tzoffset).toISOString().slice(0, -1),
-                  total: e.total,
-                  terreno: e.m1,
-                  construccion: e.m2
-                })
-                i++
-               // console.log(`e.date: ${e.dateUp.toLocaleDateString()}`)
-               // console.log(`dateLast: ${dateLast}`)
-                if (e.dateUp.getDate() < 10) {
-                  e.dateUp = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  e.dateUp = e.dateUp.toLocaleDateString()
-                }
-
-                if ((dateLast!==''&&e.dateUp !== dateLast) || i === r.ordenesu.length) {
-                  if (i === r.ordenesu.length) {
-                    totalD += parseInt(e.total);
-                  }
-                  //console.log(`totalD: ${totalD}`)
-                  data.objects[`${dateLast}`] = totalD
-                  totalD=0
-                }
-                dateLast = e.dateUp
-                /*if (e.dateUp.getDate() < 10) {
-                  dateLast = `0${e.dateUp.toLocaleDateString()}`
-                }else{
-                  dateLast = e.dateUp.toLocaleDateString()
-                }*/
-
-                total += parseInt(e.total); 
-                totalD += parseInt(e.total);
-              });
-              //console.log(data)
-              //console.log(total)
-              i=0
-              dateLabel = dateSI
-              totalD=0
-              dateLast = ''
-              r.ordenesr.forEach(e => {
-                e.dateUp = new Date(e.dateUp)
-                //e.dateUp = new Date(e.dateUp - tzoffset)
-                data.push({
-                  key: `${e.CTA}${i}r`,
-                  cta: e.CTA,
-                  idOrden: e.idOrden,
-                  NOMBRE: e.contribuyente,
-                  tp: 'RUSTICO',
-                  fecha: new Date(e.dateUp - tzoffset).toISOString().slice(0, -1),
-                  total: e.total,
-                  terreno: e.m1,
-                  construccion: e.m2
-                })
-                //data.labels.push(`D${data.labels.length+1}`)
-                //data.labels.push(`${dateLabel.toLocaleDateString()}`)
-                //dateLabel.setDate(dateLabel.getDate() + 1);
-                if (e.dateUp.getDate() < 10) {
-                  e.dateUp = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  e.dateUp = e.dateUp.toLocaleDateString()
-                }
-                i++
-                if ((dateLast !== '' && e.dateUp !== dateLast) || i === r.ordenesr.length) {
-                  if (i === r.ordenesr.length){
-                    totalD += parseInt(e.total);
-                  }
-                  
-                  if (data.objects[`${dateLast}`]) {
-                    data.objects[`${dateLast}`] += totalD
-                  }else{
-                    data.objects[`${dateLast}`] = totalD
-                  }
-                  totalD = 0
-                }
-                
-                /*if (e.dateUp.getDate() < 10) {
-                  dateLast = `0${e.dateUp.toLocaleDateString()}`
-                } else {
-                  dateLast = e.dateUp.toLocaleDateString()
-                }*/
-               // data.totales.push(e.total)
-                dateLast = e.dateUp
-                total += parseInt(e.total); 
-                totalD += parseInt(e.total);
-              });
-              const objects = Object.entries(data.objects)//.sort();
-              //console.log(objects)
-              if (objects.length<16){
-                for (let [key, value] of objects) {
-                  data.labels.push(key)
-                  data.totales.push(value)
-                  if(value>high){
-                    high=value
-                  }
-                  porcentaje++
-                }
-              }else if(objects.length<30&&objects.length>15){
-                let semC = 0
-                dateLabel = new Date(dateSI)
-                //console.log(`dateLabel: ${dateLabel}`)
-                dateLabel.setDate(dateLabel.getDate() + 7)
-                //console.log(`dateLabelAf: ${dateLabel}`)
-                totalD = 0
-                i=0
-                
-                for (let [key, value] of objects) {
-                  //console.log(`key: ${key.split("/").join("-")}`)
-                  //console.log(`dateKey: ${new Date(key.split("/").join("-"))}`)
-                  const keyDate = new Date()
-                  const arrKey = key.split("/")
-                  //keyDate.setDate(arrKey[0])
-                  //keyDate.setMonth(arrKey[1])
-                  keyDate.setFullYear(arrKey[2], arrKey[1]-1, arrKey[0])
-                  //console.log(`keyDate: ${keyDate}`)
-                  //console.log(`dateLabel: ${dateLabel}`)
-                  //console.log(`keyDate > dateLabel ${keyDate > dateLabel}`)
-                  i++
-                  if (keyDate > dateLabel || i === objects.length) {
-                    if (i === objects.length){
-                        totalD += value
-                        if (totalD > high) {
-                          high = totalD
-                        }
-                       }
-                      semC++
-                      data.labels.push(`SEMANA ${semC}`)
-                      data.totales.push(totalD)
-                      totalD=0
-                      dateLabel = new Date(keyDate)
-                      dateLabel.setDate(dateLabel.getDate() + 7)
-                   
-
-                    porcentaje++
-                  }
-                  totalD+=value
-                  if (totalD > high) {
-                    high = totalD
-                  }
-                  
-                }
-                //console.log(data)
-              } else {
-                dateLabel = new Date(dateSI)
-                dateLabel.setMonth(dateLabel.getMonth() + 1)
-                totalD = 0
-                i = 0
-               // console.log(dateLabel)
-                for (let [key, value] of objects) {
-                  const keyDate = new Date()
-                  const arrKey = key.split("/")
-                  keyDate.setFullYear(arrKey[2], arrKey[1] - 1, arrKey[0])
-
-                  i++
-                  if (keyDate > dateLabel || i === objects.length) {
-                    if (i === objects.length) {
-                      totalD += value
-                      if (totalD > high) {
-                        high = totalD
-                      }
-                    }
-                    data.labels.push(this.mes(dateLabel.getMonth()-1))
-                    data.totales.push(totalD)
-                    totalD = 0
-                    dateLabel = new Date(keyDate)
-                    dateLabel.setMonth(dateLabel.getMonth() + 1)
-                    
-
-                    porcentaje++
-                  }
-                  totalD += value
-                  if (totalD > high) {
-                    high = totalD
-                  }
-
-                }
-                
+              if(dataTable.length>0){
+                dataTable.map((v,i)=>{
+                  this.state.dataTable.push(v)
+                });
               }
-//console.log(data)
-              
-              //porcentaje = ((objects.length / (porcentaje)) / objects.length) * 100
-              const media = total/data.length
-              porcentaje2 = total / porcentaje
-             // console.log(total)
-              //console.log(data.length)
-              //porcentaje = ((media / porcentaje)) // * 100
-              //porcentaje = ((media)/(objects.length))
-              porcentaje2 = (porcentaje2 / total) * 100
-              porcentaje = ((media) / total)*100
-          //    console.log(porcentaje)
-              if (isNaN(porcentaje)){
-                porcentaje = 0
-                data.totales = [1]
-              }else{
-                const arrPor = porcentaje.toString().split(".")
-                porcentaje = this.round(porcentaje, 4)
-                /*if (arrPor.length>1){
-                  if(parseInt(arrPor[1][2])>4){
-                    porcentaje = this.round(porcentaje, 3)
-                  }else{
-                    porcentaje = this.round(porcentaje)
-                  }
-                }else{
-                  porcentaje = this.round(porcentaje)
-                }*/
-
-              }
-              corte.options.high = high
-              corte.data.labels = data.labels
-              corte.data.series = [data.totales]
-              
-              //porcentaje = isNaN(porcentaje) ? 0:this.round(porcentaje)
-              this.setState({dataTable: data, total: total, porcentaje, porcentaje2, bandLoad: true, bandPost: false});
-              
+              this.countPU = r.countPU?r.countPU:this.countPU;
+              this.nextPU = r.nextPU?r.nextPU:this.nextPU;
+              this.countPR = r.countPR?r.countPR:this.countPR;
+              this.nextPR = r.nextPR?r.nextPR:this.nextPR;
+              this.setState({/*total, porcentaje, porcentaje2, */bandLoad: true, bandPost: false});          
               
             }
-            
-            /*else if (r.error.name === "error01") {
-                       this.removeCookies()
-                       confirmAlert({
-                         title: "¡Error!",
-                         message: "La contraseña es incorrecta.",
-                         buttons: [{
-                           label: "Aceptar",
-                           onClick: () => {
-                             this.props.history.push("/entrar");
-                           }
-                         }]
-                       });
-                     }*/
         });
     } catch (e) {
         console.log(`Error: ${e}`);
@@ -545,12 +424,19 @@ handleClickDash = event => {
 bandLoading=true
 
 onChangeDI = date => {
-
   const {dateSF,horasI,minutosI,segundosI} = this.state
   let dateNSF = new Date(dateSF)
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerOF(date, dateNSF)
-  
+ // this.obtenerOF(date, dateNSF)
+  this.countPU=new Date(date);
+  this.countPR=new Date(date);
+  if(date.getMonth()<dateNSF.getMonth()){
+   this.nextPU=new Date(date);
+   this.nextPU.setDate(this.nextPU.getDate()+7);
+   this.nextPR=new Date(date);
+   this.nextPR.setDate(this.nextPR.getDate()+7);
+  }
+  this.getLength(date, dateNSF, 0);
   this.setState({ dateSI: date , horasI: this.h,minutosI: this.m, segundosI: this.s})
   //new Date()
   date.setHours(this.h)
@@ -564,14 +450,26 @@ onChangeDI = date => {
 onChangeDF = date => {
   const {dateSI} = this.state
   let dateNSF = new Date(date);
-  dateNSF.setDate(date.getDate() + 1);
-  this.obtenerOF(dateSI, dateNSF);
+  dateNSF.setDate(dateNSF.getDate() + 1);
+ // this.obtenerOF(dateSI, dateNSF);
+ //this.getCharts(dateSI, dateNSF);
+ //this.countPU=date
+  //this.nextPU=dateNSF
+  this.nextPU=new Date(dateNSF);
+  this.nextPR=new Date(dateNSF);
+  if(this.nextPU.getMonth()>dateSI.getMonth()){
+   this.nextPU=new Date(dateSI);
+   this.nextPU.setDate(this.nextPU.getDate()+7);
+   this.nextPR=new Date(dateSI);
+   this.nextPR.setDate(this.nextPR.getDate()+7);
+  }
+  this.getLength(dateSI, dateNSF, 0);
   this.setState({ dateSF: date , horasF: this.hF, minutosF: this.mF, segundosF: this.sF})
   //new Date()
   date.setHours(this.hF)
   date.setMinutes(this.mF)
   date.setSeconds(this.sF)
-  const newDate = new Date(date);
+  const newDate = new Date(dateNSF);
   newDate.setHours(date.getHours()-6);
   document.getElementById("dateUpF").value=newDate.toISOString();
 }
@@ -581,15 +479,8 @@ recorte = () => {
   const {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  this.obtenerOF(dateSI, dateNSF, 0);
-    if(!this.state.bandPost){
-               
-            }else{
-                if(!this.bandLoading){
-                    this.bandLoading=true;
-                    this.waitPost(dateSI, dateNSF);
-                }
-            }
+
+  this.getLength(dateSI, dateNSF,0);
   
 }
 
@@ -626,8 +517,8 @@ informeG = () => {
 
 informe = () => {
   let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-  let {dateSF} = this.state
-  let {dateSI} = this.state
+  let {dateSF} = this.state;
+  let {dateSI} = this.state;
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
   dateSI = new Date(dateSI - tzoffset).toISOString().slice(0, -1)
@@ -639,6 +530,7 @@ informe = () => {
   const win = window.open(url, '_blank');
   win.focus();
 }
+
 buscarCTA = (key) => (event) => {
   let CTAnombre = document.getElementById('CTANM');
  // const checkU = document.getElementById('check0');
@@ -658,8 +550,8 @@ buscarCTA = (key) => (event) => {
   const dateNSF = new Date(dateSF);
   dateNSF.setDate(dateNSF.getDate()+1)
   if (CTAnombre.value) {
-
-    this.obtenerOF(dateSI, dateNSF, key+1, CTAnombre.value);
+    this.getLength(dateSI, dateNSF, key+1, CTAnombre.value);
+    /*this.obtenerOF(dateSI, dateNSF, key+1, CTAnombre.value);
     if(!this.state.bandPost){
                
             }else{
@@ -667,7 +559,7 @@ buscarCTA = (key) => (event) => {
                     this.bandLoading=true;
                     this.waitPost(key);
                 }
-            }
+            }*/
   
   }
 }
@@ -765,7 +657,7 @@ render() {
                   type: "text",
                   style: {color: 'red'},
                   defaultValue: (()=>{const d = new Date(); 
-                    d.setHours(d.getHours()-6); 
+                    d.setHours(0,0,0,0,0); d.setHours(d.getHours()-6); 
                     return d.toISOString()})(),
                   onClick: this.handleClickCalendarI,
                   readOnly: true,
@@ -963,10 +855,11 @@ render() {
                   </GridContainer>
                 
               </div>
-              <SkTables bandLoad={this.state.bandLoad} />
+              <SkTables height={50} c={this.rpI} bandLoad={this.state.bandLoad} />
               { this.state.bandLoad &&
                 <Table
                   tableHeaderColor="info"
+                  c={this}
                   tableHead={headCells}
                   tableData={dataTable}
                 />
@@ -984,8 +877,8 @@ render() {
                 <LocalAtm />
               </CardIcon>
               <p className={classes.cardCategory}>SUMA TOTAL DEL CORTE: </p>
-              {this.state.bandLoad || <Skeleton height={50} animation="wave" />}
-              {this.state.bandLoad && <h3 className={classes.cardTitle}>{`$`}{total}</h3> }
+              <SkSingle height={50} bandLoad={this.state.bandLoad2} c={1} />
+              {this.state.bandLoad2 && <h3 className={classes.cardTitle}>{`$`}{total}</h3> }
             </CardHeader>
             <CardFooter stats>
               <div className={classes.stats}>
