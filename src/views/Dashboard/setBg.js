@@ -25,6 +25,7 @@ export default (c) => {
   //pro1 = parseInt(subStr[0]);
   const pro2 = pro1;
   let t = pb + pro1 + pro2;
+  //t=redondeo(t)
   
   if (checkU.checked){
     const urb = document.getElementById('0020401');

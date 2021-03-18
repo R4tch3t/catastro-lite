@@ -196,7 +196,7 @@ const Inicio=({ ...rest }) => {
           closeNotification={() => setTR(false)}
           close
         />
-    <SkGrids height={50} c={10} bandLoad={bandLoad} />
+    <SkGrids height={50} c={10} classes={classes} bandLoad={bandLoad} />
     {bandLoad && <div  className={classes.wrapper}  >
       
       <Sidebar

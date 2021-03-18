@@ -352,14 +352,15 @@ const registrarO = async(CTA,c) => {
                   d = new Date() - tzoffset
                 }
                 d = new Date(d)
-                dateUp.value = d.toISOString().slice(0, -1)
-                
+                //dateUp.value = d.toISOString().slice(0, -1)
+                dateUp.value = r.dateUp
+                c.dateUpL = r.dateUpL
                 bg = bg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 bg = `${bg}.00`
 
                 let subUrl = `?bandPdf=1&CTA=${CTA}&nombre=${nombre}&calle=${calle}&lote=${lote}&manzana=${manzana}&numero=${numCalle}`
                 subUrl += `&colonia=${colonia}&cp=${cp}&municipio=${municipio}&localidad=${localidad}&tipoP=${tipoP}`
-                subUrl += `&bg=${bg}&periodo=${periodo}&dateUp=${new Date(dateUp.value).toLocaleString()}`
+                subUrl += `&bg=${bg}&periodo=${periodo}&dateUp=${c.dateUpL}`
                 if (!I0030101 && !I0090701 && !I0090702 && !I0090703 && !I0090704) {
                   subUrl += `&folio=${folio}&V0020401=${V0020401}&V0020402=${V0020402}&V0020403=${V0020403}`
                   subUrl += `&V0020801=${V0020801}&V0020802=${V0020802}&V0020803=${V0020803}&V0020804=${V0020804}&V0030101=${V0030101}`

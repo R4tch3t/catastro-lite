@@ -51,7 +51,7 @@ export default (props) => {
       let newDate = new Date(date-tzoffset)
       c.setState({currentD: date, horas: h, minutos: m, segundos: s})
       const dateUpV = document.getElementById('dateUp')
-      dateUpV.value = newDate.toISOString().slice(0, -1)
+      dateUpV.value = newDate.toISOString()//.slice(0, -1)
       c.handleCloseCalendar()
     }
     const valueH=(value)=>{

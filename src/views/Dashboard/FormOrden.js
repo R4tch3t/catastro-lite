@@ -482,6 +482,7 @@ addImpuesto = async (id) => {
 sumaT=async()=>{
   sumaT(this)
 }
+dateUpL = ''
 oldDateUpL=''
 oldIdOrden=0
 oldCurrentD=null

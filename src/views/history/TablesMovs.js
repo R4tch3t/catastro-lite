@@ -75,6 +75,7 @@ constructor(props){
       minutosF: 0,
       segundosF: 0,
       lengthH: 0,
+      lengthHID:0,
       bandLoad2: false
     };
     this.countP = 0;
@@ -261,7 +262,7 @@ getLength = async(dateSI, dateNSF, op, CTA) => {
         this.countP=r.countP?r.countP:0
         this.nextP=r.nextP?r.nextP:0
         console.log(r.lengthH)
-        this.setState({lengthH: r.lengthH?r.lengthH:0, dataTable:[], bandLoad2: true});
+        this.setState({lengthH: r.lengthH?r.lengthH:0,lengthHID: r.lengthHID?r.lengthHID:0, dataTable:[], bandLoad2: true});
         this.getMov(dateSI, dateNSF, op, CTA);
         if(this.state.bandPost){
             if(!this.bandLoading){

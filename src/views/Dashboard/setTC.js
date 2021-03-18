@@ -34,8 +34,8 @@ export default (n,c) => {
   let pro1 = pb * 0.15;
   pro1 = redondeo(pro1);
   const pro2 = pro1;
-  const t = pb + pro1 + pro2;
-  
+  let t = pb + pro1 + pro2;
+  //t=redondeo(t)
   if (checkU.checked){
     const urb = document.getElementById('0020401');
     const rus = document.getElementById('0020403');
