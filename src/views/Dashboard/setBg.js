@@ -91,11 +91,12 @@ export default (c) => {
     }
   }else if(I0030101){
     const bg = document.getElementById('baseGravable');
-    let pb = bg.value * 0.004 //* 0.70;
-    let pq = pb * 0.15 //* 0.70;
+    let pb = bg.value * 0.02 //* 0.70;
+    let pq = 0;
     pb = Math.round(pb)
     const vi = document.getElementById('0030101');
-    vi.value = pb * 2
+    //vi.value = pb * 2
+    vi.value = pb
     const d = c.state.currentD
     const m = d.getMonth()
     //console.log(`month: ${m}`)
@@ -105,6 +106,8 @@ export default (c) => {
     } else if (m > 5 && m < 12) {
       mul = 3
     }
+    pb = bg.value * 0.008
+    pq = pb * 0.15 //* 0.70;
     const I0020401 = document.getElementById("I0020401");
     if (I0020401.checked) {
       const viU = document.getElementById("0020401");

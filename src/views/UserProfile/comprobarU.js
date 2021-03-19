@@ -47,8 +47,14 @@ export default async (idUsuario, pass, nombre, correo, edad, idRol,showNotificat
         window.history.pushState(null, 'reloadBySecurity', '#')
         window.history.go()
        }else if (r.error.name === "error01") {
-         showNotification("trE1")
+        if(setBandLoad){
+            setBandLoad(true)
+        }  
+        showNotification("trE1")
        } else if (r.error.name === "error02") {
+         if(setBandLoad){
+            setBandLoad(true)
+        }
          showNotification("trE2")
        }
      /*if(setBandLoad){

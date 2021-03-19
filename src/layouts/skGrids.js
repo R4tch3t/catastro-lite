@@ -7,7 +7,7 @@ import CardHeader from "components/Card/CardHeader.js";
 import CardIcon from "components/Card/CardIcon.js";
 import CardBody from "components/Card/CardBody.js";
 import CustomInput from "components/CustomInput/CustomInput.js";
-
+import { isMobile } from "react-device-detect";
 export default (props) => {
     const {bandLoad, height,c,classes} = props
     let keys = [];
@@ -30,7 +30,7 @@ export default (props) => {
 
           <GridContainer>
             <GridItem xs={12} sm={12} md={2}>
-              {bandLoad || <Skeleton variant="rect" animation="wave" style={{position: 'absolute', left: 0,top:0}} width={260}  height={window.innerHeight} />}
+              {bandLoad || (!isMobile && <Skeleton variant="rect" animation="wave" style={{position: 'absolute', left: 0,top:0}} width={260}  height={window.innerHeight} />)}
             </GridItem>
             <GridItem xs={12} sm={12} md={8}/>
             <GridItem xs={12} sm={12} md={2}>
@@ -50,7 +50,7 @@ export default (props) => {
         <GridItem xs={12} sm={12} md={3}/>
         <GridItem xs={12} sm={12} md={8}>
           {bandLoad || <Skeleton  animation="wave" height={150} />}
-          {bandLoad || <Skeleton variant="rect" style={{position: 'absolute', left: 320,top:120}} width={1155}  height={window.innerHeight-100} />}
+          {bandLoad || (!isMobile && <Skeleton variant="rect" style={{position: 'absolute', left: 320,top:120}} width={1155}  height={window.innerHeight-100} />)}
           
           {/*<Card>
             

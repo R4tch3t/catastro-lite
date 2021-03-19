@@ -117,9 +117,11 @@ export default (id,c) => {
   }
   if (id === '0030101') {
     const bg = document.getElementById('baseGravable');
+  //  let pb2 = bg.value * 0.004
     let pb = bg.value * 0.02 //* 0.70;
-    let pq = pb * 0.15 //* 0.70;
+    //let pq = pb * 0.15 //* 0.70;
     pb = Math.round(pb)
+//    pb2 = Math.round(pb2)
     const vi = document.getElementById(id);
     vi.value = pb //* 2
     const d = c.state.currentD
@@ -130,6 +132,8 @@ export default (id,c) => {
     } else if (m > 5 && m < 12) {
       mul = 3
     }
+    pb = bg.value * 0.008
+    let pq = pb * 0.15 //* 0.70;
     const I0020401 = document.getElementById("I0020401");
     if (I0020401.checked){
       const viU = document.getElementById("0020401");
