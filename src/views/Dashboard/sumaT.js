@@ -1,9 +1,13 @@
 //import renderCI from "./renderCI";
+import React from 'react';
 function red(n) {
   //n = Math.round(n * 100) / 100;
   //n = Math.round(n * 10) / 10;
   n = Math.round(n);
   return n;
+}
+const getHtml = (s) =>{
+  return (<b>${s}</b>)
 }
 export default (c) => {
   let t = 0
@@ -87,5 +91,10 @@ export default (c) => {
   t += parseInt(V0010804.value)*72
   t += parseInt(V0010101.value)
   t += parseInt(V21173001001.value)
-  c.setState({totalN: red(t)})
+  t=red(t)
+  c.setState({totalN: t})
+  const label = <b>${t}</b>;
+  c.showNotification("trB",
+  <>TOTAL A PAGAR: <b>{t}</b> PESOS </>
+  )
 }

@@ -518,20 +518,6 @@ render(){
                         </GridItem>
                         <GridItem xs={12} sm={12} md={3}>
                           <CustomInput
-                            labelText = "OTRO SERVICIO:"
-                            id = "otroservicio"
-                            formControlProps={{
-                              fullWidth: true
-                            }}
-                            inputProps = {{
-                              type: 'text',
-                              defaultValue: "\0"
-                              
-                            }}
-                          />
-                        </GridItem>
-                        <GridItem xs={12} sm={12} md={3}>
-                          <CustomInput
                             labelText = "CERTIFICACIÓN:"
                             id = "certiI"
                             formControlProps={{
@@ -547,6 +533,20 @@ render(){
                           <Popper handleCloseDash={this.handleCloseCerti} openDash={openCerti} classesM={classesM} 
                             Items={genItemsCerti(this.certiHandle)} />
                          
+                        </GridItem>
+                        <GridItem xs={12} sm={12} md={3}>
+                          <CustomInput
+                            labelText = "OTRO SERVICIO:"
+                            id = "otroservicio"
+                            formControlProps={{
+                              fullWidth: true
+                            }}
+                            inputProps = {{
+                              type: 'text',
+                              defaultValue: "\0"
+                              
+                            }}
+                          />
                         </GridItem>
                       </GridContainer>
 

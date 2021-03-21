@@ -4,6 +4,7 @@ import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
 //import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
+import WN2 from "@material-ui/icons/Info"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Snackbar from 'components/Snackbar/Snackbar';
@@ -500,9 +501,12 @@ setZero=async(id)=>{
   }
   sumaT(this)
 }
+mNoti=(m)=>{
 
-showNotification = place => {
+}
+showNotification = (place,labelW) => {
 const {tr} = this.state
+let timeO = 6000;
   switch (place) {
       case "tr":
         this.setState({colorSnack: 'warning', iconSnack: WN});
@@ -510,16 +514,22 @@ const {tr} = this.state
       case "trA":
         this.setState({colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
       break;
-      
+      case "trB":
+        this.setState({colorSnack: 'info', iconSnack: WN2, labelW});
+        timeO = 64000
+        //timeO = 6001
+      //this.setState({tr: true})
+      break;  
     default:
       break;
   }
-  if (!tr) {
-        this.setState({tr: true})
-        setTimeout(() => {
-          this.setState({tr: false})
-        }, 6000);
-      }
+  
+  if (!tr/*&&timeO<6001*/) {
+    this.setState({tr: true})
+    setTimeout(() => {
+      this.setState({tr: false})
+    }, timeO);
+  }
 };
 
 showMap=()=>{

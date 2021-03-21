@@ -87,7 +87,8 @@ validarDatos = () => {
   
   if(this.bandUpTramite===false||pdfToUp.value===""){
    // console.log(this.bandUpTramite)
-    this.checkPorts()
+  //  this.checkPorts()
+  this.regE();
   }
 
 }
@@ -166,7 +167,7 @@ regE = async(port=3131,analize=false,npage=0)=>{
   const regP = document.getElementById('regP');
   const tp = check0.checked ? 'u':'r';
   const pdfToUp = document.getElementById('pdfToUp');
-  const sendUri = ip(port);
+  const sendUri = ip(port)+"regE";
   
   if(this.countA<lengthE){
     let auxA = this.countA + buffer;
