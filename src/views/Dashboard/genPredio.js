@@ -95,9 +95,14 @@ export default (r,tp,c,byFolio) => {
         if(orden.nombre){
           nombre.value = orden.nombre
         }
-        m1.value = orden.m1
-        m2.value = orden.m2
-        obs.value = orden.obs
+        /*m1.value = orden.m1
+        m2.value = orden.m2*/
+        m1.value = contribuyente.m1
+        m2.value = contribuyente.m2
+        //m1.value = orden.m1!==contribuyente.m1?contribuyente.m1:orden.m1
+        //m2.value = orden.m2!==contribuyente.m2?contribuyente.m2:orden.m2
+        //obs.value = orden.obs
+        obs.value = contribuyente.observaciones
         let tzoffset = (new Date()).getTimezoneOffset() * 60000;
         let dateUp = new Date(orden.dateUp);
         
@@ -141,9 +146,10 @@ export default (r,tp,c,byFolio) => {
         }
         
         
-        c.setState({tc: orden.tc, zona: orden.zona, totalN: orden.total, labelConsta: orden.constancia, labelCerti: orden.certi});
+        c.setState({tc: contribuyente.tc, zona: contribuyente.zona, totalN: orden.total, labelConsta: orden.constancia, labelCerti: orden.certi});
        
-        bg.value = orden.bg;
+       // bg.value = orden.bg;
+        bg.value = contribuyente.bg;
             getPredial(orden.idOrden,tp,c,bandUp);
   }
 }

@@ -128,5 +128,7 @@ export default (c) => {
       'DESCUENTO PREDIAL DE NATURALEZA DEUDORA'
     ], ['0070202', '0070203'], c);
 
+    //c.showNotification("trB",`TOTAL A PAGAR: ${t} PESOS`)
+
    // c.setState({totalN: t})
 }
