@@ -214,6 +214,10 @@ responseMov = async (sendUri, bodyJSON)=>{
                   console.log(r);
                 });
               }
+              contribuyenteOld = {
+                contribuyente:{contribuyente: '¡Nuevo registro!',observaciones:'¡Nuevo registro!',m1:'¡Nuevo registro!',m2:'¡Nuevo registro!',tc:'¡Nuevo registro!',zona:'¡Nuevo registro!',bg:'¡Nuevo registro!'},
+                ubicacion:{calle: '¡Nuevo registro!',numero:'¡Nuevo registro!',lote:'¡Nuevo registro!',manzana:'¡Nuevo registro!',colonia:'¡Nuevo registro!',cp:'¡Nuevo registro!',municipio:'¡Nuevo registro!',localidad:'¡Nuevo registro!'}
+              }
 registrarC=async()=>{
     try {
 
@@ -247,6 +251,7 @@ registrarC=async()=>{
        // const sendUri = "http://localhost:3015/";
         //const sendUri = "http://192.168.1.74:3015/";
        const idEmpleado = decrypt(cookie.load('idUsuario'));
+       
         const bodyJSON = {
          idEmpleado,
          CTA,
@@ -290,6 +295,7 @@ registrarC=async()=>{
                 bodyJSON.idMov=3;
                 bodyJSON.idOrden=0;
                 bodyJSON.folio=0;
+                bodyJSON.contribuyenteOld=this.contribuyenteOld
                 this.responseMov(sendUri,bodyJSON);
               //if(CAT===r.contribuyente[0].CTA)
               if(this.bandUpTramite===false||pdfToUp.value===""){

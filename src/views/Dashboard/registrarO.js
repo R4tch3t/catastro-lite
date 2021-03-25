@@ -263,6 +263,7 @@ const registrarO = async(CTA,c) => {
         const {labelConsta, labelCerti} = c.state
         const otroservicio = document.getElementById('otroservicio').value.toUpperCase();
         const obs = document.getElementById('observaciones').value.toUpperCase();
+        
         const bodyJSON = {
           CTA,
           contribuyente,
@@ -311,6 +312,17 @@ const registrarO = async(CTA,c) => {
                 bodyJSON.idMov=r.idMov;
                 bodyJSON.idOrden=r.idOrden;
                 bodyJSON.folio=r.folio;
+                /*if(r.idMov==='1'){
+                  bodyJSON.contribuyenteOld = {
+                    contribuyente:{contribuyente: '¡Nuevo registro!',observaciones:'¡Nuevo registro!',m1:'¡Nuevo registro!',m2:'¡Nuevo registro!',tc:'¡Nuevo registro!',zona:'¡Nuevo registro!',bg:'¡Nuevo registro!'},
+                    ubicacion:{calle: '¡Nuevo registro!',numero:'¡Nuevo registro!',lote:'¡Nuevo registro!',manzana:'¡Nuevo registro!',colonia:'¡Nuevo registro!',cp:'¡Nuevo registro!',municipio:'¡Nuevo registro!',localidad:'¡Nuevo registro!'}
+                  }
+                }else{*/
+                  bodyJSON.contribuyenteOld=c.contribuyenteOld
+                  if(changeN){ //const c1=c.contribuyente.contribuyente;
+                    bodyJSON.contribuyente.contribuyente=contribuyente
+                  }
+                //}
                 responseMov(sendUri,bodyJSON);
 
                 const bandNew = c.idOrden===0;      

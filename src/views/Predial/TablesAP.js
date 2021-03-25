@@ -266,7 +266,7 @@ responseMov = async (sendUri, bodyJSON)=>{
                   console.log(r);
                 });
               }
-
+contribuyenteOld={}
 padrones=async(tp)=>{
   try {
     
@@ -332,6 +332,9 @@ padrones=async(tp)=>{
         const nameFile = contribuyente.escriturasPath
         nombre.value = contribuyente.contribuyente
         pdfToUp.innerHTML=nameFile
+        this.contribuyenteOld.contribuyente=contribuyente;
+        this.contribuyenteOld.ubicacion=ubicacion;
+        console.log(this.contribuyenteOld)
         if(nameFile!==""){  
           this.bandUpTramite=true
         }
@@ -419,7 +422,7 @@ actualizarC=async()=>{
          zona,
          bg,
          periodo,
-         obs
+         obs,
        }
        
        const response = await fetch(sendUri, {
@@ -442,6 +445,7 @@ actualizarC=async()=>{
                 bodyJSON.idMov=4;
                 bodyJSON.idOrden=0;
                 bodyJSON.folio=0;
+                bodyJSON.contribuyenteOld = this.contribuyenteOld;
                 this.responseMov(sendUri,bodyJSON);
               //if(CAT===r.contribuyente[0].CTA)
               if(this.bandUpTramite){

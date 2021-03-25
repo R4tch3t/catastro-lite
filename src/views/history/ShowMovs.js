@@ -564,9 +564,9 @@ componentDidMount(){
 }
 
 render() {
-  const {bandInfoG,bandInfo,classesM,classesC,CTA,idHistory,nombre,tp,
-                  calle,numero,lote,manzana,col,cp,municipio,
-                  localidad,obs,m1,m2,tc,zona,bg,mov,dateIn} = this.props;
+  const {bandInfoG,bandInfo,classesM,classesC,CTA,idHistory,nombreOld,nombre,tpOld,tp,
+                  calleOld,calle,numeroOld,numero,loteOld,lote,manzanaOld,manzana,colOld,col,cpOld,cp,municipioOld,municipio,
+                  localidadOld,localidad,obsOld,obs,m1Old,m1,m2Old,m2,tcOld,tc,zonaOld,zona,bgOld,bg,mov,dateIn} = this.props;
   const {classes,lengthH,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
@@ -657,7 +657,13 @@ render() {
                       NOMBRE: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: nombreOld==='¡Nuevo registro!'?'red':''}}  >
+                      {nombreOld?nombreOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {nombre?nombre:'\0'} 
                     </div>} />
@@ -683,9 +689,15 @@ render() {
                       CALLE: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: calleOld==='¡Nuevo registro!'?'red':''}} >
+                      {calleOld?calleOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
-                      {calle?calle:'\0'}
+                      {calle?calle:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -696,9 +708,15 @@ render() {
                       NUMERO: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: numeroOld==='¡Nuevo registro!'?'red':''}}  >
+                      {numeroOld?numeroOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
-                      {numero?numero:'\0'}
+                      {numero?numero:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -709,9 +727,15 @@ render() {
                       LOTE: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: loteOld==='¡Nuevo registro!'?'red':''}}  >
+                      {loteOld?loteOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
-                      {lote?lote:'\0'}
+                      {lote?lote:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -722,7 +746,13 @@ render() {
                       MANZANA: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: manzanaOld==='¡Nuevo registro!'?'red':''}} >
+                      {manzanaOld?manzanaOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {manzana?manzana:'\0'} 
                     </div>} />
@@ -731,11 +761,17 @@ render() {
 
                   <GridContainer>
                   <GridItem xs={12} sm={12} md={2}>
-                    <SnackbarContent message={<>
+                    <SnackbarContent message={<div >
                       COLONIA: 
-                    </>} />
+                    </div>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: colOld==='¡Nuevo registro!'?'red':''}} >
+                      {colOld?colOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {col?col:'\0'} 
                     </div>} />
@@ -748,7 +784,13 @@ render() {
                       CÓDIGO POSTAL: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: cpOld==='¡Nuevo registro!'?'red':''}}  >
+                      {cpOld?cpOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {cp?cp:'\0'} 
                     </div>} />
@@ -761,8 +803,14 @@ render() {
                       MUNICIPIO: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
-                    <SnackbarContent message={<div  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: municipioOld==='¡Nuevo registro!'?'red':''}}  >
+                      {municipioOld?municipioOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
+                    <SnackbarContent message={<div   >
                       {municipio?municipio:'\0'} 
                     </div>} />
                   </GridItem>
@@ -773,8 +821,13 @@ render() {
                     <SnackbarContent message={<>
                       LOCALIDAD: 
                     </>} />
+                  </GridItem><GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: localidadOld==='¡Nuevo registro!'?'red':''}}  >
+                      {localidadOld?localidadOld:'\0'} 
+                    </div>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {localidad?localidad:'\0'} 
                     </div>} />
@@ -787,7 +840,13 @@ render() {
                       OBSERVACIONES: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div style={{color: obsOld==='¡Nuevo registro!'?'red':''}}  >
+                      {obsOld?obsOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {obs?obs:'\0'} 
                     </div>} />
@@ -800,9 +859,15 @@ render() {
                       TERRENO (M²): 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
                     <SnackbarContent message={<div  >
-                      {m1?m1:'\0'}  
+                      {m1Old?m1Old:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
+                    <SnackbarContent message={<div  >
+                      {m1?m1:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -813,9 +878,15 @@ render() {
                       CONSTRUCCIÓN (M²): 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
                     <SnackbarContent message={<div  >
-                      {m2?m2:'\0'}  
+                      {m2Old?m2Old:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
+                    <SnackbarContent message={<div  >
+                      {m2?m2:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -826,9 +897,15 @@ render() {
                       TIPO DE CONSTRUCCIÓN: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
                     <SnackbarContent message={<div  >
-                      {tc?tc:'\0'}  
+                      {tcOld?tcOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
+                    <SnackbarContent message={<div  >
+                      {tc?tc:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -839,9 +916,15 @@ render() {
                       ZONA: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
                     <SnackbarContent message={<div  >
-                      {zona?zona:'\0'}  
+                      {zonaOld?zonaOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
+                    <SnackbarContent message={<div  >
+                      {zona?zona:'\0'} 
                     </div>} />
                   </GridItem>
                   </GridContainer>
@@ -852,7 +935,13 @@ render() {
                       BASE GRAVABLE: 
                     </>} />
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={10}  >
+                  <GridItem xs={12} sm={12} md={4}  >
+                    <SnackbarContent message={<div  >
+                      {bgOld?bgOld:'\0'} 
+                    </div>} />
+                  </GridItem>
+                  <ArrowRight style={{marginTop: 17}} />
+                  <GridItem xs={12} sm={12} md={5}  >
                     <SnackbarContent message={<div  >
                       {bg?bg:'\0'} 
                     </div>} />

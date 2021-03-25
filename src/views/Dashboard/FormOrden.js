@@ -71,6 +71,7 @@ saveZ = 0;
 idOrden=0;
 esAlta=false;
 contribuyente = {}
+contribuyenteOld = {}
 constructor(props){
     super(props);
     const date = new Date()

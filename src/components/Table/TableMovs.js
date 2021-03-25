@@ -71,14 +71,15 @@ function EnhancedTableHead(props) {
   );
 }
 
-const genDate = (CTA,idHistory,nombre,tp,
-                  calle,numero,lote,manzana,col,cp,municipio,
-                  localidad,obs,m1,m2,tc,zona,bg,mov,dateIn) => {
+const genDate = (row) => {
+                    const {CTA,idHistory,nombreOld,nombre,tpOld,tp,
+                  calleOld,calle,numeroOld,numero,loteOld,lote,manzanaOld,manzana,colOld,col,cpOld,cp,municipioOld,municipio,
+                  localidadOld,localidad,obsOld,obs,m1Old,m1,m2Old,m2,tcOld,tc,zonaOld,zona,bgOld,bg,mov,dateIn,idUsuario,folio,idOrden} = row
   let url = `#/admin/historial`
-  let subUrl = `?bandCTA=1&CTA=${CTA}&idHistory=${idHistory}&tp=${tp}&nombre=${nombre}&`
-  subUrl += `calle=${calle}&numero=${numero}&lote=${lote}&manzana=${manzana}&col=${col}&`
-  subUrl += `cp=${cp}&municipio=${municipio}&localidad=${localidad}&obs=${obs}&m1=${m1}&`
-  subUrl += `m2=${m2}&tc=${tc}&zona=${zona}&bg=${bg}&mov=${mov}&dateIn=${dateIn}`
+  let subUrl = `?bandCTA=1&CTA=${CTA}&idHistory=${idHistory}&tp=${tp}&nombreOld=${nombreOld}&nombre=${nombre}&`
+  subUrl += `calleOld=${calleOld}&calle=${calle}&numeroOld=${numeroOld}&numero=${numero}&loteOld=${loteOld}&lote=${lote}&manzanaOld=${manzanaOld}&manzana=${manzana}&colOld=${colOld}&col=${col}&`
+  subUrl += `cpOld=${cpOld}&cp=${cp}&municipioOld=${municipioOld}&municipio=${municipio}&localidadOld=${localidadOld}&localidad=${localidad}&obsOld=${obsOld}&obs=${obs}&m1Old=${m1Old}&m1=${m1}&`
+  subUrl += `m2Old=${m2Old}&m2=${m2}&tcOld=${tcOld}&tc=${tc}&zonaOld=${zonaOld}&zona=${zona}&bgOld=${bgOld}&bg=${bg}&mov=${mov}&dateIn=${dateIn}`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
   win.focus();
@@ -151,51 +152,37 @@ export default function CustomTable(props) {
               <TableRow key={row.key} className={classes.tableBodyRow}>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn,row.idUsuario,row.folio,row.idOrden)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.idHistory}
                 </TableCell>
                 <TableCell className={classes.tableCell} 
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.mov}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.idUsuario}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.CTA}
                 </TableCell>
                 <TableCell className={classes.tableCell} 
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.idOrden}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.folio}
                 </TableCell>
                 <TableCell className={classes.tableCell}
                   onMouseEnter={(e)=>{e.target.style.cursor='pointer'}}
-                  onMouseUp={(e)=>{genDate(row.CTA,row.idHistory,row.nombre,row.tp,
-                  row.calle,row.numero, row.lote, row.manzana,row.col,row.cp,row.municipio,
-                  row.localidad,row.obs,row.m1,row.m2,row.tc,row.zona,row.bg,row.mov,row.dateIn)}}>
+                  onMouseUp={(e)=>{genDate(row)}}>
                   {row.dateIn}
                 </TableCell>
               </TableRow>

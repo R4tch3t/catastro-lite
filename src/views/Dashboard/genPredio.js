@@ -23,6 +23,10 @@ export default (r,tp,c,byFolio) => {
       const cPeriodo = contribuyente.periodo
       contribuyente.ubi=ubicacion;
       contribuyente.orden=orden;
+     // c.contribuyenteOld.contribuyente=new Object(contribuyente)
+     c.contribuyenteOld.contribuyente={contribuyente:contribuyente.contribuyente,observaciones:contribuyente.observaciones,m1:contribuyente.m1
+    ,m2:contribuyente.m2,tc:contribuyente.tc,zona:contribuyente.zona,bg:contribuyente.bg}
+      c.contribuyenteOld.ubicacion=new Object(ubicacion) 
         c.setState({
           CTA: contribuyente.CTA
         });
