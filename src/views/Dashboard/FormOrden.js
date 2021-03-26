@@ -4,6 +4,8 @@ import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
 //import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
+import SC from "@material-ui/icons/Check"
+import Add from "@material-ui/icons/Add"
 import WN2 from "@material-ui/icons/Info"
 import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
@@ -28,7 +30,7 @@ import padrones from './padrones.js';
 import registrarF from './registrarF.js';
 import ByFolio from './ByFolio.js';
 import clearCheckN from './clearCheckN.js';
-
+import Button from "components/CustomButtons/Button.js";
 
 let Pdf = <></>;
 
@@ -111,9 +113,15 @@ constructor(props){
       readOnly: this.props.idRol==='0',
       disabledReg: false,
       labelW: '',
+      labelW2: '',
       tr: false,
+      tr2: false,
       colorSnack: 'primary',
+      colorSnack2: 'warning',
       iconSnack: WN,
+      iconSnack2: WN,
+      placeSnack: 'tr',
+      placeSnack2: 'tc',
       bandLoad: true,
       bandPost: true,
       
@@ -139,11 +147,10 @@ padrones=async(CTAnombre, tp, tipoB, idOrden)=>{
   padrones(CTAnombre, tp, tipoB, idOrden, this)
 }
 
-registrarO=async()=>{
- // const CTA = document.getElementById('CTA').value;
+_registrarO=async()=>{
   const {CTA} = this.state;
   const nombre = document.getElementById('nombre');
-
+  this.setState({tr2: false})
   if (nombre.value === '' || nombre.value === '\0') {
     const labelW = 'Advertencia, NOMBRE INVÁLIDO'
     nombre.focus()
@@ -156,6 +163,45 @@ registrarO=async()=>{
       registrarF(this)
     }
   }
+}
+setNewOrder=()=>{
+  const dateUpL = document.getElementById('dateUp');
+      const regB = document.getElementById('regB');
+      this.setState({tr2: false})
+    this.oldDateUpL = dateUpL.value
+      this.oldIdOrden = this.idOrden
+      this.oldCurrentD = this.state.currentD
+  //    regB.innerHTML = 'GENERAR ORDEN DE PAGO';
+      this.idOrden = 0;
+      dateUpL.value=''
+      this._registrarO()
+}
+registrarO=async()=>{
+ // const CTA = document.getElementById('CTA').value;
+  
+  let I0030101 = document.getElementById('I0030101').checked;
+  let V0030101 = document.getElementById('0030101').value
+if (!this.esAlta && this.idOrden > 0 && (I0030101||V0030101>0) /*&& !c.state.readOnly*/) {
+      const o = {}
+      o.title='¡Advertencia!'
+      o.lines=['-> Sí se tiene que actualizar la Orden de Pago nuevamente, dar click en "Actualizar Orden de Pago"',
+               '-> Sí realmente se está haciendo un cambio de propiedad, dar click en "Generar Nueva Orden de Pago"',
+               '* Nota: Los datos pueden llegar a comprometerse y duplicarse entre Ordenes de Pago Predial y Ordenes Sobre Adquisición de Bienes Inmuebles, dependiendo del cambio en el movimiento actual.']
+      this.showNotification('tc',o)
+      /*const dateUpL = document.getElementById('dateUp');
+      const regB = document.getElementById('regB');
+      c.oldDateUpL = dateUpL.value
+      c.oldIdOrden = c.idOrden
+      c.oldCurrentD = c.state.currentD
+     // dateUpL.value = '';
+      regB.innerHTML = 'GENERAR ORDEN DE PAGO';
+      c.idOrden = 0;
+      */
+     // c.state.currentD = new Date()
+    }else{
+      this._registrarO()
+    }
+  
 }
 
 getParameterByName=(name, url) => {
@@ -492,7 +538,9 @@ setZero=async(id)=>{
   const i = document.getElementById(id);
   i.blur();
   i.value = 0;
-  if (id === '0030101' && this.oldCurrentD!==null) {
+  if (id === '0030101'){
+    this.esAlta=true
+  if (this.oldCurrentD!==null) {
     const dateUpL = document.getElementById('dateUp');
     const regB = document.getElementById('regB');
     dateUpL.value = this.oldDateUpL;
@@ -500,27 +548,49 @@ setZero=async(id)=>{
     this.idOrden = this.oldIdOrden;
     this.setState({currentD: this.oldCurrentD});
   }
+}
   sumaT(this)
 }
 mNoti=(m)=>{
 
 }
 showNotification = (place,labelW) => {
-const {tr} = this.state
+const {tr,tr2} = this.state
 let timeO = 6000;
   switch (place) {
       case "tr":
-        this.setState({colorSnack: 'warning', iconSnack: WN});
+        this.setState({placeSnack:'tr',colorSnack: 'warning', iconSnack: WN});
       break;
       case "trA":
-        this.setState({colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
+        this.setState({placeSnack:'tr', colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
       break;
       case "trB":
-        this.setState({colorSnack: 'info', iconSnack: WN2, labelW});
+        this.setState({placeSnack:'tr',colorSnack: 'info', iconSnack: WN2, labelW});
         timeO = 64000
         //timeO = 6001
       //this.setState({tr: true})
       break;  
+      case 'tc':
+        labelW=<div style={{width: 800, height: 300}} >
+            <div style={{textAlign: 'center',fontSize: 40}}>{labelW.title}</div>
+            <div style={{height: 40}} />
+            <div style={{textAlign: 'left',fontSize: 20}}>{labelW.lines[0]}</div>
+            <div style={{height: 40}} />
+            <div style={{textAlign: 'left',fontSize: 20}}>{labelW.lines[1]}</div>
+            <div style={{height: 20}} />
+            <div style={{textAlign: 'left',fontSize: 15}}>{labelW.lines[2]}</div>
+            <div style={{height: 20}} />
+            <Button color='success' onClick={this._registrarO} ><SC />Actualizar Orden de Pago </Button> <Button color='info' style={{left: 300}} onClick={this.setNewOrder} ><Add />Generar Nueva Orden de Pago </Button>
+        </div>
+        this.setState({placeSnack2:'bc',colorSnack2: 'warning', iconSnack2: WN2, labelW2: labelW});
+        //timeO = 64000;
+        if (!tr2/*&&timeO<6001*/) {
+          this.setState({tr2: true})
+          setTimeout(() => {
+            //this.setState({tr2: false})
+          }, timeO);
+        }
+        break;
     default:
       break;
   }
@@ -606,17 +676,27 @@ render() {
                  constaL={constaL} certiL={certiL} certiQ={certiQ} /> )
   }else
   if(bandPdf==='0'){
-    const {Y, labelW, tr, colorSnack, iconSnack} = this.state;
+    const {Y, labelW, labelW2, tr, tr2, colorSnack, iconSnack,placeSnack, colorSnack2, iconSnack2,placeSnack2} = this.state;
     const {totalN} = this.state;
     return (
       <CardIcon>
         <Snackbar
-          place="tr"
+          place={placeSnack}
           color={colorSnack}
           icon={iconSnack}
           message={labelW}
           open={tr}
           closeNotification={() => this.setState({tr: false})}
+          close
+        />
+
+        <Snackbar
+          place={placeSnack2}
+          color={colorSnack2}
+          icon={iconSnack2}
+          message={labelW2}
+          open={tr2}
+          closeNotification={() => this.setState({tr2: false})}
           close
         />
         
@@ -637,6 +717,7 @@ render() {
             </Card>
           </GridItem>
         </GridContainer>
+        
         <GridContainer>
           
           <GridItem xs={12} sm={6} md={12}>
@@ -658,7 +739,7 @@ render() {
           </GridItem>
           
         </GridContainer>
-        
+        {/*<Alert style={{position: 'fixed', zIndex:99999, width:500, height: 150, bottom: 50 }} severity="warning">This is a warning alert — check it out!</Alert>*/}
       </CardIcon>
     )
   }

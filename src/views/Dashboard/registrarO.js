@@ -49,7 +49,8 @@ const registrarO = async(CTA,c) => {
         let pb = 0
         let I0020401 = document.getElementById('I0020401').checked;
         let V0020401 = document.getElementById('0020401').value
-        if (I0020401) {
+        if (I0020401||V0020401>0) {
+          I0020401=true
           idImpuestos.push({id: 1, val: V0020401});
           pb = parseInt(V0020401)
           V0020401 = V0020401.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -59,7 +60,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0020402 = document.getElementById('I0020402').checked;
         let V0020402 = document.getElementById('0020402').value
-        if(I0020402){
+        if(I0020402||V0020402>0){
+          I0020402=true
           idImpuestos.push({id: 2, val: V0020402});
           pb = parseInt(V0020402)
           V0020402 = V0020402.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -69,7 +71,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0020403 = document.getElementById('I0020403').checked;
         let V0020403 = document.getElementById('0020403').value;
-        if (I0020403) {
+        if (I0020403||V0020403>0) {
+          I0020403=true
           idImpuestos.push({id: 3, val: V0020403});
           pb = parseInt(V0020403)
           V0020403 = V0020403.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -80,6 +83,7 @@ const registrarO = async(CTA,c) => {
         let I0020801 = document.getElementById('I0020801').checked;
         let V0020801 = document.getElementById('0020801').value
         if (I0020801 || V0020801 !== '0') {
+          I0020801=true;
           idImpuestos.push({id: 4, val: V0020801});
           V0020801 = V0020801.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0020801 = `${V0020801}.00`
@@ -88,7 +92,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0020802 = document.getElementById('I0020802').checked;
         let V0020802 = document.getElementById('0020802').value
-        if (I0020802) {
+        if (I0020802||V0020802>0) {
+          I0020802=true
           idImpuestos.push({id: 5, val: V0020802});
           V0020802 = V0020802.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0020802 = `${V0020802}.00`
@@ -97,7 +102,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0020803 = document.getElementById('I0020803').checked;
         let V0020803 = document.getElementById('0020803').value
-        if (I0020803) {
+        if (I0020803||V0020803>0) {
+          I0020803=true;
           idImpuestos.push({id: 6, val: V0020803});
           V0020803 = V0020803.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0020803 = `${V0020803}.00`
@@ -106,7 +112,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0020804 = document.getElementById('I0020804').checked;
         let V0020804 = document.getElementById('0020804').value
-        if(I0020804){
+        if(I0020804||V0020804>0){
+          I0020804=true
           idImpuestos.push({id: 7, val: V0020804});
           V0020804 = V0020804.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0020804 = `${V0020804}.00`
@@ -115,7 +122,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0030101 = document.getElementById('I0030101').checked;
         let V0030101 = document.getElementById('0030101').value
-        if(I0030101){
+        if(I0030101||V0030101>0){
+          I0030101=true;
           idImpuestos.push({id: 8, val: V0030101});
           //V0030101 = V0030101.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           //V0030101 = `${V0030101}.00`
@@ -124,7 +132,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0070101 = document.getElementById('I0070101').checked;
         let V0070101 = document.getElementById('0070101').value
-        if(I0070101){
+        if(I0070101||V0070101>0){
+          V0070101=true;
           idImpuestos.push({id: 9, val: V0070101});
           V0070101 = V0070101.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0070101 = `${V0070101}.00`
@@ -133,7 +142,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0070201 = document.getElementById('I0070201').checked;
         let V0070201 = document.getElementById('0070201').value
-        if(I0070201){
+        if(I0070201||V0070201>0){
+          I0070201=true
           idImpuestos.push({id: 10, val: V0070201});
           pb += parseInt(V0070201)
           V0070201 = V0070201.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -143,7 +153,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0070202 = document.getElementById('I0070202').checked;
         let V0070202 = document.getElementById('0070202').value
-        if(I0070202){
+        if(I0070202||V0070202>0){
+          I0070202=true
           idImpuestos.push({id: 11, val: V0070202});
           pb += parseInt(V0070202)
           V0070202 = V0070202.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
@@ -153,7 +164,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0070203 = document.getElementById('I0070203').checked;
         let V0070203 = document.getElementById('0070203').value
-        if (I0070203) {
+        if (I0070203||V0070203>0) {
+          I0070203=true;
           idImpuestos.push({id: 12, val: V0070203});
           V0070203 = V0070203.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0070203 = `${V0070203}.00`
@@ -162,7 +174,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0090101 = document.getElementById('I0090101').checked;
         let V0090101 = document.getElementById('0090101').value
-        if (I0090101) {
+        if (I0090101||V0090101>0) {
+          I0090101=true;
           idImpuestos.push({id: 13, val: V0090101});
           V0090101 = V0090101.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0090101 = `${V0090101}.00`
@@ -171,7 +184,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0090106 = document.getElementById('I0090106').checked;
         let V0090106 = document.getElementById('0090106').value
-        if (I0090106) {
+        if (I0090106||V0090106>0) {
+          I0090106=true
           idImpuestos.push({id: 14, val: V0090106});
           V0090106 = V0090106.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0090106 = `${V0090106}.00`
@@ -180,7 +194,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0090107 = document.getElementById('I0090107').checked;
         let V0090107 = document.getElementById('0090107').value
-        if (I0090107) {
+        if (I0090107||V0090107>0) {
+          I0090107=true
           idImpuestos.push({id: 15, val: V0090107});
           V0090107 = V0090107.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0090107 = `${V0090107}.00`
@@ -189,28 +204,32 @@ const registrarO = async(CTA,c) => {
         }
         let I0090701 = document.getElementById('I0090701').checked;
         let V0090701 = document.getElementById('0090701').value
-        if (I0090701) {
+        if (I0090701||V0090701>0) {
+          I0090701=true
           idImpuestos.push({id: 16, val: V0090701});
         }else{
           removI.push({id: 16});
         }
         let I0090702 = document.getElementById('I0090702').checked;
         let V0090702 = document.getElementById('0090702').value
-        if (I0090702) {
+        if (I0090702||V0090702>0) {
+          I0090702=true
           idImpuestos.push({id: 17, val: V0090702});
         }else{
           removI.push({id: 17});
         }
         let I0090703 = document.getElementById('I0090703').checked;
         let V0090703 = document.getElementById('0090703').value
-        if (I0090703) {
+        if (I0090703||V0090703>0) {
+          I0090703=true
           idImpuestos.push({id: 18, val: V0090703});
         }else{
           removI.push({id: 18});
         }
         let I0090704 = document.getElementById('I0090704').checked;
         let V0090704 = document.getElementById('0090704').value
-        if (I0090704) {
+        if (I0090704||V0090704>0) {
+          I0090704=true
           idImpuestos.push({id: 19, val: V0090704});
           servQ = parseInt(V0090704)*0.15;
           servQ = Math.round(servQ);
@@ -219,7 +238,8 @@ const registrarO = async(CTA,c) => {
         }
         let I00913 = document.getElementById('I00913').checked;
         let V00913 = document.getElementById('00913').value
-        if (I00913) {
+        if (I00913||V00913>0) {
+          I00913=true
           idImpuestos.push({id: 20, val: V00913});
           V00913 = V00913.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V00913 = `${V00913}.00`
@@ -228,7 +248,8 @@ const registrarO = async(CTA,c) => {
         }
         let I0091301 = document.getElementById('I0091301').checked;
         let V0091301 = document.getElementById('0091301').value
-        if (I0091301) {
+        if (I0091301||V0091301>0) {
+          I0091301=true
           idImpuestos.push({id: 21, val: V0091301});
           V0091301 = V0091301.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0091301 = `${V0091301}.00`
@@ -237,14 +258,16 @@ const registrarO = async(CTA,c) => {
         }
         let I0010804 = document.getElementById('I0010804').checked;
         let V0010804 = document.getElementById('0010804').value
-        if(I0010804){
+        if(I0010804||V0010804>0){
+          I0010804=true
           idImpuestos.push({id: 22, val: V0010804});
         }else{
           removI.push({id: 22});
         }
         let I0010101 = document.getElementById('I0010101').checked;
         let V0010101 = document.getElementById('0010101').value
-        if(I0010101){
+        if(I0010101||V0010101>0){
+          I0010101=true
           idImpuestos.push({id: 23, val: V0010101});
           V0010101 = V0010101.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V0010101 = `${V0010101}.00`
@@ -253,7 +276,8 @@ const registrarO = async(CTA,c) => {
         }
         let I21173001001 = document.getElementById('I21173001001').checked;
         let V21173001001 = document.getElementById('21173001001').value
-        if (I21173001001) {
+        if (I21173001001||V21173001001>0) {
+          I21173001001=true
           idImpuestos.push({id: 24, val: V21173001001});
           V21173001001 = V21173001001.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
           V21173001001 = `${V21173001001}.00`

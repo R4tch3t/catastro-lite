@@ -153,8 +153,15 @@ export default (id,c) => {
       ['15% PRO CAMINOS',
         'DESCUENTO PREDIAL DE NATURALEZA DEUDORA'
       ], ['0070202', '0070203'], c);
+      c.esAlta=false
       
-    if (!c.esAlta && !c.state.readOnly) {
+    /*if (!c.esAlta && c.idOrden > 0 /*&& !c.state.readOnly) {
+      const o = {}
+      o.title='¡Advertencia!'
+      o.lines=['-> Sí se tiene que actualizar la Orden de Pago nuevamente, dar click en "Actualizar Orden de Pago"',
+               '-> Sí realmente se está haciendo un cambio de propiedad, dar click en "Generar Nueva Orden de Pago"',
+               '* Nota: Los datos pueden llegar a comprometerse y duplicarse entre Ordenes de Pago Predial y Ordenes Sobre Adquisición de Bienes Inmuebles, dependiendo del cambio en el movimiento actual.']
+      c.showNotification('tc',o)
       const dateUpL = document.getElementById('dateUp');
       const regB = document.getElementById('regB');
       c.oldDateUpL = dateUpL.value
@@ -163,8 +170,9 @@ export default (id,c) => {
      // dateUpL.value = '';
       regB.innerHTML = 'GENERAR ORDEN DE PAGO';
       c.idOrden = 0;
+      
      // c.state.currentD = new Date()
-    }
+    }*/
   }
   
   if (id === '0090702') {  

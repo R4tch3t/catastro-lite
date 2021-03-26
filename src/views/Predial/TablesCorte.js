@@ -84,11 +84,17 @@ constructor(props){
     this.nextPU.setDate(this.nextPU.getDate()+1);
     this.countPR = new Date(dateSI);
     this.nextPR = new Date(dateSF);
+    this.countPO = new Date(dateSI);
+    this.nextPO = new Date(dateSF);
+    this.nextPO.setDate(this.nextPO.getDate()+1);
     this.countPR.setHours(0,0,0,0)
     this.nextPR.setHours(0,0,0,0)
     this.countPU.setHours(0,0,0,0)
     this.nextPU.setHours(0,0,0,0)
     this.nextPR.setDate(this.nextPR.getDate()+1);
+    this.countPO.setHours(0,0,0,0)
+    this.nextPO.setHours(0,0,0,0)
+    
     //this.countPR = new Date();
     //this.obtenerQ(this.state.idUsuario,this.state.idQuincena)
 }
@@ -338,10 +344,14 @@ obtenerOF=async(fi,ff, op, CTA)=>{
         this.nextPR=new Date(this.nextPR)
         this.countPU=new Date(this.countPU)
         this.nextPU=new Date(this.nextPU)
+        this.countPO=new Date(this.countPO)
+        this.nextPO=new Date(this.nextPO)
         this.countPR.setHours(0,0,0,0)
         this.nextPR.setHours(0,0,0,0)
         this.countPU.setHours(0,0,0,0)
         this.nextPU.setHours(0,0,0,0)
+        this.countPO.setHours(0,0,0,0)
+        this.nextPO.setHours(0,0,0,0)
         const bodyJSON = {
             fi,
             ff,
@@ -352,6 +362,8 @@ obtenerOF=async(fi,ff, op, CTA)=>{
             nextPU: this.nextPU,
             countPR: this.countPR,
             nextPR: this.nextPR,
+            countPO: this.countPO,
+            nextPO: this.nextPO,
         };
 
         const response = await fetch(sendUri, {
@@ -380,6 +392,8 @@ obtenerOF=async(fi,ff, op, CTA)=>{
               this.nextPU = r.nextPU?r.nextPU:this.nextPU;
               this.countPR = r.countPR?r.countPR:this.countPR;
               this.nextPR = r.nextPR?r.nextPR:this.nextPR;
+              this.countPO = r.countPO?r.countPO:this.countPO;
+              this.nextPO = r.nextPO?r.nextPO:this.nextPO;
               this.setState({/*total, porcentaje, porcentaje2, */bandLoad: true, bandPost: false});          
               
             }
@@ -430,11 +444,14 @@ onChangeDI = date => {
  // this.obtenerOF(date, dateNSF)
   this.countPU=new Date(date);
   this.countPR=new Date(date);
+  this.countPO=new Date(date);
   if(date.getMonth()<dateNSF.getMonth()){
    this.nextPU=new Date(date);
    this.nextPU.setDate(this.nextPU.getDate()+7);
    this.nextPR=new Date(date);
    this.nextPR.setDate(this.nextPR.getDate()+7);
+   this.nextPO=new Date(date);
+   this.nextPO.setDate(this.nextPO.getDate()+7);
   }
   this.getLength(date, dateNSF, 0);
   this.setState({ dateSI: date , horasI: this.h,minutosI: this.m, segundosI: this.s})
@@ -457,11 +474,14 @@ onChangeDF = date => {
   //this.nextPU=dateNSF
   this.nextPU=new Date(dateNSF);
   this.nextPR=new Date(dateNSF);
+  this.nextPO=new Date(dateNSF);
   if(this.nextPU.getMonth()>dateSI.getMonth()){
    this.nextPU=new Date(dateSI);
    this.nextPU.setDate(this.nextPU.getDate()+7);
    this.nextPR=new Date(dateSI);
    this.nextPR.setDate(this.nextPR.getDate()+7);
+   this.nextPO=new Date(dateSI);
+   this.nextPO.setDate(this.nextPO.getDate()+7);
   }
   this.getLength(dateSI, dateNSF, 0);
   this.setState({ dateSF: date , horasF: this.hF, minutosF: this.mF, segundosF: this.sF})
@@ -504,8 +524,8 @@ informeG = () => {
   let {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  dateSI = new Date(dateSI - tzoffset).toISOString().slice(0, -1)
-  dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
+  dateSI = new Date(dateSI).toISOString()
+  dateNSF = new Date(dateNSF).toISOString()
   let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}`
   //let url = `#/admin/corte`
   let url = `orden/admin#/admin/corte`
@@ -525,7 +545,7 @@ informe = () => {
   dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
   let subUrl = `?bandInfo=1&dateSI=${dateSI}&dateSF=${dateNSF}`
   let url = `orden/admin#/admin/corte`
-  //let url = `#/admin/corte`
+ // let url = `#/admin/corte`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
   win.focus();

@@ -215,6 +215,20 @@ export default function CustomTable(props) {
         c.nextPR=new Date(c.state.dateSF);
       }
 
+      c.countPO=new Date(c.countPO);
+      c.countPO.setDate(c.countPO.getDate()+7);
+      c.nextPO = new Date(c.countPO);
+      c.nextPO.setDate(c.nextPO.getDate()+7);
+      if(c.nextPO>c.state.dateSF){
+        //c.countPR=new Date(c.state.dateSF);
+        c.nextPO=new Date(c.state.dateSF);
+      }
+
+      if(c.countPO>c.state.dateSF){
+        c.countPO=new Date(c.state.dateSF);
+        c.nextPO=new Date(c.state.dateSF);
+      }
+
       c.pI=newPage;
       c.rpI=rowsPerPage;
       c.obtenerOF(c.state.dateSI, c.state.dateSF);
