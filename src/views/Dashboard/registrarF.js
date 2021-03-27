@@ -1,5 +1,18 @@
 import ip from "variables/ip.js";
 import encrypt from "./encrypt";
+const responseMov = async (sendUri, bodyJSON)=>{
+  const r = await fetch(sendUri, {
+                  method: "POST",
+                  headers: {
+                      Accept: "application/json",
+                      "Content-Type": "application/json"
+                  },
+                  body: JSON.stringify(bodyJSON)
+                });
+                r.json().then(r => {
+                  console.log(r);
+                });
+              }
 export default async(c) => {
    try {
         
@@ -9,13 +22,15 @@ export default async(c) => {
         let V0010804 = document.getElementById('0010804').value
         let I0090701 = document.getElementById('I0090701').checked;
         let V0090701 = document.getElementById('0090701').value
-        if(I0010804){
+        if(I0010804||V0010804>0){
+          I0010804=true
           idImpuestos.push({id: 22, val: V0010804});
         }else{
           removI.push({id: 22});
         //  return
         }
-        if(I0090701){
+        if(I0090701||V0090701>0){
+          I0090701=true;
           idImpuestos.push({id: 16, val: V0090701});
         }else{
           removI.push({id: 16});
@@ -34,6 +49,12 @@ export default async(c) => {
         const municipio = document.getElementById('municipio').value;
         const localidad = document.getElementById('localidad');
         const idEmpleado = c.props.idUsuario;
+        const obs = document.getElementById('observaciones').value.toUpperCase();
+        const m1 = document.getElementById('m1').value
+        const m2 = document.getElementById('m2').value
+        const tc = document.getElementById('tc').value
+        const zona = document.getElementById('zona').value
+        const bg = document.getElementById('baseGravable').value
         let {totalN} = c.state;
         let d=''
         if (dateUp.value !== '' && dateUp.value !== "\0") {
@@ -72,7 +93,21 @@ export default async(c) => {
           idEmpleado: idEmpleado,
           total: totalN,
           tp: 'f',
+          calle: calle.value,
+          numero: numCalle.value,
+          lote: lote.value,
+          manzana: manzana.value,
+          colonia: colonia.value,
+          cp: 41100,
+          municipio: 'CHILAPA DE ÁLVAREZ',
+          localidad: localidad.value,
           idImpuestos: idImpuestos,
+          obs,
+          m1,
+          m2,
+          tc,
+          zona,
+          bg,
           removI: removI
         }
         const response = await fetch(sendUri, {
@@ -88,8 +123,30 @@ export default async(c) => {
             //console.log(`Response1: ${r}`)
             if (r.exito !== undefined) {
               
+              
               if(r.exito===0){
+                const sendUri = ip('3016')+"setMov";
+                //if(c.contribuyente){
+                bodyJSON.contribuyente=c.contribuyente
+                bodyJSON.contribuyente.contribuyente=bodyJSON.nombre
+                //}
+                bodyJSON.idMov=r.idMov;
+                bodyJSON.idOrden=r.idOrden;
+                bodyJSON.folio=r.folio;
+                
+                if(c.contribuyenteOld.contribuyente){
+                  bodyJSON.contribuyenteOld=c.contribuyenteOld
+                }else{
+                  bodyJSON.contribuyenteOld={contribuyente: {contribuyente: '',obs,m1,m2,tc,zona,bg},
+                  ubicacion:
+                  {calle: bodyJSON.calle, numero: bodyJSON.numero, lote: bodyJSON.lote,
+                  manzana: bodyJSON.manzana, colonia: bodyJSON.colonia, cp: bodyJSON.cp,
+                  municipio: bodyJSON.municipio, localidad: bodyJSON.localidad}}
+                }
+                  
 
+                responseMov(sendUri,bodyJSON);
+                
                 c.showNotification("trA")
                 const nombre = document.getElementById('nombre').value;
                 const {idRol} = c.props

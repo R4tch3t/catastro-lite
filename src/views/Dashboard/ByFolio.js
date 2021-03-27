@@ -19,11 +19,12 @@ export default async (CTAnombre, c) => {
             body: JSON.stringify(bodyJSON)
         });
         const responseJson = await response.json().then(r => {
-            if(r.folio){
-              c.setState({bandLoad: true})
+          c.setState({bandLoad: true, bandPost: false})  
+          if(r.folio){
               const tp = r.folio.tp
-              genPredio(r, tp, c, true)
               if(!r.contribuyente&&r.orden){
+                r.contribuyente=[{contribuyente:r.orden[0].nombre,obs:'',m1:'',m2:'',tc:'',zona:'',bg:'',periodo: new Date(r.orden[0].dateUp).getFullYear()+""}]
+                genPredio(r, tp, c, true)
                 let tzoffset = (new Date()).getTimezoneOffset() * 60000;
                 const orden = r.orden[0]
                 const total = orden.total
@@ -39,6 +40,8 @@ export default async (CTAnombre, c) => {
                 }
                 c.idOrden = orden.idOrden
                 c.setState({totalN: total});
+              }else if(r.contribuyente){
+                genPredio(r, tp, c, true)
               }
             }
             

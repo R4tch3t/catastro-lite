@@ -678,7 +678,7 @@ render() {
                   </GridItem>
                   <GridItem xs={12} sm={12} md={10}  >
                     <SnackbarContent message={<div  >
-                      {tp==='u'?'URBANO':'RUSTICO'} 
+                      {tp==='u'?'URBANO':(tp==='r'?'RÚSTICO':'FORMA')} 
                     </div>} />
                   </GridItem>
                   </GridContainer>

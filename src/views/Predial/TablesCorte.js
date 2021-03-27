@@ -258,6 +258,7 @@ getLength = async(dateSI, dateNSF, op, CTA) => {
          fi: dateSI,
          ff: dateNSF,
     }
+    
     const response = await fetch(sendUri, {
         method: "POST",
         headers: {
@@ -337,9 +338,11 @@ obtenerOF=async(fi,ff, op, CTA)=>{
         this.setState({bandLoad: false});
         const sendUri = ip("3014")+"obtenerOF";
         let tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-        fi = (new Date(fi - tzoffset));//.toISOString()//.slice(0, -1);
+        fi = (new Date(fi));//.toISOString()//.slice(0, -1);
        // tzoffset = (new Date()).getTimezoneOffset() * 60000; //offset in milliseconds
-        ff = (new Date(ff - tzoffset));//.toISOString().slice(0, -1);
+        ff = (new Date(ff));//.toISOString().slice(0, -1);
+        fi.setHours(0,0,0,0)
+        ff.setHours(0,0,0,0)
         this.countPR=new Date(this.countPR)
         this.nextPR=new Date(this.nextPR)
         this.countPU=new Date(this.countPU)
@@ -365,7 +368,7 @@ obtenerOF=async(fi,ff, op, CTA)=>{
             countPO: this.countPO,
             nextPO: this.nextPO,
         };
-
+        console.log(bodyJSON)
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {
@@ -524,8 +527,13 @@ informeG = () => {
   let {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-  dateSI = new Date(dateSI).toISOString()
-  dateNSF = new Date(dateNSF).toISOString()
+  
+  dateSI = new Date(dateSI)
+  dateNSF = new Date(dateNSF)
+ // dateSI.setHours(dateSI.getHours()-6)
+  //dateNSF.setHours(dateSI.getHours()-6)
+  dateSI = dateSI.toISOString()
+  dateNSF = dateNSF.toISOString()
   let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}`
   //let url = `#/admin/corte`
   let url = `orden/admin#/admin/corte`

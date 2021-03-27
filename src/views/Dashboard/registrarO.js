@@ -331,6 +331,7 @@ const registrarO = async(CTA,c) => {
             if (r.exito !== undefined) {
               
               if(r.exito===0){
+                
                 const sendUri = ip('3016')+"setMov";
                 bodyJSON.contribuyente=c.contribuyente
                 bodyJSON.idMov=r.idMov;

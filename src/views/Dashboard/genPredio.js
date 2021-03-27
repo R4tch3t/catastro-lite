@@ -14,7 +14,6 @@ export default (r,tp,c,byFolio) => {
     const win = window.open(url, '_blank');
     win.focus();
   }
-  
    if (r.contribuyente) {
       const contribuyente = r.contribuyente[0]
       const ubicacion = r.ubicacion[0]

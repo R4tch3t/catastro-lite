@@ -8,12 +8,16 @@ export default async (fi, ff, c)=>{
       const dateFI = new Date(fi)
       let dateFF = new Date(ff)
       const sendUri = ip("3025")+"informeG";
-      
+      fi = new Date (fi)
+      ff = new Date (ff)
+      fi.setHours(0,0,0,0)
+      ff.setHours(0,0,0,0)
       const bodyJSON = {
         fi: fi,
         ff: ff,
         bandG: true
       };
+      console.log(bodyJSON)
       const response = await fetch(sendUri, {
         method: "POST",
         headers: {

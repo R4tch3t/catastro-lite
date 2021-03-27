@@ -157,7 +157,11 @@ _registrarO=async()=>{
     this.setState({labelW})
     this.showNotification('tr')
   }else{
-    if(CTA!==''){
+    /*let CTAnombre = document.getElementById('CTANM');
+    switch(CTAnombre.placeholder){
+      case ''
+    }*/
+    if(CTA!==''&&this.contribuyente.CTA){
       registrarO(CTA,this)
     }else{
       registrarF(this)
@@ -628,7 +632,11 @@ componentDidMount(){
   }
   if (bandCTA==='1'){
     document.getElementById('CTANM').value=genCTA
-    this.padrones(genCTA, tp, 0,idOrden)
+    if(tp!=="f"){
+      this.padrones(genCTA, tp, 0,idOrden)
+    }else{
+      this.buscarFolio()(); 
+    }
   }
   
 }
