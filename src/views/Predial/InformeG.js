@@ -15,9 +15,10 @@ export default async (fi, ff, c)=>{
       const bodyJSON = {
         fi: fi,
         ff: ff,
+        totalU:c.props.totalU,
+        totalR:c.props.totalR,
         bandG: true
       };
-      console.log(bodyJSON)
       const response = await fetch(sendUri, {
         method: "POST",
         headers: {

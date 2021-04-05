@@ -29,7 +29,9 @@ export default () => {
   const bandInfoG = getParameterByName('bandInfoG', urlDec)
   const bandInfo = getParameterByName('bandInfo', urlDec)
   const dateSI = getParameterByName('dateSI', urlDec)
-  const dateSF = getParameterByName('dateSF', urlDec)  
+  const dateSF = getParameterByName('dateSF', urlDec)
+  const totalU = getParameterByName('totalU', urlDec)
+  const totalR = getParameterByName('totalR', urlDec)  
  
   return (
    <TablesCorte
@@ -37,6 +39,8 @@ export default () => {
                 classesM={classesM}
                 classesC={classesC}
                 bandInfoG={bandInfoG} bandInfo={bandInfo}
-                dateSI={dateSI} dateSF={dateSF} />
+                dateSI={dateSI} dateSF={dateSF}
+                totalU={totalU} totalR={totalR}
+                />
   );
 }

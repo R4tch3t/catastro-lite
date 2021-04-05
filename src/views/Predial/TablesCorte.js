@@ -64,6 +64,8 @@ constructor(props){
       dateSI: dateSI,
       dateSF: dateSF,
       total: 0,
+      totalU:0,
+      totalR:0,
       porcentaje: 0,
       porcentaje2: 0,
       bandLoad: false,
@@ -269,11 +271,10 @@ getLength = async(dateSI, dateNSF, op, CTA) => {
     });
 
     const responseJson = await response.json().then(r => {
-      console.log(r);
       //this.setState({bandLoad2: true});
 
       if(r){
-        const {total,porcentaje,porcentaje2,high} = r
+        const {total,totalU,totalR,porcentaje,porcentaje2,high} = r
               corte.options.high = high
               corte.data.labels = r.labels
               corte.data.series = [r.totales]
@@ -283,7 +284,7 @@ getLength = async(dateSI, dateNSF, op, CTA) => {
         //this.countPR=r.countPR?r.countPR:0;
         //this.nextPR=r.nextPR?r.nextPR:0;
         
-        this.setState({lengthUR: r.lengthUR?r.lengthUR:0,total, porcentaje, porcentaje2, dataTable:[], bandLoad2: true});
+        this.setState({lengthUR: r.lengthUR?r.lengthUR:0,total,totalU, totalR, porcentaje, porcentaje2, dataTable:[], bandLoad2: true});
         this.obtenerOF(dateSI, dateNSF, op, CTA);
         if(this.state.bandPost){
             if(!this.bandLoading){
@@ -368,7 +369,6 @@ obtenerOF=async(fi,ff, op, CTA)=>{
             countPO: this.countPO,
             nextPO: this.nextPO,
         };
-        console.log(bodyJSON)
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {
@@ -523,7 +523,7 @@ sleep = (milliseconds) => {
 
 informeG = () => {
   let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-  let {dateSF} = this.state
+  let {dateSF,totalU,totalR} = this.state
   let {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
@@ -534,8 +534,8 @@ informeG = () => {
   //dateNSF.setHours(dateSI.getHours()-6)
   dateSI = dateSI.toISOString()
   dateNSF = dateNSF.toISOString()
-  let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}`
-  //let url = `#/admin/corte`
+  let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}&totalU=${totalU}&totalR=${totalR}`
+ // let url = `#/admin/corte`
   let url = `orden/admin#/admin/corte`
   //let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
   url += `?v=${encrypt(subUrl)}`;
@@ -602,9 +602,10 @@ render() {
   const {bandInfoG,bandInfo,classesM,classesC} = this.props;
   const {classes,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
   if(bandInfoG==='1'){
-    const {dateSI, dateSF} = this.props;
+    const {dateSI, dateSF,totalU,totalR} = this.props;
     return(<PdfG classes={classes}
-            dateSI={dateSI} dateSF={dateSF} /> )
+            dateSI={dateSI} dateSF={dateSF}
+            totalU={totalU} totalR={totalR} /> )
   }else if(bandInfo==='1'){
     const {dateSI, dateSF} = this.props;
     return(<Pdf classes={classes}
