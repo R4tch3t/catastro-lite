@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from "react-dom";
 import Checker from "./Checker";
-export default (subS, task, checkeds, strs, ids) => {
+export default (subS, task, checkeds, strs, ids, fa) => {
 try{
     const sub = document.getElementById(subS);
     ReactDOM.unmountComponentAtNode(sub);
@@ -12,9 +12,11 @@ try{
             tasksIndexes={task}
             strs={strs}
             ids={ids}
+            fa={fa}
         />,
         sub
-    )
+    );
+
     }catch(e){
 
     }

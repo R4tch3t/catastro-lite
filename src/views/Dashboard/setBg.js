@@ -6,6 +6,7 @@ n = Math.round(n);
 return n;
 }
 export default (c) => {
+  try{
   const I0020801 = document.getElementById("I0020801");
   const I0020802 = document.getElementById("I0020802");
   const I0020803 = document.getElementById("I0020803");
@@ -127,7 +128,9 @@ export default (c) => {
     ['15% PRO CAMINOS',
       'DESCUENTO PREDIAL DE NATURALEZA DEUDORA'
     ], ['0070202', '0070203'], c);
-
+  }catch(e){
+    console.log(e);
+  }
     //c.showNotification("trB",`TOTAL A PAGAR: ${t} PESOS`)
 
    // c.setState({totalN: t})

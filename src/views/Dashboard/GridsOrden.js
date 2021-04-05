@@ -81,6 +81,7 @@ export default (props) => {
                   placeholder: "CTA",
                   type: "text",
                   onKeyUp: c.handleUpper,
+                  onBlur: (e)=>{c.handleUpper({which: 13});},
                   inputProps: {
                     "aria-label": "Search"
                   }

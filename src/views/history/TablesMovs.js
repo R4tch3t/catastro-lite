@@ -233,7 +233,7 @@ addEx=async()=>{
 
 getLength = async(dateSI, dateNSF, op, CTA) => {  
   try {
-    this.setState({bandLoad2: false});
+    this.setState({bandLoad: false,bandLoad2: false});
  //   this.getCharts(dateSI, dateNSF);
     const sendUri = ip("3023")+"getMov";
     

@@ -154,5 +154,7 @@ export default (r,tp,c,byFolio) => {
        // bg.value = orden.bg;
         bg.value = contribuyente.bg;
             getPredial(orden.idOrden,tp,c,bandUp);
+  }else{
+  //  c.showNotification('trE','¡Error! el contribuyente no está registrado.')
   }
 }

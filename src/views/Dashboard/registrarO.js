@@ -24,7 +24,7 @@ const registrarO = async(CTA,c) => {
         
         //return false;
         const contribuyente = document.getElementById('nombre').value.toUpperCase();
-        const changeN = c.contribuyente.contribuyente.toUpperCase() !== contribuyente; 
+        const changeN = c.contribuyente.contribuyente && c.contribuyente.contribuyente.toUpperCase() !== contribuyente; 
         const calle = document.getElementById('calle').value.toUpperCase();
         let lote = document.getElementById('lote').value.toUpperCase();
         let manzana = document.getElementById('manzana').value.toUpperCase();
@@ -287,9 +287,11 @@ const registrarO = async(CTA,c) => {
         const {labelConsta, labelCerti} = c.state
         const otroservicio = document.getElementById('otroservicio').value.toUpperCase();
         const obs = document.getElementById('observaciones').value.toUpperCase();
-        
+        let CTAnombre = document.getElementById('CTANM').value;
+
         const bodyJSON = {
           CTA,
+          CTAnombre,
           contribuyente,
           changeN,
           idOrden: c.idOrden,
@@ -395,7 +397,7 @@ const registrarO = async(CTA,c) => {
                 bg = bg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 bg = `${bg}.00`
 
-                let subUrl = `?bandPdf=1&CTA=${CTA}&nombre=${nombre}&calle=${calle}&lote=${lote}&manzana=${manzana}&numero=${numCalle}`
+                let subUrl = `?bandPdf=1&CTA=${CTA?CTA:CTAnombre}&nombre=${nombre}&calle=${calle}&lote=${lote}&manzana=${manzana}&numero=${numCalle}`
                 subUrl += `&colonia=${colonia}&cp=${cp}&municipio=${municipio}&localidad=${localidad}&tipoP=${tipoP}`
                 subUrl += `&bg=${bg}&periodo=${periodo}&dateUp=${c.dateUpL}`
                 if (!I0030101 && !I0090701 && !I0090702 && !I0090703 && !I0090704) {

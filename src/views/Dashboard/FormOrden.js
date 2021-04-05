@@ -4,6 +4,7 @@ import DateRange from "@material-ui/icons/DateRange";
 import CheckCircle from "@material-ui/icons/CheckCircle"
 //import Pdf from "./renderPDF.js";
 import WN from "@material-ui/icons/Warning"
+import Error from "@material-ui/icons/Error"
 import SC from "@material-ui/icons/Check"
 import Add from "@material-ui/icons/Add"
 import WN2 from "@material-ui/icons/Info"
@@ -90,7 +91,7 @@ constructor(props){
       zoom: 19,
       CTA: "",
       calle: "",
-      tipoPredio: "",
+      tipoPredio: "u",
       classes: props.classes,
       openDash: null,
       openCalendar: null,
@@ -123,7 +124,7 @@ constructor(props){
       placeSnack: 'tr',
       placeSnack2: 'tc',
       bandLoad: true,
-      bandPost: true,
+     // bandPost: true,
       
     };
 }
@@ -143,8 +144,8 @@ round = (num, decimales = 2)=>{
 
 
 
-padrones=async(CTAnombre, tp, tipoB, idOrden)=>{
-  padrones(CTAnombre, tp, tipoB, idOrden, this)
+padrones=async(CTAnombre, tp, tipoB, idOrden, bandPost)=>{
+  padrones(CTAnombre, tp, tipoB, idOrden, this,bandPost)
 }
 
 _registrarO=async()=>{
@@ -157,11 +158,11 @@ _registrarO=async()=>{
     this.setState({labelW})
     this.showNotification('tr')
   }else{
-    /*let CTAnombre = document.getElementById('CTANM');
-    switch(CTAnombre.placeholder){
+    let CTAnombre = document.getElementById('CTANM').value;
+    /*switch(CTAnombre.placeholder){
       case ''
     }*/
-    if(CTA!==''&&this.contribuyente.CTA){
+    if((CTA!==''&&this.contribuyente.CTA)||CTAnombre){
       registrarO(CTA,this)
     }else{
       registrarF(this)
@@ -180,11 +181,19 @@ setNewOrder=()=>{
       dateUpL.value=''
       this._registrarO()
 }
+
 registrarO=async()=>{
  // const CTA = document.getElementById('CTA').value;
-  
-  let I0030101 = document.getElementById('I0030101').checked;
-  let V0030101 = document.getElementById('0030101').value
+ let I0030101 = false;
+ let V0030101 = 0
+ try{
+    I0030101 = document.getElementById('I0030101').checked;
+    V0030101 = document.getElementById('0030101').value
+  }catch(e){
+    I0030101=false;
+    V0030101=0
+    console.log(e)
+  }
 if (!this.esAlta && this.idOrden > 0 && (I0030101||V0030101>0) /*&& !c.state.readOnly*/) {
       const o = {}
       o.title='¡Advertencia!'
@@ -202,9 +211,9 @@ if (!this.esAlta && this.idOrden > 0 && (I0030101||V0030101>0) /*&& !c.state.rea
       c.idOrden = 0;
       */
      // c.state.currentD = new Date()
-    }else{
-      this._registrarO()
-    }
+}else{
+  this._registrarO()
+}
   
 }
 
@@ -411,15 +420,16 @@ handleUpper = e => {
 }
 
 bandLoading=true
+bandPost = true;
 buscarCTA = (key) => (event) => {
   let CTAnombre = document.getElementById('CTANM');
   const checkU = document.getElementById('check0');
-  CTAnombre.placeholder = key===0?'CTA':'NOMBRE'
-  const tp = checkU.checked?'u':'r'
+  CTAnombre.placeholder = key===0?'CTA':'NOMBRE';
+  const tp = checkU.checked?'u':'r';
   if (CTAnombre !== '') {
-
+    
     this.padrones(CTAnombre.value, tp, key, '')
-    if(!this.state.bandPost){
+    if(!this.bandPost){
                
             }else{
                 if(!this.bandLoading){
@@ -430,18 +440,21 @@ buscarCTA = (key) => (event) => {
   
   }
 }
+
 waitPost = async(key) => {
   let CTAnombre = document.getElementById('CTANM');
   const checkU = document.getElementById('check0');
   CTAnombre.placeholder = key===0?'CTA':'NOMBRE'
   const tp = checkU.checked?'u':'r'
-  while(this.state.bandPost){
+  while(this.bandPost){
       await this.sleep(300);    
   }
-  this.padrones(CTAnombre.value, tp, key, '')
+  this.padrones(CTAnombre.value, tp, key, '', true);
   this.bandLoading=false;
+  //this.setState({bandPost: true});
 
 }
+
 sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
@@ -565,8 +578,11 @@ let timeO = 6000;
       case "tr":
         this.setState({placeSnack:'tr',colorSnack: 'warning', iconSnack: WN});
       break;
+      case "trE":
+        this.setState({placeSnack:'tr',colorSnack: 'danger', iconSnack: Error,labelW});
+      break;
       case "trA":
-        this.setState({placeSnack:'tr', colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
+        this.setState({placeSnack:'tr',colorSnack: 'success', iconSnack: CheckCircle, labelW: 'Orden registrada con éxito'});
       break;
       case "trB":
         this.setState({placeSnack:'tr',colorSnack: 'info', iconSnack: WN2, labelW});
@@ -623,9 +639,34 @@ blurPeriodo=async(e)=>{
 componentDidMount(){
   const {bandPdf,bandCTA,genCTA,tp,idOrden} = this.props;
   const checks = tp === 'u' || tp === '' ? [0] : [1];
+  
   if (bandPdf !== '1') {
-    
-    clearCheckCP(checks);
+    const fa = (tp) => {
+      let CTAnombre = document.getElementById('CTANM');
+      //const {genCTA,idOrden} = this.props;
+      //const checkU = document.getElementById('check0');
+      //const tp = checkU.checked ? 'u' : 'r'
+      // let key = 0;
+      console.log(tp)
+      switch(CTAnombre.placeholder){
+        case 'NOMBRE':
+          //if(!this.bandLoading){
+            this.padrones(CTAnombre.value, tp, 1, '');
+          //}
+          break;
+        case 'FOLIO':
+          this.buscarFolio()();
+          break;
+        case 'CTA':
+          //if(!this.bandLoading){
+            this.padrones(CTAnombre.value, tp, 0, '');
+          //}
+          break;
+      }
+      
+      //this.handleUpper({which: 13});
+    }
+    clearCheckCP(checks,fa);
     clearCheckM(this);
     clearCheckN(this);
 

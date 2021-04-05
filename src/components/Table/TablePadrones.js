@@ -154,6 +154,7 @@ export default function CustomTable(props) {
     setOrder(isDesc ? 'asc' : 'desc');
     setOrderBy(property);
   };
+  
   try{
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
   return (

@@ -11,16 +11,24 @@ const useStyles = makeStyles(styles);
 export default (props)=>{
   const classes = useStyles()
   const [checked, setChecked] = React.useState([...props.checkedIndexes]);
-  
+  const { tasksIndexes, strs, ids, fa} = props;
   const handleToggle = value => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
-    if (fa) {
-      fa();
-    }
+    
     if (currentIndex === -1) {
+      if(value===1){
+        if (fa) {
+          fa('r');
+        }
+      }else{
+        if (fa) {
+          fa('u');
+        }
+      }
       newChecked.splice(currentIndex, 1);
       newChecked.push(value);
+      
     } else {
       newChecked.splice(currentIndex, 1);
       if (value === 0) {
@@ -28,11 +36,16 @@ export default (props)=>{
       }else{
         newChecked.push(0);
       }
-      
+      /*if (fa) {
+        fa('r');
+      }*/
     }
     setChecked(newChecked);
+    //console.log(fa)
+    
+    
   };
-  const { tasksIndexes, strs, ids, fa } = props;
+  
   return (
     <>
       {tasksIndexes.map(value => (        
