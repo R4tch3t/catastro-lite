@@ -65,12 +65,13 @@ countP = 0
 nextP = 50
 pI = 0;
 rpI = 5;
-getLength = async() => {
+
+getLength = async(op) => {
   try {
     this.setState({bandLoad2: false})
     const sendUri = ip("3023")+"allPadrones";
     const bodyJSON = {
-         op: 1
+         op
     }
     const response = await fetch(sendUri, {
         method: "POST",
@@ -99,6 +100,7 @@ allPadrones=async(CTAnombre,bandInit,bandR)=>{
        const sendUri = ip("3023")+"allPadrones";
        // const sendUri = "http://localhost:3015/";
         //const sendUri = "http://192.168.1.74:3015/";
+       
        const bodyJSON = {
          CTAnombre: CTAnombre,
          tipoB: this.tipoB,
@@ -127,7 +129,9 @@ allPadrones=async(CTAnombre,bandInit,bandR)=>{
             let manzana = "";
             let numero = "";
             let colonia = "";
+            let lengthUR = 0;
             if (r.contribuyenteu) {
+              lengthUR+=r.contribuyenteu.length;
              r.contribuyenteu.forEach(e => {
                if(r.ubiprediou&&r.ubiprediou[`${e.CTA}`]!==undefined){
                 calle = r.ubiprediou[`${e.CTA}`].calle;
@@ -159,6 +163,7 @@ allPadrones=async(CTAnombre,bandInit,bandR)=>{
 
             }
             if (r.contribuyenter) {
+              lengthUR+=r.contribuyenter.length;
              // i=0;
               r.contribuyenter.forEach(e => {
                if(r.ubipredior&&r.ubipredior[`${e.CTA}`]!==undefined){
@@ -188,7 +193,13 @@ allPadrones=async(CTAnombre,bandInit,bandR)=>{
               })
 
             }
-            this.setState({/*dataTable: data,*/ bandLoad: true, bandPost: false});
+
+            if((this.tipoB===0||this.tipoB===1)&&CTAnombre){
+              this.setState({/*dataTable: data,*/ lengthUR,bandLoad: true, bandPost: false});
+            }else{
+             // this.getLength(1);
+              this.setState({/*dataTable: data,*/ bandLoad: true, bandPost: false});
+            }
             
             /*else if (r.error.name === "error01") {
                        this.removeCookies()
@@ -237,6 +248,7 @@ handleClickDash = event => {
 selectionStartNombre = null
 selectionEndNombre = null
 bandLoading = false;
+bandSD = false
 handleUpper = e => {
   if(!isMobile){
     if (e.which === 32 || e.which > 39) {
@@ -246,24 +258,52 @@ handleUpper = e => {
       e.target.setSelectionRange(this.selectionStartNombre, this.selectionEndNombre);
     }
   }
+  console.log(e.which)
   //if (e.target.value === '') {
     //this.allPadrones(e.target.value)
   //}
-  this.runSearch(e.target.value)
+  //if(e.target.value){
+    if(e.which===13&&!e.target.value){
+      this._allPadrones('');
+      this.bandSD=false
+    }else{
+      this.runSearch(e.target.value);
+    }
+  //}
 }
-runSearch=(CTAnombre)=>{
+handleDown = e => {
   
-    this.setState({dataTable: []});
-     this.allPadrones(CTAnombre)
-    if(!this.state.bandPost){
-               
-            }else{
-                if(!this.bandLoading){
-                    this.bandLoading=true;
-                    this.waitPost();
-                }
-            }
+  if(e.target.value){
+    this.bandSD=true
+    //this._allPadrones('')
+  }
+
 }
+
+_allPadrones = (CTAnombre) => {
+  this.countP = 0
+      this.nextP = 50
+      this.pI=0;
+      this.setState({dataTable: []});
+      this.allPadrones(CTAnombre)
+      if(!this.state.bandPost){
+                
+              }else{
+                  if(!this.bandLoading){
+                      this.bandLoading=true;
+                      this.waitPost();
+                  }
+              }
+}
+
+runSearch=(CTAnombre)=>{
+    if(!CTAnombre){
+      this.getLength(1);
+    }else{
+      this._allPadrones(CTAnombre)
+    }
+}
+
 waitPost = async() => {
   const CTAnombre = document.getElementById('CTANM');
   while(this.state.bandPost){
@@ -281,7 +321,7 @@ buscarCTA = (key) => (event) => {
   //const checkU = document.getElementById('check0');
   
   this.tipoB = parseInt(key)
-  const labelB = key===0?'CTA':'NOMBRE'
+  const labelB = this.tipoB===0?'CTA':'NOMBRE'
   this.setState({labelB})
   //if (CTAnombre !== '') {
     this.runSearch(CTAnombre)  
@@ -290,7 +330,7 @@ buscarCTA = (key) => (event) => {
 
 
 componentDidMount(){
-  this.getLength();
+  this.getLength(1);
   this.allPadrones('',true);
   const idUsuario = decrypt(cookie.load("idUsuario"));
   const pass = decrypt(ls.get("pass"));
@@ -338,7 +378,7 @@ render() {
 
                 <GridContainer>
                   <GridItem xs={12} sm={12} md={4}>
-                    <CustomInput
+                    <CustomInput 
                       formControlProps={{
                         className: classes.margin + " " + classes.search
                       }}

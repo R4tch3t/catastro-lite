@@ -669,6 +669,7 @@ componentDidMount(){
     clearCheckCP(checks,fa);
     clearCheckM(this);
     clearCheckN(this);
+   // document.getElementById('dateUp').style.color='black'
 
   }
   if (bandCTA==='1'){

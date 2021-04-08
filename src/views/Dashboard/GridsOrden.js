@@ -44,11 +44,20 @@ export default (props) => {
     let s = 0
     
     const onChangeDI = (date) => {
-      let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+      //const dVerano = new Date()
+     // dVerano.setMonth(3);
+    //  dVerano.setDate(4)
+     // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+     let newDate = new Date() 
+     let difDate = -6
       date.setHours(h)
       date.setMinutes(m)
       date.setSeconds(s)
-      let newDate = new Date(date-tzoffset)
+      if(date.getMonth()>2&&date.getMonth()<10){
+        difDate = -5
+      }
+     newDate = new Date(date)
+     newDate.setHours(newDate.getHours()+difDate)
       c.setState({currentD: date, horas: h, minutos: m, segundos: s})
       const dateUpV = document.getElementById('dateUp')
       dateUpV.value = newDate.toISOString()//.slice(0, -1)
@@ -149,17 +158,23 @@ export default (props) => {
             </GridItem>
             <GridItem xs={12} sm={12} md={3}>
               <CustomInput
-                labelText="FECHA DE REGISTRO:"
+               // labelText="FECHA DE REGISTRO:"
                 id="dateUp"
                 formControlProps={{
-                  fullWidth: true
+                  fullWidth: true,
+                  className: classes.margin + " " + classes.search
                 }}
+                
                 inputProps={{
                   type: "text",
-                  defaultValue: "\0",
+                  placeholder: "FECHA DE REGISTRO",
                   onClick: c.handleClickCalendar,
                   readOnly: true,
-                  
+                  inputProps: {
+                    "aria-label": "Search",
+                    
+                  },
+                  //style={color: 'black'}  
                 }}
               />
                <Popper handleClickDash={c.handleClickCalendar} handleClickItem={()=>{}} handleCloseDash={c.handleCloseCalendar} openDash={openCalendar} classesM={classesC} 

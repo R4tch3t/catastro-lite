@@ -288,7 +288,7 @@ const registrarO = async(CTA,c) => {
         const otroservicio = document.getElementById('otroservicio').value.toUpperCase();
         const obs = document.getElementById('observaciones').value.toUpperCase();
         let CTAnombre = document.getElementById('CTANM').value;
-
+        dateUp.style.color = 'red'
         const bodyJSON = {
           CTA,
           CTAnombre,
@@ -392,7 +392,7 @@ const registrarO = async(CTA,c) => {
                 }
                 d = new Date(d)
                 //dateUp.value = d.toISOString().slice(0, -1)
-                dateUp.value = r.dateUp
+                dateUp.value = r.dateUpV
                 c.dateUpL = r.dateUpL
                 bg = bg.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
                 bg = `${bg}.00`

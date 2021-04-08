@@ -54,7 +54,7 @@ export default (r,tp,c,byFolio) => {
         const dateUpL = document.getElementById('dateUp');
         const regB=document.getElementById('regB')
         regB.innerHTML = 'GENERAR ORDEN DE PAGO'
-        dateUpL.style.color = 'red'
+       
         dateUpL.value=""
         calle.value = ubicacion.calle;
         lote.value = ubicacion.lote;
@@ -80,7 +80,7 @@ export default (r,tp,c,byFolio) => {
           if (calle.value===''){
             calle.value = contribuyente.ubicacion
           }
-          
+          dateUpL.style.color = 'black'
           m1.value = contribuyente.m1;
           m2.value = contribuyente.m2;
           bg.value = contribuyente.bg;
@@ -95,6 +95,7 @@ export default (r,tp,c,byFolio) => {
           }
           return false;
         }
+         dateUpL.style.color = 'red'
         if(orden.nombre){
           nombre.value = orden.nombre
         }
@@ -139,7 +140,7 @@ export default (r,tp,c,byFolio) => {
           })
           //dateUpL.value = new Date(dateUp-tzoffset).toISOString()///.slice(0, -1)
           //dateUpL.value = orden.dateUpL
-          dateUpL.value = orden.dateUp
+          dateUpL.value = orden.dateUpV
           c.dateUpL = orden.dateUpL
           regB.innerHTML = 'ACTUALIZAR ORDEN DE PAGO'
           c.idOrden = orden.idOrden

@@ -43,17 +43,32 @@ handleCloseDash = () => {
 };
 constructor(props){
     super(props);
-    let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    //let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+    let difHours = -6
     const date = new Date()
-    let dateSI = new Date(Date.now() - tzoffset)
-    let dateSF = new Date(Date.now() - tzoffset)
-    
+    //const dateVerano = new Date()
+    //console.log(dateVerano.getMonth())
+    //dateVerano.setMonth(3)
+    //dateVerano.setDate(4)
+    if(date.getMonth()>2&&date.getMonth()<10){
+     difHours = -5
+    }
+    let dateSI = new Date(Date.now())
+    let dateSF = new Date(Date.now())
+    let labelISOF = new Date(Date.now())
+    let labelISOI = new Date(Date.now())
+
     const lastD = date.getMonth()
     dateSI.setHours(0,0,0,0)
     dateSF.setHours(0,0,0,0)
+    labelISOF.setHours(difHours,0,0,0)
+    labelISOI.setHours(difHours,0,0,0)
+    labelISOF.setDate(labelISOF.getDate()+1)
+    labelISOF=labelISOF.toISOString();
+    labelISOI=labelISOI.toISOString();
     corte.options.high = 1000000
     corte.data.labels = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"]
-    corte.data.series = [[]]
+    corte.data.series = [[]];
     this.state = {
       dataTable: [],
       classes: props.classes,
@@ -79,7 +94,9 @@ constructor(props){
       minutosF: 0,
       segundosF: 0,
       lengthUR: 0,
-      bandLoad2: false
+      bandLoad2: false,
+      labelISOI,
+      labelISOF
     };
     this.countPU = new Date(dateSI);
     this.nextPU = new Date(dateSF);
@@ -260,7 +277,7 @@ getLength = async(dateSI, dateNSF, op, CTA) => {
          fi: dateSI,
          ff: dateNSF,
     }
-    
+   // console.log(bodyJSON)
     const response = await fetch(sendUri, {
         method: "POST",
         headers: {
@@ -502,9 +519,8 @@ recorte = () => {
   const {dateSI} = this.state
   let dateNSF = new Date(dateSF);
   dateNSF.setDate(dateSF.getDate() + 1);
-
+  console.log(dateSI)
   this.getLength(dateSI, dateNSF,0);
-  
 }
 
 waitPost = async(key) => {
@@ -535,7 +551,7 @@ informeG = () => {
   dateSI = dateSI.toISOString()
   dateNSF = dateNSF.toISOString()
   let subUrl = `?bandInfoG=1&dateSI=${dateSI}&dateSF=${dateNSF}&totalU=${totalU}&totalR=${totalR}`
- // let url = `#/admin/corte`
+  //let url = `#/admin/corte`
   let url = `orden/admin#/admin/corte`
   //let url = idRol === '1' ? `orden/admin#/admin/padron` : `orden/usuario#/usuario/padron`
   url += `?v=${encrypt(subUrl)}`;
@@ -611,7 +627,7 @@ render() {
     return(<Pdf classes={classes}
             dateSI={dateSI} dateSF={dateSF} /> )
   }else{
-  const {dataTable} = this.state
+  const {dataTable,labelISOI,labelISOF} = this.state
   const {dateSI, dateSF,openDash} = this.state;
   //const {setOpenDash} = this.state;
   const {total} = this.state;
@@ -685,9 +701,9 @@ render() {
                 inputProps={{
                   type: "text",
                   style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); 
+                  defaultValue: labelISOI/*(()=>{const d = new Date(); 
                     d.setHours(0,0,0,0,0); d.setHours(d.getHours()-6); 
-                    return d.toISOString()})(),
+                    return d.toISOString()})()*/,
                   onClick: this.handleClickCalendarI,
                   readOnly: true,
                   
@@ -749,11 +765,11 @@ render() {
                 inputProps={{
                   type: "text",
                   style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); d.setHours(0); 
+                  defaultValue: labelISOF/*(()=>{const d = new Date(); d.setHours(0); 
                     d.setHours(d.getHours()-6); d.setMinutes(0); 
                     d.setSeconds(0); d.setMilliseconds(0); d.setDate(d.getDate()+1); 
                     return d.toISOString()
-                  })(),
+                  })()*/,
                   onClick: this.handleClickCalendarF,
                   readOnly: true,
                   
