@@ -154,7 +154,8 @@ class App extends React.Component {
       marginBottom: 1,
       fontSize: 9,
       textAlign: 'center',
-      paddingVertical: 3
+      paddingVertical: 3,
+      
     },
     tableCell2: { 
       marginLeft: 0, 
@@ -230,46 +231,46 @@ class App extends React.Component {
                       <View style={this.styles.table}> 
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>CONCEPTO</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>CONCEPTO</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '30%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>NÚMERO DE CONTRIBUYENTES</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>NÚMERO DE CONTRIBUYENTES</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '35%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>RECAUDACIÓN</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>RECAUDACIÓN</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%',borderBottomWidth:0}]}>  
+                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
                             <Text style={this.styles.tableCell}></Text> 
                           </View> 
                         </View>
 
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>INGRESO CORRIENTE</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>INGRESO CORRIENTE</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>URBANO(A)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>URBANO(A)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>SUBURBANO(B)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>SUBURBANO(B)</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2,{fontSize: 5}]}>RÚSTICOS(C)</Text> 
+                            <Text style={[this.styles.tableCell2,{fontSize: 5,color:'white'}]}>RÚSTICOS(C)</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2,{fontSize: 5,paddingVertical: 2}]}>TOTAL D=A+B+C</Text> 
+                            <Text style={[this.styles.tableCell2,{fontSize: 5,paddingVertical: 2,color:'white'}]}>TOTAL D=A+B+C</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>URBANAS(E)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>URBANAS(E)</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>SUBURBANAS(F)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>SUBURBANAS(F)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>RÚSTICOS(G)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>RÚSTICOS(G)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>TOTAL$ H=E+F+G</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>TOTAL$ H=E+F+G</Text> 
                           </View> 
                         </View>
 
@@ -456,46 +457,46 @@ class App extends React.Component {
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
                             <Text style={[this.styles.tableCell,this.styles.headO,
-                              {textAlign: 'right',paddingRight:5,paddingVertical: 2}]}>SUBTOTAL</Text> 
+                              {textAlign: 'right',paddingRight:5,paddingVertical: 2,color:'white'}]}>SUBTOTAL</Text> 
                           </View>
                          <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.numU}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.numU}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.numSub}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.numSub}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.numR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.numR}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.impuestoT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.impuestoT}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.urbanoI}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.urbanoI}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.suburbanoI}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.suburbanoI}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.rusticoI}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rusticoI}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.totalI}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.totalI}</Text> 
                           </View>
                         </View>
 
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>INGRESO POR REZAGO</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>INGRESO POR REZAGO</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
@@ -697,67 +698,67 @@ class App extends React.Component {
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
                             <Text style={[this.styles.tableCell,this.styles.headO,
-                              {textAlign: 'right',paddingRight:5,paddingVertical: 2}]}>SUBTOTAL</Text> 
+                              {textAlign: 'right',paddingRight:5,paddingVertical: 2,color:'white'}]}>SUBTOTAL</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.rezagosN}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosN}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.rezagosNR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosNR}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.rezagosN+dataTable.rezagosNR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosN+dataTable.rezagosNR}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.rezagosI}</Text> 
+                            <Text style={this.styles.tableCell2,{color:'white'}}>{dataTable.rezagosI}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.rezagosIR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosIR}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.totalRezI}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.totalRezI}</Text> 
                           </View> 
                         </View>
 
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2}]}>TOTAL</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>TOTAL</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.urbanoNT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.urbanoNT}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.suburbanoNT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.suburbanoNT}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.rusticoNT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rusticoNT}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.totalN}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.totalN}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.urbanoIT}</Text> 
+                            <Text style={this.styles.tableCell2,{color:'white'}}>{dataTable.urbanoIT}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.rusticoIT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rusticoIT}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.totalIT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.totalIT}</Text> 
                           </View> 
                         </View>
 
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{textAlign: 'left',fontSize: 8}]}>IMPUESTOS ADICIONALES</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{textAlign: 'left',fontSize: 8,color:'white'}]}>IMPUESTOS ADICIONALES</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
@@ -848,7 +849,7 @@ class App extends React.Component {
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
                             <Text style={[this.styles.tableCell,this.styles.headO,
-                              {textAlign: 'left',fontSize: 8}]}>VALORES VIRTUALES</Text> 
+                              {textAlign: 'left',fontSize: 8,color:'white'}]}>VALORES VIRTUALES</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
@@ -938,31 +939,31 @@ class App extends React.Component {
                         
                         <View style={this.styles.tableRow}> 
                           <View style={[this.styles.tableColB,{width: '20%'}]}>  
-                            <Text style={[this.styles.tableCell,this.styles.headO,{textAlign: 'left', fontSize: 6}]}>TOTAL DE CUENTAS REGISTRADAS</Text> 
+                            <Text style={[this.styles.tableCell,this.styles.headO,{textAlign: 'left', fontSize: 6,color:'white'}]}>TOTAL DE CUENTAS REGISTRADAS</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.lengthU}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.lengthU}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2]}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.lengthR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.lengthR}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2]}>{dataTable.lengthT}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.lengthT}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.padronU}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.padronU}</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}></Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.padronR}</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.padronR}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={this.styles.tableCell2}>{dataTable.padronT}</Text> 
+                            <Text style={this.styles.tableCell2}>{/*dataTable.padronT*/}</Text> 
                           </View> 
                         </View>
                         
@@ -989,7 +990,7 @@ class App extends React.Component {
                         <Text style={[this.styles.headO,{margin: 'auto', fontSize: 10}]}>Vo. Bo.</Text>        
                       </View>
                       <View style={{position: 'absolute', width: '150%', bottom: 70}} >
-                        <Text style={[{margin: 'auto', fontSize: 10, textDecoration: "underline"}]}>LIC. ALDY ESTEBAN ROMAN</Text>        
+                        <Text style={[{margin: 'auto', fontSize: 10, textDecoration: "underline"}]}>C. ARTEMIO HERNÁNDEZ JAIMES</Text>        
                       </View>
                       <View style={{position: 'absolute', width: '150%', bottom: 55}} >
                         <Text style={[this.styles.headO,{margin: 'auto', fontSize: 10}]}>EL TESORERO MUNICIPAL Y/O EQUIVALENTE</Text>        

@@ -43,12 +43,27 @@ constructor(props){
     super(props);
     let tzoffset = (new Date()).getTimezoneOffset() * 60000;
     const date = new Date()
-    let dateSI = new Date(Date.now() - tzoffset)
-    let dateSF = new Date(Date.now() - tzoffset)
+    let difHours = -6
     
+    if(date.getMonth()>2&&date.getMonth()<10){
+     difHours = -5
+    }
+
+    let dateSI = new Date(Date.now())
+    let dateSF = new Date(Date.now())
+    
+     let labelISOF = new Date(Date.now())
+    let labelISOI = new Date(Date.now())
+
     const lastD = date.getMonth()
     dateSI.setHours(0,0,0,0)
     dateSF.setHours(0,0,0,0)
+    labelISOF.setHours(difHours,0,0,0)
+    labelISOI.setHours(difHours,0,0,0)
+    labelISOF.setDate(labelISOF.getDate()+1)
+    labelISOF=labelISOF.toISOString();
+    labelISOI=labelISOI.toISOString();
+   
     corte.options.high = 1000000
     corte.data.labels = ["ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE"]
     corte.data.series = [[]]
@@ -76,7 +91,9 @@ constructor(props){
       segundosF: 0,
       lengthH: 0,
       lengthHID:0,
-      bandLoad2: false
+      bandLoad2: false,
+      labelISOI,
+      labelISOF
     };
     this.countP = 0;
     this.nextP = 50;
@@ -574,7 +591,7 @@ componentDidMount(){
 
 render() {
   const {bandInfoG,bandInfo,classesM,classesC} = this.props;
-  const {classes,lengthH,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
+  const {classes,lengthH,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF,labelISOI,labelISOF} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF} = this.props;
     return(<PdfG classes={classes}
@@ -658,9 +675,7 @@ render() {
                 inputProps={{
                   type: "text",
                   style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); 
-                    d.setHours(0,0,0,0,0); d.setHours(d.getHours()-6); 
-                    return d.toISOString()})(),
+                  defaultValue: labelISOI,
                   onClick: this.handleClickCalendarI,
                   readOnly: true,
                   
@@ -722,11 +737,7 @@ render() {
                 inputProps={{
                   type: "text",
                   style: {color: 'red'},
-                  defaultValue: (()=>{const d = new Date(); d.setHours(0); 
-                    d.setHours(d.getHours()-6); d.setMinutes(0); 
-                    d.setSeconds(0); d.setMilliseconds(0); d.setDate(d.getDate()+1); 
-                    return d.toISOString()
-                  })(),
+                  defaultValue: labelISOF,
                   onClick: this.handleClickCalendarF,
                   readOnly: true,
                   

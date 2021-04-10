@@ -32,9 +32,10 @@ export default async (CTAnombre, c) => {
                 const dateUp = document.getElementById('dateUp')
                 dateUp.style.color='red'
                 nombre.value = orden.nombre
-                orden.dateUp = new Date(orden.dateUp)
-                dateUp.value = new Date(orden.dateUp - tzoffset).toISOString().slice(0, -1)
-                
+                //orden.dateUp = new Date(orden.dateUp)
+               // dateUp.value = new Date(orden.dateUp - tzoffset).toISOString().slice(0, -1)
+                dateUp.value = orden.dateUpV;
+
                 if (r.formas){
                   genImp(r.formas, c);
                 }

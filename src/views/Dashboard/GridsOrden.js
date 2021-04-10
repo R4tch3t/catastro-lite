@@ -49,15 +49,22 @@ export default (props) => {
     //  dVerano.setDate(4)
      // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
      let newDate = new Date() 
-     let difDate = -6
       date.setHours(h)
       date.setMinutes(m)
       date.setSeconds(s)
-      if(date.getMonth()>2&&date.getMonth()<10){
-        difDate = -5
-      }
+      
+      let splitD = (date+"").split("(GMT");
+        if(splitD.length>1){
+          splitD = splitD[1].split(":");
+          splitD = splitD[0];
+          splitD = splitD.split("+").join("")
+          splitD = parseInt(splitD);
+        }
+        
+
      newDate = new Date(date)
-     newDate.setHours(newDate.getHours()+difDate)
+     newDate.setHours(newDate.getHours()+splitD);
+     //newDate.setHours(newDate.getHours()+difDate)
       c.setState({currentD: date, horas: h, minutos: m, segundos: s})
       const dateUpV = document.getElementById('dateUp')
       dateUpV.value = newDate.toISOString()//.slice(0, -1)

@@ -44,26 +44,50 @@ handleCloseDash = () => {
 constructor(props){
     super(props);
     //let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    let difHours = -6
     const date = new Date()
     //const dateVerano = new Date()
-    //console.log(dateVerano.getMonth())
-    //dateVerano.setMonth(3)
-    //dateVerano.setDate(4)
-    if(date.getMonth()>2&&date.getMonth()<10){
-     difHours = -5
+    
+    let splitD = (date+"").split("GMT");
+    console.log(("date"))
+    console.log((date+""))
+    if(splitD.length>1){
+      splitD = splitD[1].split("+").join("");
+      if(splitD[0]==='-'){
+        splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+      }else{
+        splitD = splitD[0]+""+splitD[1];
+      }
+      splitD = parseInt(splitD);
     }
+    //inJSON.ff.setHours(inJSON.ff.getHours()+splitD);
+    
     let dateSI = new Date(Date.now())
     let dateSF = new Date(Date.now())
-    let labelISOF = new Date(Date.now())
-    let labelISOI = new Date(Date.now())
+    let labelISOF = new Date()
+    let labelISOI = new Date()
 
     const lastD = date.getMonth()
     dateSI.setHours(0,0,0,0)
     dateSF.setHours(0,0,0,0)
-    labelISOF.setHours(difHours,0,0,0)
-    labelISOI.setHours(difHours,0,0,0)
+    //labelISOF.setHours(splitD,0,0,0)
+    labelISOI.setHours(splitD,0,0,0)
     labelISOF.setDate(labelISOF.getDate()+1)
+    labelISOF=new Date(labelISOF)
+    splitD = (labelISOF+"").split("GMT");
+    
+    if(splitD.length>1){
+      splitD = splitD[1].split("+").join("");
+      //splitD = splitD[0]+""+splitD[1];
+      if(splitD[0]==='-'){
+        splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+      }else{
+        splitD = splitD[0]+""+splitD[1];
+      }
+      splitD = parseInt(splitD);
+    }
+    labelISOF.setHours(splitD,0,0,0)
+   // console.log(splitD)
+    
     labelISOF=labelISOF.toISOString();
     labelISOI=labelISOI.toISOString();
     corte.options.high = 1000000
@@ -480,7 +504,21 @@ onChangeDI = date => {
   date.setMinutes(this.m)
   date.setSeconds(this.s)
   const newDate = new Date(date);
-  newDate.setHours(date.getHours()-6);
+  let splitD = (newDate+"").split("GMT");
+    
+    if(splitD.length>1){
+      splitD = splitD[1].split("+").join("");
+      //splitD = splitD[0]+""+splitD[1];
+      if(splitD[0]==='-'){
+        splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+      }else{
+        splitD = splitD[0]+""+splitD[1];
+      }
+      splitD = parseInt(splitD);
+    }
+    newDate.setHours(splitD,0,0,0)
+
+  //newDate.setHours(date.getHours()-6);
   document.getElementById("dateUpI").value=newDate.toISOString();
 }
 
@@ -510,7 +548,21 @@ onChangeDF = date => {
   date.setMinutes(this.mF)
   date.setSeconds(this.sF)
   const newDate = new Date(dateNSF);
-  newDate.setHours(date.getHours()-6);
+  //newDate.setHours(date.getHours()-6);
+  let splitD = (newDate+"").split("GMT");
+    
+    if(splitD.length>1){
+      splitD = splitD[1].split("+").join("");
+      //splitD = splitD[0]+""+splitD[1];
+      if(splitD[0]==='-'){
+        splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+      }else{
+        splitD = splitD[0]+""+splitD[1];
+      }
+      splitD = parseInt(splitD);
+    }
+    newDate.setHours(splitD,0,0,0)
+
   document.getElementById("dateUpF").value=newDate.toISOString();
 }
 
@@ -569,7 +621,7 @@ informe = () => {
   dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
   let subUrl = `?bandInfo=1&dateSI=${dateSI}&dateSF=${dateNSF}`
   let url = `orden/admin#/admin/corte`
- // let url = `#/admin/corte`
+  //let url = `#/admin/corte`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
   win.focus();
@@ -690,7 +742,7 @@ render() {
             
           </GridContainer>
                 <GridContainer>
-                   <GridItem xs={12} sm={12} md={3}>
+                   <GridItem xs={12} sm={12} md={3} >
               <CustomInput
                 labelText="FECHA DE CORTE INICIAL:"
                 id="dateUpI"
@@ -709,7 +761,7 @@ render() {
                   
                 }}
               />
-               <Popper handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesC} 
+               <Popper  handleClickDash={this.handleClickCalendarI} handleClickItem={()=>{}} handleCloseDash={this.handleCloseCalendarI} openDash={openCalendarI} classesM={classesC} 
               Items={[{k: "calendar", html: <>
                       <Typography id="discrete-slider" gutterBottom>
                               HORAS
@@ -751,7 +803,7 @@ render() {
                               min={0}
                               max={59}
                             />
-                            <Calendar onChange={this.onChangeDI} value={dateSI} />
+                            <Calendar  onChange={this.onChangeDI} value={dateSI} />
                     </>}]} />
             </GridItem>
             <GridItem xs={12} sm={12} md={6} />

@@ -172,7 +172,8 @@ export default async(c) => {
                 d = new Date(r.dateUp) - tzoffset
                 d = new Date(d)
                 dateUp.style.color='red'
-                dateUp.value = d.toISOString().slice(0, -1)
+                //dateUp.value = d.toISOString().slice(0, -1)
+                dateUp.value = r.dateUpV
                 let constaQ = 0
                 let {labelConsta} = c.state
                 if (I0090701) {
