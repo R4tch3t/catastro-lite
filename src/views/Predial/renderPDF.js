@@ -172,7 +172,7 @@ class App extends React.Component {
     const {classes} = this.props
     const {dia, mes, año, dataTable, renderPDF} = this.state
     const nDoc = `INFORME_MENSUAL_${mes}${año}`
-
+    
     return (
       <CardIcon>
         <GridContainer>
@@ -260,14 +260,14 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{fontSize: 5,paddingVertical: 2,color:'white'}]}>TOTAL D=A+B+C</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>URBANAS(E)</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
-                            <Text style={[this.styles.tableCell2,{color:'white'}]}>SUBURBANAS(F)</Text> 
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
+                            <Text style={[this.styles.tableCell2,{color:'white',fontSize: 5}]}>SUBURBANAS(F)</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={[this.styles.tableCell2,{color:'white',fontSize: 7}]}>RÚSTICOS(G)</Text> 
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>RÚSTICOS(G)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>TOTAL$ H=E+F+G</Text> 
@@ -290,13 +290,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.impuestoT}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.urbanoI}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.suburbanoI}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rusticoI}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -320,13 +320,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -350,13 +350,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -380,13 +380,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -410,13 +410,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -440,13 +440,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -471,13 +471,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.impuestoT}</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.urbanoI}</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.suburbanoI}</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rusticoI}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -501,13 +501,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -531,13 +531,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.rezagosN+dataTable.rezagosNR}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rezagosI}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rezagosIR}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -561,13 +561,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -591,13 +591,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -621,13 +621,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -651,13 +651,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -681,13 +681,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -712,13 +712,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosN+dataTable.rezagosNR}</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2,{color:'white'}}>{dataTable.rezagosI}</Text> 
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>                                                     
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosI}</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rezagosIR}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -742,13 +742,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.totalN}</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={this.styles.tableCell2,{color:'white'}}>{dataTable.urbanoIT}</Text> 
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
+                            <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.urbanoIT}</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.rusticoIT}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -772,13 +772,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -802,13 +802,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.impuestoT}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.urbanoA}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.suburbanoA}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rusticoA}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -832,13 +832,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.rezagosN+dataTable.rezagosNR}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rezagosA}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.rezagosAR}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -863,13 +863,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
@@ -893,13 +893,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.virtualNT}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.virtualI}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.virtualIR}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -923,13 +923,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableCol,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2]}>{dataTable.virtualNT}</Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '14%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.virtualI2}</Text> 
                           </View> 
-                          <View style={[this.styles.tableCol,{width: '15%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '8%'}]}>  
                             <Text style={this.styles.tableCell2}></Text> 
                           </View>
-                          <View style={[this.styles.tableCol,{width: '10%'}]}>  
+                          <View style={[this.styles.tableCol,{width: '13%'}]}>  
                             <Text style={this.styles.tableCell2}>{dataTable.virtualIR2}</Text> 
                           </View>
                           <View style={[this.styles.tableCol,{width: '15%'}]}>  
@@ -953,13 +953,13 @@ class App extends React.Component {
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.lengthT}</Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '14%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.padronU}</Text> 
                           </View> 
-                          <View style={[this.styles.tableColB,{width: '15%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '8%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}></Text> 
                           </View>
-                          <View style={[this.styles.tableColB,{width: '10%'}]}>  
+                          <View style={[this.styles.tableColB,{width: '13%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>{dataTable.padronR}</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
