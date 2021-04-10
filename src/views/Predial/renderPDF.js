@@ -161,7 +161,7 @@ class App extends React.Component {
       marginLeft: 0, 
       marginTop: 2,
       marginBottom: 1,
-      fontSize: 6,
+      fontSize: 9,
       textAlign: 'center',
       paddingVertical: 3
     }
@@ -249,13 +249,13 @@ class App extends React.Component {
                             <Text style={[this.styles.tableCell,this.styles.headO,{paddingVertical: 2,color:'white'}]}>INGRESO CORRIENTE</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2,{color:'white'}]}>URBANO(A)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white',fontSize: 7}]}>URBANO(A)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '9%'}]}>  
-                            <Text style={[this.styles.tableCell2,{color:'white'}]}>SUBURBANO(B)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white',fontSize: 6}]}>SUBURBANO(B)</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
-                            <Text style={[this.styles.tableCell2,{fontSize: 5,color:'white'}]}>RÚSTICOS(C)</Text> 
+                            <Text style={[this.styles.tableCell2,{fontSize: 6,color:'white'}]}>RÚSTICOS(C)</Text> 
                           </View> 
                           <View style={[this.styles.tableColB,{width: '7%'}]}>  
                             <Text style={[this.styles.tableCell2,{fontSize: 5,paddingVertical: 2,color:'white'}]}>TOTAL D=A+B+C</Text> 
@@ -267,7 +267,7 @@ class App extends React.Component {
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>SUBURBANAS(F)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '10%'}]}>  
-                            <Text style={[this.styles.tableCell2,{color:'white'}]}>RÚSTICOS(G)</Text> 
+                            <Text style={[this.styles.tableCell2,{color:'white',fontSize: 7}]}>RÚSTICOS(G)</Text> 
                           </View>
                           <View style={[this.styles.tableColB,{width: '15%'}]}>  
                             <Text style={[this.styles.tableCell2,{color:'white'}]}>TOTAL$ H=E+F+G</Text> 
