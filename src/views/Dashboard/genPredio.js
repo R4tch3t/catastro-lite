@@ -95,7 +95,9 @@ export default (r,tp,c,byFolio) => {
           }
           return false;
         }
+        if(parseInt(orden.periodo)===parseInt(Y)){
          dateUpL.style.color = 'red'
+        }
         if(orden.nombre){
           nombre.value = orden.nombre
         }

@@ -209,7 +209,7 @@ export default function CustomTable(props) {
             var from = _ref.from,
               to = _ref.to,
               count = _ref.count;
-            return "".concat(from, "-").concat(to, " de ").concat(count);
+            return "".concat(from, "-").concat(to, " de ").concat(c.state.lengthH);
           }}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
