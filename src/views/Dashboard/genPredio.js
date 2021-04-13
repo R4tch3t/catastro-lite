@@ -95,9 +95,10 @@ export default (r,tp,c,byFolio) => {
           }
           return false;
         }
-        if(parseInt(orden.periodo)===parseInt(Y)){
-         dateUpL.style.color = 'red'
-        }
+        //console.log(orden)
+        //if(parseInt(orden.periodo)===parseInt(Y)){
+         
+        //}
         if(orden.nombre){
           nombre.value = orden.nombre
         }
@@ -113,10 +114,12 @@ export default (r,tp,c,byFolio) => {
         let dateUp = new Date(orden.dateUp);
         
         const bandUp = ((parseInt(Y)) > parseInt(dateUp.getFullYear())&&!byFolio);
+       // if((parseInt(Y))  parseInt(dateUp.getFullYear()))
         if (bandUp){
           c.idOrden = 0;
           const añoI = dateUp.getFullYear()
           const añoF = new Date().getFullYear()
+          dateUpL.style.color = 'black'
           periodo.value = añoF;
           if((añoF - añoI)>4){
               sCarta.style.display = 'block'
@@ -134,7 +137,7 @@ export default (r,tp,c,byFolio) => {
           }
           
         }else{
-          
+        dateUpL.style.color = 'red'
         c.setState({currentD: dateUp, 
                     horas: dateUp.getHours(),
                     minutos: dateUp.getUTCMinutes(),
