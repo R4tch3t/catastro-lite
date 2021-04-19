@@ -48,28 +48,35 @@ export default (props) => {
      // dVerano.setMonth(3);
     //  dVerano.setDate(4)
      // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-     let newDate = new Date() 
-      date.setHours(h)
-      date.setMinutes(m)
-      date.setSeconds(s)
+     try{
+     let newDate = new Date(); 
+      date.setHours(h);
+      date.setMinutes(m);
+      date.setSeconds(s);
       
-      let splitD = (date+"").split("(GMT");
-        if(splitD.length>1){
-          splitD = splitD[1].split(":");
-          splitD = splitD[0];
-          splitD = splitD.split("+").join("")
+      newDate = new Date(date);
+      let splitD = (newDate+"").split("GMT");
+      if(splitD.length>1){
+          splitD = splitD[1].split("+").join("");
+          if(splitD[0]==='-'){
+              splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+          }else{
+              splitD = splitD[0]+""+splitD[1];
+          }
           splitD = parseInt(splitD);
-        }
-        
-
-     newDate = new Date(date)
-     newDate.setHours(newDate.getHours()+splitD);
-     //newDate.setHours(newDate.getHours()+difDate)
+      }  
+      
+      newDate.setHours(newDate.getHours()+splitD);
+      //newDate.setHours(newDate.getHours()+difDate)
       c.setState({currentD: date, horas: h, minutos: m, segundos: s})
       const dateUpV = document.getElementById('dateUp')
       dateUpV.value = newDate.toISOString()//.slice(0, -1)
-      c.handleCloseCalendar()
+      c.handleCloseCalendar();
+     }catch(e){
+       console.log(e);
+     }
     }
+
     const valueH=(value)=>{
       h = value
       return `${value}`;
