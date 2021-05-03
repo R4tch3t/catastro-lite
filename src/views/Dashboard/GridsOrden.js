@@ -46,7 +46,7 @@ export default (props) => {
     const onChangeDI = (date) => {
       //const dVerano = new Date()
      // dVerano.setMonth(3);
-    //  dVerano.setDate(4)
+    //  dVerano.setDate(4);
      // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
      try{
      let newDate = new Date(); 
@@ -68,13 +68,16 @@ export default (props) => {
       
       newDate.setHours(newDate.getHours()+splitD);
       //newDate.setHours(newDate.getHours()+difDate)
-      c.setState({currentD: date, horas: h, minutos: m, segundos: s})
-      const dateUpV = document.getElementById('dateUp')
+      c.setState({currentD: date, horas: h, minutos: m, segundos: s});
+      const dateUpV = document.getElementById('dateUp');
       dateUpV.value = newDate.toISOString()//.slice(0, -1)
       c.handleCloseCalendar();
+      const dateUp = document.getElementById("dateUp")
+      dateUp.style.color='red'
      }catch(e){
        console.log(e);
      }
+
     }
 
     const valueH=(value)=>{
@@ -186,10 +189,10 @@ export default (props) => {
                   readOnly: true,
                   inputProps: {
                     "aria-label": "Search",
-                    
                   },
                   //style={color: 'black'}  
                 }}
+
               />
                <Popper handleClickDash={c.handleClickCalendar} handleClickItem={()=>{}} handleCloseDash={c.handleCloseCalendar} openDash={openCalendar} classesM={classesC} 
               Items={[{k: "calendar", html: <>

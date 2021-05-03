@@ -31,6 +31,7 @@ export default (props)=>{
         const bg = document.getElementById('baseGravable');
       //  bg.value=0
         dateUpL.value='';
+        dateUpL.style.color='black';
         regB.innerHTML = 'GENERAR ORDEN DE PAGO';
         c.idOrden = 0;
         m1.value = c.contribuyente.m1
