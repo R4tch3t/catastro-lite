@@ -58,9 +58,10 @@ export default async(c) => {
         let {totalN} = c.state;
         let d=''
         if (dateUp.value !== '' && dateUp.value !== "\0") {
-          let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-          d = new Date(dateUp.value)
-          d = new Date(d - tzoffset).toISOString().slice(0, -1)
+         // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+          //d = new Date(dateUp.value)
+          d=dateUp.value
+          //d = new Date(d - tzoffset).toISOString().slice(0, -1)
         }
         if (nombre.value === '\0'){
           nombre.value = ''
