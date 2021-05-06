@@ -23,10 +23,10 @@ export default async (CTAnombre, c) => {
           if(r.folio){
               const tp = r.folio.tp
               if(!r.contribuyente&&r.orden){
-                r.contribuyente=[{contribuyente:r.orden[0].nombre,obs:'',m1:'',m2:'',tc:'',zona:'',bg:'',periodo: new Date(r.orden[0].dateUp).getFullYear()+""}]
+                r.contribuyente=[{contribuyente:r.orden.nombre,obs:'',m1:'',m2:'',tc:'',zona:'',bg:'',periodo: new Date(r.orden.dateUp).getFullYear()+"",form:true}]
                 genPredio(r, tp, c, true)
                 let tzoffset = (new Date()).getTimezoneOffset() * 60000;
-                const orden = r.orden[0]
+                const orden = r.orden
                 const total = orden.total
                 const nombre = document.getElementById('nombre')
                 const dateUp = document.getElementById('dateUp')
@@ -41,6 +41,11 @@ export default async (CTAnombre, c) => {
                 }
                 c.idOrden = orden.idOrden
                 c.setState({totalN: total});
+                /*c.setState({currentD: r.dateUp, 
+                    horas: dateUp.getHours(),
+                    minutos: dateUp.getUTCMinutes(),
+                    segundos: dateUp.getSeconds()
+                })*/
               }else if(r.contribuyente){
                 genPredio(r, tp, c, true)
               }

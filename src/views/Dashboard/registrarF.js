@@ -111,6 +111,7 @@ export default async(c) => {
           bg,
           removI: removI
         }
+        
         const response = await fetch(sendUri, {
             method: "POST",
             headers: {

@@ -72,8 +72,8 @@ export default (props) => {
       const dateUpV = document.getElementById('dateUp');
       dateUpV.value = newDate.toISOString()//.slice(0, -1)
       c.handleCloseCalendar();
-      const dateUp = document.getElementById("dateUp")
-      dateUp.style.color='red'
+     // const dateUp = document.getElementById("dateUp")
+      dateUpV.style.color='red'
      }catch(e){
        console.log(e);
      }

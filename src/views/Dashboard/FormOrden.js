@@ -162,7 +162,7 @@ _registrarO=async()=>{
     /*switch(CTAnombre.placeholder){
       case ''
     }*/
-    if((CTA!==''&&this.contribuyente.CTA)||CTAnombre){
+    if((CTA!==''&&this.contribuyente.CTA)||(CTAnombre&&!this.contribuyente.form)){
       registrarO(CTA,this)
     }else{
       registrarF(this)
@@ -647,7 +647,6 @@ componentDidMount(){
       //const checkU = document.getElementById('check0');
       //const tp = checkU.checked ? 'u' : 'r'
       // let key = 0;
-      console.log(tp)
       switch(CTAnombre.placeholder){
         case 'NOMBRE':
           //if(!this.bandLoading){
