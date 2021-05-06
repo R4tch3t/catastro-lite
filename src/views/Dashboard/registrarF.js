@@ -174,7 +174,7 @@ export default async(c) => {
                 d = new Date(d)
                 dateUp.style.color='red'
                 //dateUp.value = d.toISOString().slice(0, -1)
-                dateUp.value = r.dateUpV
+                dateUp.value = r.dateUp
                 let constaQ = 0
                 let {labelConsta} = c.state
                 if (I0090701) {
@@ -189,7 +189,7 @@ export default async(c) => {
                 }
                 let subUrl = `?bandPdf=1&folio=${folio}&nombre=${nombre}&calle=${calle.value}&lote=${lote.value}&manzana=${manzana.value}`
                 subUrl += `&numero=${numCalle.value}&colonia=${colonia.value}&cp=${cp}&municipio=${municipio}&localidad=${localidad.value}`
-                subUrl += `&total=${totalN}&dateUp=${dateUp.value}&V0020401=0&V0020402=0&V0020403=0`
+                subUrl += `&total=${totalN}&dateUp=${r.dateUpV}&V0020401=0&V0020402=0&V0020403=0`
                 subUrl += `&V0020801=0&V0020802=0&V0020803=0&V0020804=0&V0030101=0`
                 subUrl += `&V0070101=0&V0070201=0&V0070202=0&V0070203=0&V0090101=0`
                 subUrl += `&V0090106=0&V0090107=0&V0090701=${V0090701}&V0090702=0&V0090703=0`
