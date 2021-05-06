@@ -549,8 +549,8 @@ const registrarO = async(CTA,c) => {
     }catch  (e) {
         console.log(`ErrorCatch: ${e}`);
         //await sleep(50)
-        sendUri = ip((ports+1)+'regO');
-        ports = ports===3044?3040:ports+1;
+       // sendUri = ip((ports+1)+'regO');
+       // ports = ports===3044?3040:ports+1;
         registrarO(CTA, c)
     }
 }
