@@ -134,7 +134,7 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
         /*if (r.bg>0){
           c.setBg()
         }*/
-        c.setState({totalN: r.total,CTA: r.CTA?r.CTA:0});
+        c.setState({totalN: r.total,CTA: r.CTA?r.CTA:0,tipoPredio: (r.tp === 'URBANO' || !r.tp?'u':'r')});
         
         if(nombre){
             nombre.value=r.nombre
