@@ -4,6 +4,7 @@ import GridItem from "components/Grid/GridItem.js";
 import GridContainer from "components/Grid/GridContainer.js";
 import Button from "components/CustomButtons/Button.js";
 import Search from "@material-ui/icons/Search";
+import NoteAdd from "@material-ui/icons/NoteAdd";
 import WN from "@material-ui/icons/Warning"
 import Calendar from "react-calendar";
 import Maps from "./Maps2";
@@ -18,6 +19,7 @@ import genItemsZR from './genItemsZR';
 import {Popper} from "components/Popper";
 //import Skeleton from 'react-loading-skeleton';
 import SkPredial from "./skPredial"
+import scanO from './scanO';
 export default (props) => {
     const {c} = props
     const {classes, classesM, classesC} = c.props
@@ -93,6 +95,30 @@ export default (props) => {
       return `${value}`;
     }
     
+    const toBase64 = file => new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result);
+        reader.onerror = error => reject(error);
+    });
+
+    const selectFile = async () => {    
+        const file = document.querySelector('#file-input').files[0]
+        const result = await toBase64(file).catch(e => e);
+        document.getElementById("file-input").value=""
+        if (result instanceof Error) {
+        console.log('Error: ', result.message);
+            return;
+        }
+        c.base64 = `${result}`
+        document.getElementById('pdfToUp').innerHTML = file.name
+        c.bandUpTramite = false;
+        c.showNotification('trBO','CARGANDO... 0 %');
+        scanO(c);
+        //noDisabled()
+        //c.updateNB()
+    };
+    
     return (
       <div id="bodyOrden">
         <div className={classes.searchWrapper}>
@@ -131,6 +157,33 @@ export default (props) => {
             <GridContainer id='checkerCP' >
               
             </GridContainer>
+            <GridContainer >
+              
+              <input id="file-input" type="file" onChange={selectFile} name="avatar" style={{display: 'none'}} />
+                <a  /*style={{cursor: 'pointer'}}*/ >  
+                  <div style={{height: 28, width: 'auto', color: 'red'}} id='pdfToUp' ></div>
+                    <Button
+                        color="white"
+                      // onClick={c.handleClickDash}
+                        aria-label="edit"
+                        aria-owns={openDash ? "profile-menu-list-grow" : null}
+                        aria-haspopup="true"
+                        justIcon
+                        round  
+                        style={{
+                            display: 'flex',
+                            flex: 1, 
+                            alignItems: 'center',
+                            cursor: 'pointer'
+                        }}
+                        onClick={()=>{document.getElementById('file-input').click()}}
+                    >
+                        <NoteAdd />
+                    </Button>
+                </a>
+
+            </GridContainer>
+
             
           </GridContainer>
 

@@ -16,7 +16,7 @@ const responseMov = async (sendUri, bodyJSON)=>{
                 r.json().then(r => {
                   console.log(r);
                 });
-              }
+}
 const registrarO = async(CTA,c) => {
    
     try {

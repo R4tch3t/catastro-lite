@@ -56,7 +56,20 @@ export default async(c) => {
         const zona = document.getElementById('zona').value
         const bg = document.getElementById('baseGravable').value
         let {totalN} = c.state;
-        let d=''
+        let d=new Date();
+        let splitD = (d+"").split("GMT");
+        if(splitD.length>1){
+            splitD = splitD[1].split("+").join("");
+            if(splitD[0]==='-'){
+                splitD = splitD[0]+""+splitD[1]+""+splitD[2];
+            }else{
+                splitD = splitD[0]+""+splitD[1];
+            }
+            splitD = parseInt(splitD);
+        }  
+        
+        d.setHours(d.getHours()+splitD);
+        d=d.toISOString();
         if (dateUp.value !== '' && dateUp.value !== "\0") {
          // let tzoffset = (new Date()).getTimezoneOffset() * 60000;
           //d = new Date(dateUp.value)

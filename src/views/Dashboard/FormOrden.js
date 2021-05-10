@@ -75,6 +75,9 @@ idOrden=0;
 esAlta=false;
 contribuyente = {}
 contribuyenteOld = {}
+bandUpTramite = true
+base64=null
+countA = 0
 constructor(props){
     super(props);
     const date = new Date()
@@ -586,7 +589,13 @@ let timeO = 6000;
       break;
       case "trB":
         this.setState({placeSnack:'tr',colorSnack: 'info', iconSnack: WN2, labelW});
-        timeO = 64000
+        timeO = 256000
+        //timeO = 6001
+      //this.setState({tr: true})
+      break; 
+      case "trBO":
+        this.setState({placeSnack:'tr',colorSnack: 'info', iconSnack: WN2, labelW});
+        timeO = -1
         //timeO = 6001
       //this.setState({tr: true})
       break;  
@@ -604,7 +613,7 @@ let timeO = 6000;
         </div>
         this.setState({placeSnack2:'bc',colorSnack2: 'warning', iconSnack2: WN2, labelW2: labelW});
         //timeO = 64000;
-        if (!tr2/*&&timeO<6001*/) {
+        if (!tr2/*&&timeO>0*/) {
           this.setState({tr2: true})
           setTimeout(() => {
             //this.setState({tr2: false})
@@ -617,9 +626,11 @@ let timeO = 6000;
   
   if (!tr/*&&timeO<6001*/) {
     this.setState({tr: true})
-    setTimeout(() => {
-      this.setState({tr: false})
-    }, timeO);
+    if(timeO>=0){
+      setTimeout(() => {
+        this.setState({tr: false})
+      }, timeO);
+    }
   }
 };
 

@@ -265,7 +265,8 @@ responseMov = async (sendUri, bodyJSON)=>{
                 r.json().then(r => {
                   console.log(r);
                 });
-              }
+}
+
 contribuyenteOld={}
 padrones=async(tp)=>{
   try {
