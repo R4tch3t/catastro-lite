@@ -114,6 +114,8 @@ export default (props) => {
         document.getElementById('pdfToUp').innerHTML = file.name
         c.bandUpTramite = false;
         c.showNotification('trBO','CARGANDO... 0 %');
+        c.serialScan=Math.random()+""
+        
         scanO(c);
         //noDisabled()
         //c.updateNB()

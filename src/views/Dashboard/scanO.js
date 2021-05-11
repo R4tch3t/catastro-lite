@@ -29,7 +29,7 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
   }
 
   const bodyJSON = {
-    CTA:'0',
+    CTA:c.serialScan,
     tp,
     dataPart,
     lengthE,

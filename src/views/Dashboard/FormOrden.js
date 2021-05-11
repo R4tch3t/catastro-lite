@@ -78,6 +78,7 @@ contribuyenteOld = {}
 bandUpTramite = true
 base64=null
 countA = 0
+serialScan = Math.random()+""
 constructor(props){
     super(props);
     const date = new Date()
