@@ -60,6 +60,7 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
       }else if(r.nextNode){
         //console.log(r.currentCTA)
         c.countA=0;
+        c.serialScan = (parseInt(c.serialScan)+1)+"";
         scanO(c,port+1)
       }else if(r.next===0){
         //regP.innerHTML = " ANALIZANDO... " + parseInt(this.countA/lengthE*100)+" % "
@@ -215,8 +216,9 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
 
   });  
   }catch(e){
-    console.log(e)
-    c.countA -= (buffer-1)
+    console.log(e);
+    c.countA -= (buffer-1);
+    c.serialScan = (parseInt(c.serialScan)+1)+"";
     scanO(c,port);
   }
 }
