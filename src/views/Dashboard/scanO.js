@@ -1,6 +1,9 @@
 import ip from "variables/ip.js";
 import CheckCircle from "@material-ui/icons/CheckCircle"
 import clearCheckCP from './clearCheckCP.js';
+import clearCheck from './clearCheck.js';
+import clearCheckM from './clearCheckM.js';
+import clearCheckN from './clearCheckN.js';
 import sumaT from './sumaT.js';
 const scanO = async(c, port=3131, analize=false, npage=0)=>{
   const buffer = 64000
@@ -130,26 +133,30 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
           //this.handleUpper({which: 13});
         }
         clearCheckCP(checks,fa);
+        if(dateUp.value===''||dateUp.value!==r.dateUp){
+          clearCheck(c);
+        }
+        clearCheckM(c);
+        clearCheckN(c);
         c.idOrden = 0
         /*if (r.bg>0){
           c.setBg()
         }*/
         c.setState({totalN: r.total,CTA: r.CTA?r.CTA:0,tipoPredio: (r.tp === 'URBANO' || !r.tp?'u':'r')});
         
-        if(nombre){
-            nombre.value=r.nombre
-        }
-        calle.value=r.calle
+        //if(nombre){
+            nombre.value=r.nombre?r.nombre:'';
+        //}
+        calle.value=r.calle?r.calle:'';
         dateUp.style.color="red";
-        dateUp.value=r.dateUp
-        numCalle.value=r.numero
-        lote.value=r.lote
-        lote.value=r.lote
-        manzana.value=r.manzana
-        colonia.value=r.colonia
-        CTANM.value=r.CTA?r.CTA:''
-        localidad.value=r.localidad
-        baseGravable.value=r.bg//.split(',').join("")
+        dateUp.value=r.dateUp?r.dateUp:'';
+        numCalle.value=r.numero?r.numero:'';
+        lote.value=r.lote?r.lote:'';
+        manzana.value=r.manzana?r.manzana:'';
+        colonia.value=r.colonia?r.colonia:'';
+        CTANM.value=r.CTA?r.CTA:'';
+        localidad.value=r.localidad?r.localidad:'';
+        baseGravable.value=r.bg?r.bg:0;//.split(',').join("")
         cantidadPago.value=r.total
         if(r.V0020401){
           V0020401.value = r.V0020401
@@ -186,10 +193,12 @@ const scanO = async(c, port=3131, analize=false, npage=0)=>{
           V0010804.value=r.V0010804;
         }
         const orden = {}
-         c.contribuyente={CTA: r.CTA,bg: r.bg, contribuyente: r.nombre, escriturasPath:'',m1:0,m2:0,observaciones:'',
+         c.contribuyente={CTA: r.CTA,bg: baseGravable.value, contribuyente: r.nombre, escriturasPath:'',m1:0,m2:0,observaciones:'',
                           periodo: '2021', tc: 0, ubicacion: r.calle, zona: '1' }
          c.contribuyenteOld.contribuyente={contribuyente:r.nombre,observaciones:'',m1:0
-    ,m2:0,tc:0,zona:'1',bg:r.bg}                 
+    ,m2:0,tc:0,zona:'1',bg:baseGravable.value}
+        c.contribuyenteOld.ubicacion={calle: calle.value, numero: numCalle.value, lote: lote.value,manzana: manzana.value,
+    colonia: colonia.value, localidad: localidad.value}                 
         sumaT(c);      
        // console.log(r.bg)
         /*
