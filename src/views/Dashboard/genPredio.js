@@ -89,8 +89,8 @@ export default (r,tp,c,byFolio) => {
           obs.value = contribuyente.observaciones
           zona.value = contribuyente.zona;
           dateUpL.value = ''
-          c.idOrden = 0
-          c.setState({tc: tc.value, zona: zona.value, totalN: 0});
+          c.idOrden = 0;
+          c.setState({currentD: new Date(), tc: tc.value, zona: zona.value, totalN: 0});
           if (bg.value>0){
             c.setBg()
           }
