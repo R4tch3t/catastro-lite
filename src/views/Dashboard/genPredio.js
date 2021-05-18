@@ -122,6 +122,7 @@ export default (r,tp,c,byFolio) => {
           const añoF = new Date().getFullYear()
           dateUpL.style.color = 'black'
           periodo.value = añoF;
+          c.setState({currentD: new Date()})
           if((añoF - añoI)>4){
               sCarta.style.display = 'block'
               let ubi = `${ubicacion.calle}`
