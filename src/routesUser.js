@@ -22,6 +22,7 @@ import Person from "@material-ui/icons/Person";
 import Orden from "views/Dashboard/Orden.js";
 import Editar from "views/UserProfile/Editar.js";
 import Padrones from "views/Predial/Padrones";
+import Corte from "views/Predial/Corte.js";
 import RegistrarP from "views/Predial/RegistrarP";
 import ActualizarP from "views/Predial/ActualizarP";
 
@@ -40,6 +41,14 @@ const dashboardRoutes = [
     rtlName: "لوحة القيادة",
     icon: Dashboard,
     component: Padrones,
+    layout: "/usuario"
+  },
+  {
+    path: "/corte",
+    name: "Corte de caja",
+    rtlName: "لوحة القيادة",
+    icon: Dashboard,
+    component: Corte,
     layout: "/usuario"
   },
   {
@@ -65,7 +74,8 @@ const dashboardRoutes = [
     icon: Person,
     component: Editar,
     layout: "/usuario"
-  }
+  },
+  
 ];
 
 export default dashboardRoutes;

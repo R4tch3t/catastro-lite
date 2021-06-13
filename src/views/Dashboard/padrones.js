@@ -1,7 +1,7 @@
 import ip from "variables/ip.js";
 import genPredio from "./genPredio";
 
-export default async (CTAnombre, tp, tipoB, idOrden, c, bandPost) => {
+export default async (CTAnombre, tp, tipoB, idOrden, c, bandPost, bandCTA) => {
   
     try {
         c.setState({bandLoad: false})
@@ -21,8 +21,8 @@ export default async (CTAnombre, tp, tipoB, idOrden, c, bandPost) => {
             body: JSON.stringify(bodyJSON)
         });
         const responseJson = await response.json().then(r => {
-            c.setState({bandLoad: true})
-            genPredio(r,tp,c)
+            c.setState({bandLoad: true});
+            genPredio(r,tp,c,bandCTA);
             c.bandPost=bandPost
         });
     } catch (e) {

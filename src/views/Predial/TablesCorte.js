@@ -33,6 +33,9 @@ import IGI from "@material-ui/icons/AssignmentRounded"
 import IMI from "@material-ui/icons/AssignmentLateOutlined"
 import GRI from "@material-ui/icons/AssignmentTurnedIn"
 import Search from "@material-ui/icons/Search";
+import decrypt from "views/Dashboard/decrypt.js";
+import ls from 'local-storage'
+import cookie from "react-cookies";
 
 let Pdf = <></>
 let PdfG = <></>
@@ -46,10 +49,9 @@ constructor(props){
     //let tzoffset = (new Date()).getTimezoneOffset() * 60000;
     const date = new Date()
     //const dateVerano = new Date()
-    
     let splitD = (date+"").split("GMT");
-    console.log(("date"))
-    console.log((date+""))
+    let idRol = (ls.get("idRol")&&cookie.load("idUsuario"))?(decrypt(ls.get("idRol"))):"" 
+    idRol = parseInt(idRol);
     if(splitD.length>1){
       splitD = splitD[1].split("+").join("");
       if(splitD[0]==='-'){
@@ -120,7 +122,8 @@ constructor(props){
       lengthUR: 0,
       bandLoad2: false,
       labelISOI,
-      labelISOF
+      labelISOF,
+      idRol
     };
     this.countPU = new Date(dateSI);
     this.nextPU = new Date(dateSF);
@@ -585,6 +588,7 @@ waitPost = async(key) => {
   this.bandLoading=false;
 
 }
+
 sleep = (milliseconds) => {
         return new Promise(resolve => setTimeout(resolve, milliseconds))
 }
@@ -659,16 +663,46 @@ buscarCTA = (key) => (event) => {
   
   }
 }
+
 buscarFolio = (key) => (event) =>{
   
 }
+
+handleUpper = (e) => {
+  const {dateSI, dateSF} = this.state
+  const dateNSF = new Date(dateSF);
+  dateNSF.setDate(dateNSF.getDate()+1)
+  let key = 1;
+  switch(e.target.placeholder){
+    case 'NOMBRE': 
+      key = 2
+    break;
+    case 'FOLIO': 
+      key = 3
+    break;
+    default:
+      break;
+  }
+
+  switch(e.which){
+    case 13:
+      const v = e.target.value;
+      if (v) {
+        this.getLength(dateSI, dateNSF, key, v);
+      }
+      break;
+    default:
+      break;  
+  }
+}
+
 componentDidMount(){
   this.recorte();
 }
 
 render() {
   const {bandInfoG,bandInfo,classesM,classesC} = this.props;
-  const {classes,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF} = this.state;
+  const {classes,openCalendarI,openCalendarF,horasI,minutosI,segundosI,horasF,minutosF,segundosF,idRol} = this.state;
   if(bandInfoG==='1'){
     const {dateSI, dateSF,totalU,totalR} = this.props;
     return(<PdfG classes={classes}
@@ -741,7 +775,7 @@ render() {
             </GridItem>
             
           </GridContainer>
-                <GridContainer>
+            {idRol===1 &&  <GridContainer>
                    <GridItem xs={12} sm={12} md={3} >
               <CustomInput
                 labelText="FECHA DE CORTE INICIAL:"
@@ -873,6 +907,7 @@ render() {
                     </>}]} />
             </GridItem>
                 </GridContainer>
+                }
                 {/*<GridContainer>
                   <GridItem xs={12} sm={12} md={8}>
                     <h4 className={classes.cardTitleBlack}>
@@ -902,7 +937,7 @@ render() {
                     AGREGAR EXCEL
                   </Button>
                 </GridContainer>*/}
-                <GridContainer>
+                {idRol===1&&<GridContainer>
                   <GridItem xs={12} sm={12} md={3}/>
                   <GridItem xs={12} sm={12} md={4}>
                     <Button
@@ -932,7 +967,7 @@ render() {
                     <IMI />  INFORME MENSUAL
                     </Button>
                   </GridItem>
-                  </GridContainer>
+                  </GridContainer>}
                   <GridContainer>
                     <GridItem xs={12} sm={12} md={5}/>
                   <GridItem xs={12} sm={12} md={3}>
@@ -965,6 +1000,7 @@ render() {
           </Card>
         </GridItem>
       </GridContainer>
+      {idRol===1 && <>
       <GridContainer>
 
         <GridItem xs={12} sm={6} md={12}>
@@ -1024,6 +1060,7 @@ render() {
           </Card>
         </GridItem>
       </GridContainer>
+      </>}
 
     </CardIcon>
   );

@@ -30,8 +30,8 @@ import Inicio from "layouts/Inicio"
           const hist = createBrowserHistory();
           try{
          //   const [bandLoad, setBandLoad] = React.useState(false)
-            const idRol = (ls.get("idRol")&&cookie.load("idUsuario"))?ls.get("idRol"):"" 
-          console.log(decrypt(idRol))
+          const idRol = (ls.get("idRol")&&cookie.load("idUsuario"))?ls.get("idRol"):"" 
+          
           switch(decrypt(idRol)){
             case "0":
               ReactDOM.render(

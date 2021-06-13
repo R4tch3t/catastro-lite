@@ -12,6 +12,8 @@ import TableSortLabel from '@material-ui/core/TableSortLabel';
 // core components
 import styles from "assets/jss/material-dashboard-react/components/tableStyle.js";
 import encrypt from "views/Dashboard/encrypt";
+import decrypt from "views/Dashboard/decrypt";
+import ls from 'local-storage'
 
 const useStyles = makeStyles(styles);
 function desc(a, b, orderBy) {
@@ -166,14 +168,18 @@ function EnhancedTableHead(props) {
           </TableHead>
   );
 }
+
 const genDate = (CTA, tp, idOrden) => {
   //No GEN PDF only data set
-  let url = `#/admin/orden`
+  const idRol = decrypt(ls.get('idRol'));
+  let url = idRol === '1' ? `#/admin/orden` : `#/usuario/orden`
+  //let url = `#/admin/orden`
   let subUrl = `?bandCTA=1&genCTA=${CTA}&tp=${tp}&idOrden=${idOrden}`
   url += `?v=${encrypt(subUrl)}`;
   const win = window.open(url, '_blank');
   win.focus();
 }
+
 export default function CustomTable(props) {
   
   const classes = useStyles();

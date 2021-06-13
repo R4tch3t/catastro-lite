@@ -148,8 +148,8 @@ round = (num, decimales = 2)=>{
 
 
 
-padrones=async(CTAnombre, tp, tipoB, idOrden, bandPost)=>{
-  padrones(CTAnombre, tp, tipoB, idOrden, this,bandPost)
+padrones=async(CTAnombre, tp, tipoB, idOrden, bandPost, bandCTA)=>{
+  padrones(CTAnombre, tp, tipoB, idOrden, this,bandPost, bandCTA)
 }
 
 _registrarO=async()=>{
@@ -648,6 +648,7 @@ blurPeriodo=async(e)=>{
   rezago(this,e.target.value)
   sumaT(this)
 }
+
 componentDidMount(){
   const {bandPdf,bandCTA,genCTA,tp,idOrden} = this.props;
   const checks = tp === 'u' || tp === '' ? [0] : [1];
@@ -683,10 +684,15 @@ componentDidMount(){
    // document.getElementById('dateUp').style.color='black'
 
   }
+
   if (bandCTA==='1'){
     document.getElementById('CTANM').value=genCTA
     if(tp!=="f"){
-      this.padrones(genCTA, tp, 0,idOrden)
+      if(idOrden){
+        this.padrones(genCTA, tp, 0,idOrden,false,true)
+      }else{
+        this.padrones(genCTA, tp, 0,idOrden)
+      }
     }else{
       this.buscarFolio()(); 
     }
