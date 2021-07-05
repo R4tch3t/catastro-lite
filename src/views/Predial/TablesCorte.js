@@ -40,6 +40,7 @@ import cookie from "react-cookies";
 let Pdf = <></>
 let PdfG = <></>
 
+
 export default class TablesCorte extends React.Component {
 handleCloseDash = () => {
   this.setState({openDash: null})
@@ -631,6 +632,48 @@ informe = () => {
   win.focus();
 }
 
+entregaRecepcion = async () => {
+  try{
+    const sendUri = ip("3014")+"entregaRecepcion";
+    const bodyJSON = {
+            op: 1
+    };
+        const response = await fetch(sendUri, {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(bodyJSON)
+        });
+
+        const responseJson = await response.json().then(r => {
+            if (r) {
+              let url = `${ip(2998)}download/${r.filename}`;
+              const win = window.open(url, '_blank');
+              win.focus();
+              console.log(r)          
+              
+            }
+        });
+    } catch (e) {
+        console.log(`Error: ${e}`);
+    }
+  /*let tzoffset = (new Date()).getTimezoneOffset() * 60000;
+  let {dateSF} = this.state;
+  let {dateSI} = this.state;
+  let dateNSF = new Date(dateSF);
+  dateNSF.setDate(dateSF.getDate() + 1);
+  dateSI = new Date(dateSI - tzoffset).toISOString().slice(0, -1)
+  dateNSF = new Date(dateNSF - tzoffset).toISOString().slice(0, -1)
+  let subUrl = `?bandInfo=2&dateSI=${dateSI}&dateSF=${dateNSF}`
+  let url = `orden/admin#/admin/corte`
+  //let url = `#/admin/corte`
+  url += `?v=${encrypt(subUrl)}`;
+  const win = window.open(url, '_blank');
+  win.focus();*/
+}
+
 buscarCTA = (key) => (event) => {
   let CTAnombre = document.getElementById('CTANM');
  // const checkU = document.getElementById('check0');
@@ -709,6 +752,10 @@ render() {
             dateSI={dateSI} dateSF={dateSF}
             totalU={totalU} totalR={totalR} /> )
   }else if(bandInfo==='1'){
+    const {dateSI, dateSF} = this.props;
+    return(<Pdf classes={classes}
+            dateSI={dateSI} dateSF={dateSF} /> )
+  }else if(bandInfo==='2'){
     const {dateSI, dateSF} = this.props;
     return(<Pdf classes={classes}
             dateSI={dateSI} dateSF={dateSF} /> )
@@ -938,8 +985,8 @@ render() {
                   </Button>
                 </GridContainer>*/}
                 {idRol===1&&<GridContainer>
-                  <GridItem xs={12} sm={12} md={3}/>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={2}/>
+                  <GridItem xs={12} sm={12} md={3}>
                     <Button
                       id="infoA"
                       color="info"
@@ -953,7 +1000,21 @@ render() {
                     <IGI /> INFORME GENERAL
                     </Button>
                   </GridItem>
-                  <GridItem xs={12} sm={12} md={4}>
+                  <GridItem xs={12} sm={12} md={3}>
+                    <Button
+                      id="infoB"
+                      color="primary"
+                      style={{
+                        display: "flex",
+                        flex: 1,
+                        alignItems: "center"
+                      }}
+                      onClick={this.entregaRecepcion}
+                    >
+                    <IMI />  ENTREGA RECEPCIÓN
+                    </Button>
+                  </GridItem>
+                  <GridItem xs={12} sm={12} md={2}>
                     <Button
                       id="infoB"
                       color="primary"
